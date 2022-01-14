@@ -48,6 +48,12 @@ if(isset($_POST['submit']))
             $headers .= "Content-type:text/html;charset=UTF-8 \r\n";
             $headers .= 'From: emmanuel.k@eurotech.com.au' . "\r\n";
 
+            ini_set('SMTP', "smtp-relay.sendinblue.com");
+            ini_set('smtp_port', "587");
+            ini_set('username', "emmanuel.k@eurotech.com.au");
+            ini_set('password', "Vap91509");
+            ini_set('sendmail_from', "emmanuel.k@eurotech.com.au");
+            
             mail($to,$subject,$message,$headers);
             //header('location:thankyou.php');
         }
