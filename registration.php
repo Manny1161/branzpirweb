@@ -1,7 +1,66 @@
 <?php
-$err = NULL;
+	require_once 'utils.php';
+		
+	$errors = [];
 
-if(isset($_POST['submit']))
+	if(!isset($_POST['username']) || strlen($_POST['username']) > 45 || !preg_match('/^[a-zA-Z- ]+$/', $_POST['username'])) {
+		$errors[] = 1;
+	}
+	if(!isset($_POST['email']) || strlen($_POST['email']) > 45 || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+		$errors[] = 2;
+	}
+	else if(!checkdnsrr(substr($_POST['email'], strpos($_POST['email'], '@') + 1), 'MX')) {
+		$errors[] = 3;
+	}
+	if(!isset($_POST['password']) || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\~?!@#\$%\^&\*])(?=.{8,})/', $_POST['password'])) {
+		$errors[] = 4;
+	}
+	else if(!isset($_POST['confirm-password']) || $_POST['confirm-password'] !== $_POST['password']) {
+		$errors[] = 5;
+	}
+
+	if(count($errors) === 0) {
+		//if(isset($_POST['csrf_token']) && validateToken($_POST['csrf_token'])) {
+	//CONNECT TO DATABASE
+	$C = connect();
+	if($C) {
+				
+		//CHECK IF USER ALREADY EXISTS
+		$res = sqlSelect($C, 'SELECT id FROM accounts WHERE email=?', 's', $_POST['email']);
+		if($res && $res->num_rows === 0) {
+			//CREATE THE ACCOUNT
+			$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+			$id = sqlInsert($C, 'INSERT INTO accounts VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['username'], $_POST['email'], '$hash');
+			if($id !== -1) {
+				$errors[] = 0;
+			}
+			else {
+				//FAILED TO INSERT INTO DATABASE
+				$errors[] = 6;
+			}
+			//$res->free_result();
+		}
+		else {
+			//EMAIL ALREADY EXISTS
+			$errors[] = 7;
+		}
+	}
+	else {
+		//FAILED TO CONNECT TO DATABASE
+		$errors[] = 8;
+	}
+			
+		/*}
+		else {
+			//Invalid CSRF Token
+			$errors[] = 9;
+		}*/
+	}
+
+	echo json_encode($errors);
+
+
+/*if(isset( ||$_POST['submit']))
 {
     //GET FORM DATA
     $usr = $_POST['usr'];
@@ -63,30 +122,30 @@ if(isset($_POST['submit']))
         }
 
     }
-}
-
+}*/
 ?>
-
 <html>
 <head>
+<meta name="csrf_token" content="<?php echo createToken(); ?>" />
+</head>
 <body>
-<form method='POST' action=''>
+<form id="registerForm" method='POST' action=''>
     <table border='0' align='center' cellpadding='5'>
         <tr>
             <td align='right'>Username:</td>
-            <td><input type='text' name='usr' required/></td>
+            <td><input type='text' name='username' required/></td>
         </tr>
         <tr>    
             <td align='right'>Password:</td>
-            <td><input type='text' name='pwd' required/></td>
+            <td><input type='text' name='password' required/></td>
         </tr>
         <tr>    
-            <td align='right'>Repeat Password:</td>
-            <td><input type='text' name='rpwd' required/></td>
+            <td align='right'>Confirm Password:</td>
+            <td><input type='text' name='confirm-password' required/></td>
         </tr>
         <tr>
             <td align='right'>Email Address:</td>
-            <td><input type='text' name='eml' required/></td>
+            <td><input type='text' name='email' required/></td>
         </tr>
         <tr>
             <td colspan='2' align='center'><input type='SUBMIT' name='submit' value='Register' required/></td>
@@ -99,5 +158,4 @@ $err = NULL;
 ?>
 </center>
 </body>
-</head>
 </html>
