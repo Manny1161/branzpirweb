@@ -1,7 +1,39 @@
 <?php
+	session_start();
 	require_once 'utils.php';
 		
 	$errors = [];
+
+	if(isset($_POST) & !empty($_POST))
+	{
+		if(isset($_POST['csrf_token']))
+		{
+			if($_POST['csrf_token'] == $_SESSION['csrf_token'])
+			{
+				$errors[] = "CSRF Token Validation Success!";
+			}
+			else
+			{
+				$errors[] = "Problem with CSRF Token Validation!";
+			}
+		}
+		$max_time = 60*60*24;
+		if(isset($_SESSION['csrf_token_time']))
+		{
+			$token_time = $_SESSION['csrf_token_time'];
+			if($token_time + $max_time >= time())
+			{}
+			else
+			{
+				unset($_SESSION['csrf_token']);
+				unset($_SESSION['csrf_token_time']);
+				$errors[] = "CSRF Token Expired... :( Please reload the page.";
+			}
+		}
+	}
+	$token = md5(uniqid(rand(), true));
+	$_SESSION['csrf_token'] = $token;
+	$_SESSION['csrf_token_time'] = time();
 
 	if(!isset($_POST['username']) || strlen($_POST['username']) > 45 || !preg_match('/^[a-zA-Z- ]+$/', $_POST['username'])) {
 		$errors[] = 1;
@@ -19,37 +51,35 @@
 		$errors[] = 5;
 	}
 
-	if(count($errors) === 0) {
-		//if(isset($_POST['csrf_token']) && validateToken($_POST['csrf_token'])) {
-	//CONNECT TO DATABASE
-	$C = connect();
-	if($C) {
-				
-		//CHECK IF USER ALREADY EXISTS
-		$res = sqlSelect($C, 'SELECT id FROM accounts WHERE email=?', 's', $_POST['email']);
-		if($res && $res->num_rows === 0) {
-			//CREATE THE ACCOUNT
-			$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-			$id = sqlInsert($C, 'INSERT INTO accounts VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['username'], $_POST['email'], '$hash');
-			if($id !== -1) {
-				$errors[] = 0;
+	if($errors == 0) {
+		//if($_POST['csrf_token'] == $_SESSION['csrf_token']) {
+		//CONNECT TO DATABASE
+		$C = connect();
+		if($C) {
+			//CHECK IF USER ALREADY EXISTS
+			$res = sqlSelect($C, 'SELECT id FROM accounts WHERE email=?', 's', $_POST['email']);
+			if($res && $res->num_rows === 0) {
+				//CREATE THE ACCOUNT
+				$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+				$id = sqlInsert($C, 'INSERT INTO accounts VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['username'], $_POST['email'], '$hash');
+				if($id !== -1) {
+					$errors[] = 0;
+				}
+				else {
+					//FAILED TO INSERT INTO DATABASE
+					$errors[] = 6;
+				}
+				//$res->free_result();
 			}
 			else {
-				//FAILED TO INSERT INTO DATABASE
-				$errors[] = 6;
+				//EMAIL ALREADY EXISTS
+				$errors[] = 7;
 			}
-			//$res->free_result();
 		}
 		else {
-			//EMAIL ALREADY EXISTS
-			$errors[] = 7;
-		}
-	}
-	else {
-		//FAILED TO CONNECT TO DATABASE
-		$errors[] = 8;
-	}
-			
+			//FAILED TO CONNECT TO DATABASE
+			$errors[] = 8;
+		}		
 		/*}
 		else {
 			//Invalid CSRF Token
@@ -59,74 +89,10 @@
 
 	echo json_encode($errors);
 
-
-/*if(isset( ||$_POST['submit']))
-{
-    //GET FORM DATA
-    $usr = $_POST['usr'];
-    $pwd = $_POST['pwd'];
-    $rpwd = $_POST['rpwd'];
-    $eml = $_POST['eml'];
-
-    if(strlen($usr) < 5)
-    {
-        $err = 'Your username must be atleast 5 characters long';
-    }
-    elseif($rpwd != $pwd)
-    {
-        $err .= 'Your passwords do not match';
-    }
-    else
-    {
-        //FORM IS VALID
-
-        //CONNECT TO DATABASE
-        $mysqli = NEW MySQLi('localhost','root','','branzpir');
-
-        //SANITISE FORM DATA
-        $usr = $mysqli->real_escape_string($usr);
-        $pwd = $mysqli->real_escape_string($pwd);
-        $rpwd = $mysqli->real_escape_string($rpwd);
-        $eml = $mysqli->real_escape_string($eml);
-
-        //GENERATE VKEY
-        $vkey = password_hash(time().$usr, PASSWORD_DEFAULT);
-        
-        //INSERT ACCOUNT INTO DATABASE
-        $pwd = password_hash($pwd, PASSWORD_DEFAULT);
-        $insert = $mysqli->query("INSERT INTO accounts(username, password, email, vkey)
-        VALUES('$usr', '$pwd', '$eml', '$vkey')");
-
-        if ($insert)
-        {
-            //SEND EMAIL
-            $to = $eml;
-            $subject = 'Email Verification';
-            $message = "<a href='http://localhost/registration/verify.php?vkey=$vkey'>Register Account</a>";
-            $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= "Content-type:text/html;charset=UTF-8 \r\n";
-            $headers .= 'From: emmanuel.k@eurotech.com.au' . "\r\n";
-
-            ini_set('SMTP', "smtp-relay.sendinblue.com");
-            ini_set('smtp_port', "587");
-            ini_set('username', "emmanuel.k@eurotech.com.au");
-            ini_set('password', "Vap91509");
-            ini_set('sendmail_from', "emmanuel.k@eurotech.com.au");
-            
-            mail($to,$subject,$message,$headers);
-            //header('location:thankyou.php');
-        }
-        else
-        {
-            echo $mysqli->error;
-        }
-
-    }
-}*/
 ?>
 <html>
 <head>
-<meta name="csrf_token" content="<?php echo createToken(); ?>" />
+<meta charset="utf-8"/>
 </head>
 <body>
 <form id="registerForm" method='POST' action=''>
@@ -149,13 +115,11 @@
         </tr>
         <tr>
             <td colspan='2' align='center'><input type='SUBMIT' name='submit' value='Register' required/></td>
+			<td><input type="hidden" name="csrf_token" value="<?php echo $token; ?>"></td>
         </tr>
     </table>
 </form>
 <center>
-<?php
-$err = NULL;
-?>
 </center>
 </body>
 </html>
