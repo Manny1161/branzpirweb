@@ -1,24 +1,24 @@
 <?php
-    require_once 'config.php';
     require_once 'utils.php';
     if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $hash = password_hash($password, PASSWORD_DEFAULT);
          $C = connect();
          if($C)
          {
             $hourAgo = time() - 60*60;
-            $res = sqlSelect($C, 'SELECT accounts.id,password,COUNT(loginattempts.id) FROM accounts LEFT JOIN loginattempts ON accounts.id = accounts AND timestamp>? WHERE email=? GROUP BY accounts.id', 'is', $hourAgo, $email);
+            $res = sqlSelect($C, 'SELECT accounts.id,accounts.password,COUNT(loginattempts.id) FROM accounts LEFT JOIN loginattempts ON accounts.id = user AND timestamp>? WHERE email=? GROUP BY accounts.id', 'is', $hourAgo, $email);
             if($res && $res->num_rows == 1)
             {
                 $user = $res->fetch_assoc();
                 //if($user['verified'])
                 if($user['COUNT(loginattempts.id)'] <= MAX_LOGIN_ATTEMPTS_PER_HOUR)
                 {
-                    if(password_verify($password, $user['password']))
+                    if($user && password_verify($hash, $user['password']))
                     {
                         $_SESSION['loggedin'] = true;
-                        $_SESSION['userID'] = $user[id];
+                        $_SESSION['userID'] = $user['id'];
                         sqlUpdate($C, 'DELETE FROM loginattempts WHERE user = ?', 'i', $user['id']);
                     }
                     else
