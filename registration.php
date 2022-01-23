@@ -49,7 +49,7 @@
 					if($res && $res->num_rows === 0) {
 						//CREATE THE ACCOUNT
 						$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-						$id = sqlInsert($C, 'INSERT INTO accounts VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['username'], $_POST['email'], '$hash');
+						$id = sqlInsert($C, 'INSERT INTO accounts VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['username'], $_POST['email'], $hash);
 						if($id !== -1) {
 							$errors[] = 0;
 						}
