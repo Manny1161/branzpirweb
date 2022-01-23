@@ -15,7 +15,7 @@
                 //if($user['verified'])
                 if($user['COUNT(loginattempts.id)'] <= MAX_LOGIN_ATTEMPTS_PER_HOUR)
                 {
-                    if($user && password_verify($hash, $user['password']))
+                    if(password_verify($hash, $user['password']))
                     {
                         $_SESSION['loggedin'] = true;
                         $_SESSION['userID'] = $user['id'];
