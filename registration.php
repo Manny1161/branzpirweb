@@ -52,6 +52,7 @@
 						$id = sqlInsert($C, 'INSERT INTO accounts VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['username'], $_POST['email'], $hash);
 						if($id !== -1) {
 							$errors[] = 0;
+							header('location:login.php');
 						}
 						else {
 							//FAILED TO INSERT INTO DATABASE
@@ -84,28 +85,42 @@
 	$_SESSION['csrf_token_time'] = time();
 
 ?>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
 </head>
+<style>
+    body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
+    body {font-size:16px;}
+    .w3-half img{margin-bottom:-6px;margin-top:16px;opactiy:0.8;cursor:pointer}
+    .w3-half img:hover{opacity:1}
+</style>
 <body>
-<form id="registerForm" method='POST' action=''>
-    <table border='0' align='center' cellpadding='5'>
+<!--- TOP MENU ON SMALL SCREENS -->
+<header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
+    <span>Branzpir</span>
+</header>
+<form id="registerForm" method='POST' action='' style="margin-top:100px">
+    <table border='0' align='center' cellpadding='8'>
         <tr>
             <td align='right'>Username:</td>
-            <td><input type='text' name='username' required/></td>
+            <td><input type='text' placeholder="Enter Username" name='username' required/></td>
         </tr>
         <tr>    
             <td align='right'>Password:</td>
-            <td><input type='text' name='password' required/></td>
+            <td><input type='text' placeholder="Enter Password" name='password' required/></td>
         </tr>
         <tr>    
             <td align='right'>Confirm Password:</td>
-            <td><input type='text' name='confirm-password' required/></td>
+            <td><input type='text' placeholder="Confirm Password" name='confirm-password' required/></td>
         </tr>
         <tr>
             <td align='right'>Email Address:</td>
-            <td><input type='text' name='email' required/></td>
+            <td><input type='text' placeholder="Enter Email" name='email' required/></td>
         </tr>
         <tr>
             <td colspan='2' align='center'><input type='SUBMIT' name='submit' value='Register' required/></td>
