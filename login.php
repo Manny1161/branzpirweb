@@ -107,8 +107,7 @@
     .w3-half img:hover{opacity:1}
 </style>
 <body>
-    <!--- TOP MENU ON SMALL SCREENS -->
-<header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
+<header class="w3-container w3-top w3-hide-small w3-highway-red w3-xlarge w3-padding">
     <span>Branzpir</span>
 </header>
 <!--<form action='', method='POST'>
