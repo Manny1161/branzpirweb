@@ -1,3 +1,34 @@
+<?php
+require_once 'utils.php';
+		
+$errors = [];
+
+if(isset($_POST) & !empty($_POST))
+{
+    if(isset($_POST['csrf_token']))
+    {
+        if($_POST['csrf_token'] == $_SESSION['csrf_token'])
+        {
+            $errors[] = "CSRF Token Validation Success!";
+        }
+        else
+        {
+            $errors[] = "Problem with CSRF Token Validation!";
+        }
+    }
+    $max_time = 60*60*24;
+    if(isset($_SESSION['csrf_token_time']))
+    {
+        $token_time = $_SESSION['csrf_token_time'];
+        if($token_time + $max_time >= time())
+        {}
+    }
+}
+$token = md5(uniqid(rand(), true));
+$_SESSION['csrf_token'] = $token;
+$_SESSION['csrf_token_time'] = time();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +43,16 @@
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
     body {font-size:16px;}
     .w3-half img{margin-bottom:-6px;margin-top:16px;opactiy:0.8;cursor:pointer}
-    .w3-half img:hover{opacity:1}
+    .w3-half img:hover{opacity:0.8}
     h1,h2{color:#a6001a;}
     /*CHECK IF SCREEN IS LESS THAN 992 PIXELS FOR SMALL SCREENS*/ 
-    @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:30px;font: size 12px;
+    @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
     input[type=text]:focus{width:50%}
 
-    /*CHECK IS SCREEN IS GREATER THAN 601 PIXELS FOR LARGER SCREENS*/
-    @media all and (max-width:601px){input[type=text]{width:250px;position:absolute;left:200px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:30px;font: size 12px;
+    /*CHECK IF SCREEN IS LESS THAN 601 PIXELS FOR LARGER SCREENS*/
+    @media all and (max-width:601px){input[type=text]{width:250px;position:absolute;left:200px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
     input[type=text]:focus{width:50%}
@@ -34,7 +65,7 @@
     </div>
     <div class="w3-bar-block">
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-        <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
+        <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
         <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
         <a href="#professionals" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
         <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
@@ -117,7 +148,7 @@
     </div>
 
 <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px">
-<p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity">Eurotech</a></p>
+<p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></p>
 </div>
 <script>
 function w3_open() {
