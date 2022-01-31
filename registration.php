@@ -101,9 +101,9 @@
 </style>
 <body>
 <header class="w3-container w3-top w3-hide-small w3-highway-red w3-xlarge w3-padding">
-    <span>Branzpir</span>
+    <b><span><a href='index.php' style='text-decoration:none'>branzpir</a></span></b>
 </header>
-<form id="registerForm" method='POST' action='' style="margin-top:100px">
+<form id="registerForm" method='POST' action='' style="margin-top:80px">
     <table border='0' align='center' cellpadding='8'>
         <tr>
             <td align='right'>Username:</td>
@@ -127,6 +127,17 @@
         </tr>
     </table>
 </form>
+
+<form id='oldAccount' method='POST' action='' style='margin-top:80px'>
+    <table border='0' align='center' cellpadding='8'>
+        <tr>
+            <td align='center'>
+                <p><a href='login.php' style='text-decoration:none'>Already have an account? Click here to login.</a></p>
+            </td>
+        </tr>
+    </table>
+</form>
+
 <center>
 </center>
 </body>
