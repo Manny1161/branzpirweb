@@ -2,7 +2,7 @@
     require_once 'utils.php';
 
     if(isset($_POST) & !empty($_POST))
-	{
+    {
 		if(isset($_POST['csrf_token']))
 		{
 			if($_POST['csrf_token'] == $_SESSION['csrf_token'])
@@ -105,37 +105,41 @@
     body {font-size:16px;}
     .w3-half img{margin-bottom:-6px;margin-top:16px;opactiy:0.8;cursor:pointer}
     .w3-half img:hover{opacity:1}
+    table{margin:0 auto;}
 </style>
 <body>
 <header class="w3-container w3-top w3-hide-small w3-highway-red w3-xlarge w3-padding">
-    <span>Branzpir</span>
+    <b><span><a href='index.php' style='text-decoration:none'>branzpir</a></span></b>
 </header>
-<!--<form action='', method='POST'>
-    <div class="container">
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
 
-        <label for="password"><b>Password</b></label>
-        <input type="text" placeholder="Enter Password" name="password" required>
-
-        <button type="submit">Login</button>
-
-    </div>
-</form>-->
 <form id="loginForm" method='POST' action='' style="margin-top:80px">
-    <table border='0' align='center' cellpadding='5'>
+    <table border='0' align='center' cellpadding='8'>
         <tr>
             <td align='right'>Email:</td>
-            <td><input type='text' placeholder="Enter Email" name='email' required/></td>
+            <td><input type='text' placeholder="Enter Email" name='email' style="width:250px;" required/></td>
         </tr>
         <tr>    
             <td align='right'>Password:</td>
-            <td><input type='text' placeholder="Enter Password" name='password' required/></td>
+            <td><input type='text' placeholder="Enter Password" name='password' style='width:250px;' required/></td>
         </tr>
         <tr>
             <td colspan='2' align='center'><input type='SUBMIT' name='submit' value='Login' required/></td>
             <td><input type="hidden" name="csrf_token" value="<?php echo $token; ?>"></td>
         </tr>
-    </table>    
+        <!--<tr>
+            <td align='center'><p><a href='registration.php'>Don't have an account? Click here to register.</a></p></td>
+        </tr>-->
+    </table>
+</form>
+
+<form id='newAccount' method='POST' action='' style='margin-top:100px'>
+    <table border='0' align='center' cellpadding='8'>
+        <tr>
+            <td align='center'>
+                <p><a href='registration.php' style='text-decoration:none'>Don't have an account? Click here to register.</a></p>
+            </td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
