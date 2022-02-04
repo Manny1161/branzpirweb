@@ -3,13 +3,17 @@ require_once 'utils.php';
 		
 $errors = [];
 
-if(isset($_POST) & !empty($_POST))
+if(isset($_POST) & !empty($_POST) && $_SESSION['loggedin'] == true)
 {
     if(isset($_POST['csrf_token']))
     {
         if($_POST['csrf_token'] == $_SESSION['csrf_token'])
         {
             $errors[] = "CSRF Token Validation Success!";
+            if($_SESSION['loggedin']==true)
+            {
+                echo 1;
+            }
         }
         else
         {
@@ -32,7 +36,7 @@ $_SESSION['csrf_token_time'] = time();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Branzpir</title>
+    <title>branzpir</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -46,7 +50,7 @@ $_SESSION['csrf_token_time'] = time();
     .w3-half img:hover{opacity:0.8}
     h1,h2{color:#a6001a;}
     /*CHECK IF SCREEN IS LESS THAN 992 PIXELS FOR SMALL SCREENS*/ 
-    @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
+    .smallSearch @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
     input[type=text]:focus{width:50%}
@@ -61,25 +65,26 @@ $_SESSION['csrf_token_time'] = time();
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
     <div class="w3-container">
-        <h3 class="w3-padding-64"><b><br>Branzpir</b></h3>
+        <h3 class="w3-padding-64"><b><br>branzpir</b></h3>
     </div>
+
     <div class="w3-bar-block">
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
-        <a href="#professionals" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
-        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-        <a href="#youandbranzpir" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
+        <a href='services.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
+        <a href='professionals.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
+        <a href='contact.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+        <a href='youandbranzpir.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
         <a href='login.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Login</a>
         <a href='registration.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Register</a>
+        <a href='logout.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
     </div>
 </nav>
 
 <!--- TOP MENU ON SMALL SCREENS -->
 <header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
     <a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
-    <span>Branzpir</span>
-    <center><form><input type="text" name="search" placeholder="Search"></form></center>
+    <span><a href='index.php' style='text-decoration:none'>branzpir</a></span>
 </header>
 
 <!--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS -->
@@ -88,7 +93,7 @@ $_SESSION['csrf_token_time'] = time();
 <!--- PAGE CONTENT -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
-        <form><input type="text" name="search" placeholder="Search"></form>
+        <form><input class='smallSearch' type="text" name="search" placeholder="Search"></form>
         <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
         <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
