@@ -1,4 +1,4 @@
-<?php
+<!--?php
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -45,7 +45,33 @@ if ($uploadOk == 0) {
     echo "Sorry, there was an error uploading your file.";
   }
 }
+?>-->
+<?php
+error_reporting(0);
 ?>
+
+<?php
+$msg = '';
+if(isset($_POST['uploadfile']))
+{
+  $fname = $_FILES['image']['name'];
+  //$tempname = $_FILES['fileToUpload']['tmp_name'];
+  $folder = 'images/'.basename($fname);
+  $C = connect();
+  $res = sqlInsert($C, 'INSERT INTO images VALUES (filename)', $fname);
+  mysqli_query($C, $res);
+  if(move_uploaded_file($_FILES['image']['tmp_name'], $folder))
+  {
+    echo 'image uploaded successfully';
+  }
+  else
+  {
+    echo 'image failed to upload';
+  }
+}
+$result = mysqli_query($C, 'SELECT * FROM images');
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,8 +134,11 @@ if ($uploadOk == 0) {
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
         <form><input class='smallSearch' type="text" name="search" placeholder="Search"></form>
-        <form action = 'showcase.php' method='POST' enctype='multipart/form-data'><input class='uploadbtn' type='file' name='fileToUpload' id='fileToUpload' accept='image/*'>
-        <input type='submit' value='Upload Image' name='submit'></form>
+        <form method='POST' action='showcase.php' enctype='multipart/form-data'>
+        <input type='file' name='image' value='' accept='image/*'>
+        <button type='submit' name='uploadfile'>
+        UPLOAD
+        </button></form>
         <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
         <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
