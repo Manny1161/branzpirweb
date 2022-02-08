@@ -72,7 +72,7 @@ $_SESSION['csrf_token_time'] = time();
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
         <a href='services.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
-        <a href='professionals.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
+        <a href='professionalsLogin.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
         <a href='contact.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
         <a href='youandbranzpir.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
         <a href='login.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Login</a>
