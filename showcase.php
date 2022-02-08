@@ -51,25 +51,28 @@ error_reporting(0);
 ?>
 
 <?php
+require_once 'utils.php';
 $msg = '';
-if(isset($_POST['uploadfile']))
+if(isset($_POST['submit']))
 {
   $fname = $_FILES['image']['name'];
-  //$tempname = $_FILES['fileToUpload']['tmp_name'];
-  $folder = 'images/'.basename($fname);
-  $C = connect();
-  $res = sqlInsert($C, 'INSERT INTO images VALUES (filename)', $fname);
-  mysqli_query($C, $res);
-  if(move_uploaded_file($_FILES['image']['tmp_name'], $folder))
+  $tempname = $_FILES['image']['tmp_name'];
+  $folder = 'uploads/'.($fname);
+  if($C = connect())
   {
-    echo 'image uploaded successfully';
+    move_uploaded_file($tempname, $folder);
+    $res = sqlInsert($C, "INSERT INTO images (filename) VALUES ('$fname')");
+    move_uploaded_file($tempname, 'uploads/'.$filename);
+    mysqli_query($C, $res);
+   
   }
   else
   {
-    echo 'image failed to upload';
+    echo 'fail';
   }
+
 }
-$result = mysqli_query($C, 'SELECT * FROM images');
+//$result = mysqli_query($C, 'SELECT * FROM images');
 ?>
 
 
@@ -133,12 +136,10 @@ $result = mysqli_query($C, 'SELECT * FROM images');
 <!--- PAGE CONTENT -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
-        <form><input class='smallSearch' type="text" name="search" placeholder="Search"></form>
+        <form><input class='smallSearch' type="text" name="search" placeholder="Search"/></form>
         <form method='POST' action='showcase.php' enctype='multipart/form-data'>
-        <input type='file' name='image' value='' accept='image/*'>
-        <button type='submit' name='uploadfile'>
-        UPLOAD
-        </button></form>
+        <input type='file' name='image' value='' accept='image/*'/>
+        <input type='submit' name='submit' value='Upload'/></form>
         <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
         <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
