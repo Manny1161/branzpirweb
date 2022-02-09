@@ -85,6 +85,7 @@ if(isset($_POST['submit']))
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+    
 </head>
 <style>
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
@@ -144,7 +145,7 @@ if(isset($_POST['submit']))
         <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
     </div>
-
+  
     <div class="w3-row-padding">
         <div class="w3-half">
             <img src="https://www.w3schools.com/w3images/kitchenconcrete.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
