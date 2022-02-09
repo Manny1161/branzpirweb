@@ -1,4 +1,4 @@
-<?php
+<!--?php
 require_once 'utils.php';
 		
 $errors = [];
@@ -31,6 +31,10 @@ if(isset($_POST) & !empty($_POST) && $_SESSION['loggedin'] == true)
 $token = md5(uniqid(rand(), true));
 $_SESSION['csrf_token'] = $token;
 $_SESSION['csrf_token_time'] = time();
+?-->
+
+<?php
+    require_once 'utils.php';
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +46,9 @@ $_SESSION['csrf_token_time'] = time();
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <style>
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
@@ -98,6 +105,12 @@ $_SESSION['csrf_token_time'] = time();
         <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
     </div>
+
+    <?php if($_SESSION['loggedin']) : ?>
+    <div class="alert alert-success">
+        <strong>Success!</strong> This alert box could indicate a successful or positive action.
+    </div>
+    <?php endif ?>
 
     <div class="w3-row-padding">
         <div class="w3-half">
