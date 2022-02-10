@@ -34,6 +34,7 @@ $_SESSION['csrf_token_time'] = time();
 ?-->
 
 <?php
+    error_reporting(0);
     require_once 'utils.php';
 ?>
 
@@ -49,6 +50,7 @@ $_SESSION['csrf_token_time'] = time();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
 </head>
 <style>
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
@@ -106,9 +108,9 @@ $_SESSION['csrf_token_time'] = time();
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
     </div>
 
-    <?php if($_SESSION['loggedin']) : ?>
+    <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
     <div class="alert alert-success">
-        <strong>Success!</strong> This alert box could indicate a successful or positive action.
+        <strong>Success!</strong> You are logged in!
     </div>
     <?php endif ?>
 
