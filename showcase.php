@@ -153,7 +153,9 @@ if(isset($_POST['submit']))
             <img src="https://st.hzcdn.com/simgs/pictures/living-rooms/kiln-lane-perth-megan-prentice-design-img~50517ef40cced9a9_8-6243-1-8915fc6.jpg" style="width:100%"  onclick="onClick(this)" alt="0">
             <img src="https://st.hzcdn.com/simgs/3c51a9e2006e2bf0_8-4988/contemporary-kitchen.jpg" style="width:100%" onclick="onClick(this)" alt="2">
             <img src="https://www.w3schools.com/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
-            <img src="https://www.w3schools.com/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> 
+            <img src="https://www.w3schools.com/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
+            <img src="uploads/0d88c738739859.5cb423f31810f.jpg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
+            <img src="uploads/3d-restaurant-signage-1.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
         </div>
         <div class="w3-half">
             <img src="https://www.w3schools.com/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
@@ -161,7 +163,9 @@ if(isset($_POST['submit']))
             <img src="https://st.hzcdn.com/simgs/pictures/kitchens/south-perth-chararcter-home-trager-kitchens-and-interiors-img~7df10cd806b83295_8-9491-1-4123f6a.jpg" style="width:100%" onclick="onClick(this)" alt="1">
             <img src="https://st.hzcdn.com/simgs/d6016ea5012b31ac_8-0794/victorian-patio.jpg" style="width:100%" onclick="onClick(this)" alt="3">
             <img src="https://www.w3schools.com/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
-            <img src="https://www.w3schools.com/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design"> 
+            <img src="https://www.w3schools.com/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design">
+            <img src ="uploads/3D-Signage-aluminium-fabricated-LED-Illuminated-2.jpg" style="width:100%" onclick="onClick(this)" alt="Letter mount sign">
+            <img src="uploads/Picture-032.jpg" style="width:100%" onclick="onClick(this)" alt="aluminium sheet sign"> 
         </div>
     </div>
 
