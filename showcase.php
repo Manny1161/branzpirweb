@@ -47,7 +47,7 @@ if ($uploadOk == 0) {
 }
 ?>-->
 <?php
-error_reporting(0);
+//error_reporting(0);
 ?>
 
 <?php
@@ -70,9 +70,154 @@ if(isset($_POST['submit']))
   {
     echo 'fail';
   }
-
 }
-//$result = mysqli_query($C, 'SELECT * FROM images');
+
+$search=$_POST['search'];
+$searchoriginal=$search;
+$search=strtolower($search);
+$search=trim($search);
+$search=explode(' ', $search);
+$countsearchterms=count($search);
+$submitbutton=$_POST['sub'];
+
+$directory = 'uploads/';
+if($submitbutton)
+{
+  if(!empty($searchoriginal))
+  {
+    if(is_dir($directory))
+    {
+      if($open = $opendir($directory))
+      {
+        if($countsearchterms == 1)
+        {
+          while(($file = readdir($open)) != false)
+          {
+            $fileoriginal = $file;
+            $file = strtolower($file);
+            $position = strpos('$file', '.');
+            $fileextension = substr($file, $position + 1);
+            $fileextension = strtolower($fileextension);
+
+            if((strpos('$file', '$search[0]') != false) && ($fileextension == 'jpg') || ($fileextension == 'jpeg') || ($fileextension == 'png'))
+            {
+              $array[] += '$file';
+              echo "<img style='width:100%' src='/uploads/$fileoriginal'>";
+            }
+          }
+        }
+        else if($countsearchterms == 2)
+        {
+          while(($file = readdir($open)) != false)
+          {
+            $fileoriginal = $file;
+            $file = strtolower($file);
+            $position = strpos('$file', '.');
+            $fileextension = substr($file, $position + 1);
+            $fileextension = strtolower($fileextension);
+
+            if(((strpos('$file', '$search[0]') != false) && (strpos('$file', '$search[1]') != false)) && (($fileextension == 'jpg') || ($fileextension == 'jpeg') || ($fileextension == 'png')))
+            {
+              $array[] += $file;
+              echo "<img style='width:100%' src='uploads/$fileoriginal'>";
+            }
+          }
+        }
+        else if($countsearchterms == 3)
+        {
+          while(($file = readdir($open)) != false)
+          {
+            $fileoriginal = $file;
+            $file = strtolower($file);
+            $position = strpos('$file', '.');
+            $fileextension = substr($file, $position + 1);
+            $fileextension = strtolower($fileextension);
+
+            if(((strpos('$file', '$search[0]') != false) && (strpos('$file', '$search[1]') != false) && (strpos('$file', '$search[2]') !== false)) && (($fileextension == 'jpg') || ($fileextension == 'jpeg') || ($fileextension == 'png')))
+            {
+              $array[] += $file;
+              echo "<img style='width:100%' src='uploads/$fileoriginal'>";
+            }
+          }
+        }
+        else if($countsearchterms == 4)
+        {
+          while(($file = readdir($open)) != false)
+          {
+            $fileoriginal = $file;
+            $file = strtolower($file);
+            $position = strpos('$file', '.');
+            $fileextension = substr($file, $position + 1);
+            $fileextension = strtolower($fileextension);
+
+            if(((strpos('$file', '$search[0]') != false) && (strpos('$file', '$search[1]') != false) && (strpos('$file', '$search[2]') !== false) && (strpos('$file', '$search[3]') != false)) && (($fileextension == 'jpg') || ($fileextension == 'jpeg') || ($fileextension == 'png')))
+            {
+              $array[] += $file;
+              echo "<img style='width:100%' src='uploads/$fileoriginal'>";
+            }
+          }
+        }
+        else if($countsearchterms == 5)
+        {
+          while(($file = readdir($open)) != false)
+          {
+            $fileoriginal = $file;
+            $file = strtolower($file);
+            $position = strpos('$file', '.');
+            $fileextension = substr($file, $position + 1);
+            $fileextension = strtolower($fileextension);
+
+            if(((strpos('$file', '$search[0]') != false) && (strpos('$file', '$search[1]') != false) && (strpos('$file', '$search[2]') !== false) && (strpos('$file', '$search[3]') != false) && (strpos('$file', '$search[4]') != false)) && (($fileextension == 'jpg') || ($fileextension == 'jpeg') || ($fileextension == 'png')))
+            {
+              $array[] += $file;
+              echo "<img style='width:100%' src='uploads/$fileoriginal'>";
+            }
+          }
+        }
+        else if($countsearchterms == 6)
+        {
+          while(($file = readdir($open)) != false)
+          {
+            $fileoriginal = $file;
+            $file = strtolower($file);
+            $position = strpos('$file', '.');
+            $fileextension = substr($file, $position + 1);
+            $fileextension = strtolower($fileextension);
+
+            if(((strpos('$file', '$search[0]') != false) && (strpos('$file', '$search[1]') != false) && (strpos('$file', '$search[2]') !== false) && (strpos('$file', '$search[3]') != false) && (strpos('$file', '$search[4]') != false) && (strpos('$file', '$search[5]') != false)) && (($fileextension == 'jpg') || ($fileextension == 'jpeg') || ($fileextension == 'png')))
+            {
+              $array[] += $file;
+              echo "<img style='width:100%' src='uploads/$fileoriginal'>";
+            }
+          }
+        }
+        else if($countsearchterms == 7)
+        {
+          while(($file = readdir($open)) != false)
+          {
+            $fileoriginal = $file;
+            $file = strtolower($file);
+            $position = strpos('$file', '.');
+            $fileextension = substr($file, $position + 1);
+            $fileextension = strtolower($fileextension);
+
+            if(((strpos('$file', '$search[0]') != false) && (strpos('$file', '$search[1]') != false) && (strpos('$file', '$search[2]') !== false) && (strpos('$file', '$search[3]') != false) && (strpos('$file', '$search[4]') != false) && (strpos('$file', '$search[5]') != false) && (strpos('$file', '$search[6]') != false)) && (($fileextension == 'jpg') || ($fileextension == 'jpeg') || ($fileextension == 'png')))
+            {
+              $array[] += $file;
+              echo "<img style='width:100%' src='uploads/$fileoriginal'>";
+            }
+          }
+        }
+        closedir($open);
+      }
+    }
+    $arraycount = count($array);
+    if($arraycount == 0)
+    {
+      echo "No result for those keywords";
+    }
+  }
+}
 ?>
 
 
@@ -137,7 +282,9 @@ if(isset($_POST['submit']))
 <!--- PAGE CONTENT -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
-        <form><input class='smallSearch' type="text" name="search" placeholder="Search"/></form>
+        <form action='' method='POST'>
+        <input class='smallSearch' type="text" name="search" value="<?php echo $searchoriginal;?>" placeholder="Search"/>
+        <input type="submit" name="sub" value="Search"/></form>
         <form method='POST' action='showcase.php' enctype='multipart/form-data'>
         <input type='file' name='image' value='' accept='image/*'/>
         <input type='submit' name='submit' value='Upload'/></form>
