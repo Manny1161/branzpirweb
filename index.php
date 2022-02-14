@@ -69,6 +69,8 @@ $_SESSION['csrf_token_time'] = time();
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
     input[type=text]:focus{width:50%}
+
+    .logIn{float:right; margin-top:-5px; border-radius:20px;}
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -93,7 +95,7 @@ $_SESSION['csrf_token_time'] = time();
 <!--- TOP MENU ON SMALL SCREENS -->
 <header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
     <a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
-    <span><a href='index.php' style='text-decoration:none'>branzpir</a></span>
+    <span><a href='index.php' style='text-decoration:none; color:white'>branzpir</a></span>
 </header>
 
 <!--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS -->
@@ -102,7 +104,7 @@ $_SESSION['csrf_token_time'] = time();
 <!--- PAGE CONTENT -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
-        <form><input class='smallSearch' type="text" name="search" placeholder="Search"></form>
+        <form method='POST' action=''><input class='logIn' type='button' onclick="window.location.href='login.php';" value='LOG IN'/></form>
         <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
         <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
