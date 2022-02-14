@@ -3,7 +3,6 @@ $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -15,25 +14,21 @@ if(isset($_POST["submit"])) {
     $uploadOk = 0;
   }
 }
-
 // Check if file already exists
 if (file_exists($target_file)) {
   echo "Sorry, file already exists.";
   $uploadOk = 0;
 }
-
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000) {
   echo "Sorry, your file is too large.";
   $uploadOk = 0;
 }
-
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
   echo "Sorry, only JPG, JPEG & PNG files are allowed.";
   $uploadOk = 0;
 }
-
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
   echo "Sorry, your file was not uploaded.";
@@ -48,6 +43,7 @@ if ($uploadOk == 0) {
 ?>-->
 
 <?php
+error_reporting(0);
 require_once 'utils.php';
 $msg = '';
 if(isset($_POST['upload']))
@@ -108,6 +104,7 @@ $submitbutton=$_POST['submit'];
     input[type=text]:focus{width:50%}
 
     .uploadbtn{float:right; margin-top:-30px;}
+    .button{float:right; margin-top:-30px;}
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -141,18 +138,17 @@ $submitbutton=$_POST['submit'];
     <div class="w3-container" style="margin-top:80px" id="showcase">
         <form action='' method='POST'>
         <input class='smallSearch' type="text" name="search" value="<?php echo $searchoriginal;?>" placeholder="Search"/><?php if($submitbutton){
-		if(empty($searchoriginal)) { echo "<redtext>A search query must be entered</redtext>";}} ?><br><br>
+		if(empty($searchoriginal)) { echo " A search query must be entered";}} ?>
         <input type="submit" name="submit" value="Search"/></form>
         <form method='POST' action='showcase.php' enctype='multipart/form-data'>
-        <input type='file' name='image' value='' accept='image/*'/>
-        <input type='submit' name='upload' value='Upload'/></form>
+        <input class ='button' type='file' name='image' value='' accept='image/*'/>
+        <input class='uploadbtn' type='submit' name='upload' value='Upload'/></form>
         <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
         <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
     </div>
  
 <?php
-error_reporting(0);
 $directory = "uploads/";
 
 
@@ -175,7 +171,8 @@ if ($countsearchterms == 1)
       if ((strpos("$file",  "$search[0]") !== false) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
-	 echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+  
+	 echo "<img style='width: 48%; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal'>";
 }
 
     }
@@ -320,8 +317,8 @@ echo "No results for this search entered";
             <img src="https://st.hzcdn.com/simgs/3c51a9e2006e2bf0_8-4988/contemporary-kitchen.jpg" style="width:100%" onclick="onClick(this)" alt="2">
             <img src="https://www.w3schools.com/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
             <img src="https://www.w3schools.com/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
-            <img src="uploads/2a96ebdf2f58bf503d162f494a34746d.png" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
-            <img src="uploads/ngolol.PNG" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
+            <img src="uploads/bar.jpg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
+            <img src="uploads/3D-Signage-aluminium-fabricated-LED-Illuminated-2.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
         </div>
         <div class="w3-half">
             <img src="https://www.w3schools.com/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
@@ -330,8 +327,8 @@ echo "No results for this search entered";
             <img src="https://st.hzcdn.com/simgs/d6016ea5012b31ac_8-0794/victorian-patio.jpg" style="width:100%" onclick="onClick(this)" alt="3">
             <img src="https://www.w3schools.com/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
             <img src="https://www.w3schools.com/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design">
-            <img src ="uploads/956b176cfc94af7bff1e6ecb6535337c.jpg" style="width:100%" onclick="onClick(this)" alt="Letter mount sign">
-            <img src="uploads/sasuke.jpg" style="width:100%" onclick="onClick(this)" alt="aluminium sheet sign"> 
+            <img src ="uploads/3d-restaurant-signage-1.jpg" style="width:100%" onclick="onClick(this)" alt="Letter mount sign">
+            <img src="uploads/Picture-032.jpg" style="width:100%" onclick="onClick(this)" alt="aluminium sheet sign"> 
         </div>
     </div>
 
