@@ -78,6 +78,7 @@ $submitbutton=$_POST['submit'];
 <html lang="en">
 <head>
     <title>branzpir</title>
+    <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -311,22 +312,22 @@ echo "No results for this search entered";
 
     <div class="w3-row-padding">
         <div class="w3-half">
-            <img src="https://www.w3schools.com/w3images/kitchenconcrete.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
-            <img src="https://st.hzcdn.com/simgs/ff51b784006e2c1e_8-4597/contemporary-bathroom.jpg" style="width:100%" onclick="onClick(this)" alt="Kitchen">
-            <img src="https://st.hzcdn.com/simgs/pictures/living-rooms/kiln-lane-perth-megan-prentice-design-img~50517ef40cced9a9_8-6243-1-8915fc6.jpg" style="width:100%"  onclick="onClick(this)" alt="0">
-            <img src="https://st.hzcdn.com/simgs/3c51a9e2006e2bf0_8-4988/contemporary-kitchen.jpg" style="width:100%" onclick="onClick(this)" alt="2">
-            <img src="https://www.w3schools.com/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
-            <img src="https://www.w3schools.com/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
-            <img src="uploads/bar.jpg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
-            <img src="uploads/3D-Signage-aluminium-fabricated-LED-Illuminated-2.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
+            <img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
+            <img src="uploads/bar-lightbox-signage-letters-retail-restaurant.jpg" style="width:100%" onclick="onClick(this)" alt="Kitchen">
+            <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%"  onclick="onClick(this)" alt="0">
+            <img src="uploads/Outdoor-Signage-Foundation-Academy-Orlando-Fl.jpg" style="width:100%" onclick="onClick(this)" alt="2">
+            <img src="uploads/overhead-signage-aluminium-letter-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
+            <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
+            <img src="uploads/small-signage-pvc-sheet-directions.jpeg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
+            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
         </div>
         <div class="w3-half">
-            <img src="https://www.w3schools.com/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
-            <img src="https://st.hzcdn.com/simgs/pictures/kitchens/twin-peaks-jbs-building-and-development-img~bdd136370f0aa48d_8-3009-1-1a30da0.jpg" style="width:100%" onclick="onClick(this)" alt="Twin Peaks">
-            <img src="https://st.hzcdn.com/simgs/pictures/kitchens/south-perth-chararcter-home-trager-kitchens-and-interiors-img~7df10cd806b83295_8-9491-1-4123f6a.jpg" style="width:100%" onclick="onClick(this)" alt="1">
-            <img src="https://st.hzcdn.com/simgs/d6016ea5012b31ac_8-0794/victorian-patio.jpg" style="width:100%" onclick="onClick(this)" alt="3">
-            <img src="https://www.w3schools.com/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
-            <img src="https://www.w3schools.com/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design">
+            <img src="uploads/unique-wood-glass-standoff-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
+            <img src="uploads/LED-Backlit-Signs-4.jpg" style="width:100%" onclick="onClick(this)" alt="Twin Peaks">
+            <img src="uploads/visirite-function-sign-outdoor-aluminium.jpg" style="width:100%" onclick="onClick(this)" alt="1">
+            <img src="uploads/car-sign-design-graphic.jpg" style="width:100%" onclick="onClick(this)" alt="3">
+            <img src="uploads/car-sign-design-graphic-design.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
+            <img src="uploads/ecoflex-base-aluminium-sheet-outdoor-function.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design">
             <img src ="uploads/3d-restaurant-signage-1.jpg" style="width:100%" onclick="onClick(this)" alt="Letter mount sign">
             <img src="uploads/Picture-032.jpg" style="width:100%" onclick="onClick(this)" alt="aluminium sheet sign"> 
         </div>
@@ -340,7 +341,7 @@ echo "No results for this search entered";
         </div>
     </div>
 
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px">
+    <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
 <p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></p>
 </div>
 <script>
