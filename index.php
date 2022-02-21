@@ -42,6 +42,7 @@ $_SESSION['csrf_token_time'] = time();
 <html lang="en">
 <head>
     <title>branzpir</title>
+    <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -70,7 +71,10 @@ $_SESSION['csrf_token_time'] = time();
     -webkit-transition: width:0.4s ease-in-out;}}
     input[type=text]:focus{width:50%}
 
-    .logIn{float:right; margin-top:-5px; border-radius:20px;}
+    .logIn{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; border:none; color:white; background-color:#bfbfbf;}
+    .profReg{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; color:#bfbfbf; background-color:white;}
+    .brandReg{float:right; margin-top:-5px; border-radius:20px; color:#bfbfbf; background-color:white;}
+    .searchBar{width:200px;margin-top:-20px;}
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -80,7 +84,7 @@ $_SESSION['csrf_token_time'] = time();
     </div>
 
     <div class="w3-bar-block">
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+        <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
         <a href='services.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
         <a href='professionalsLogin.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
@@ -95,19 +99,27 @@ $_SESSION['csrf_token_time'] = time();
 <!--- TOP MENU ON SMALL SCREENS -->
 <header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
     <a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
-    <span><a href='index.php' style='text-decoration:none; color:white'>branzpir</a></span>
+    <!--span><a href='index.php' style='text-decoration:none; color:white'>branzpir</a></span-->
+    <!--span><input class='fbutton' type='button' onclick="window.open('https:/www.facebook.com/eurotechaustralia/','_blank');" value='f'/></span-->
 </header>
 
 <!--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<div class="w3-overlay w3-hide-small" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!--- PAGE CONTENT -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
+        
+        <form method='POST' action=''><input class='brandReg' type='button' onclick="window.location.href='brandRegistration.php';" value='JOIN AS A BRAND'/></form>
+        <form method='POST' action=''><input class='profReg' type='button' onclick="window.location.href='professionalsRegistration.php';" value='JOIN AS A PROFESSIONAL'/></form>
         <form method='POST' action=''><input class='logIn' type='button' onclick="window.location.href='login.php';" value='LOG IN'/></form>
-        <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
-        <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
+        
+        <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
+    
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
+        
+        <input class='searchBar' type="text" name="search" placeholder="Search" />
+        <input type="submit" name="submit" value="Search"/></form>
     </div>
 
     <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
@@ -118,14 +130,14 @@ $_SESSION['csrf_token_time'] = time();
 
     <div class="w3-row-padding">
         <div class="w3-half">
-            <img src="https://www.w3schools.com/w3images/kitchenconcrete.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
-            <img src="https://www.w3schools.com/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
-            <img src="https://www.w3schools.com/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> 
+            <img src="uploads/visirite-function-sign-outdoor-aluminium.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
+            <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
+            <img src="uploads/car-sign-design-graphic.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> 
         </div>
         <div class="w3-half">
-            <img src="https://www.w3schools.com/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
-            <img src="https://www.w3schools.com/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
-            <img src="https://www.w3schools.com/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design"> 
+            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
+            <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
+            <img src="uploads/LED-Backlit-Signs-4.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design"> 
         </div>
     </div>
 
@@ -169,7 +181,7 @@ $_SESSION['csrf_token_time'] = time();
         <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
     </div>
 
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px">
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
 <p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></p>
 </div>
 <script>
