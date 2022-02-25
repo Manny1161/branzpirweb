@@ -74,7 +74,9 @@ $_SESSION['csrf_token_time'] = time();
     .logIn{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; border:none; color:white; background-color:#bfbfbf;}
     .profReg{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; color:#bfbfbf; background-color:white;}
     .brandReg{float:right; margin-top:-5px; border-radius:20px; color:#bfbfbf; background-color:white;}
-    .searchBar{width:200px;margin-top:-20px;}
+    .searchBar{width:300px; margin-top:-20px; color:#bfbfbf; background-color:white; text-align:left; border-radius:15px;}
+    .nextRound{background-color:red; color:white; border-radius:50%; margin-left:-42px; font-size:10px; padding: 8px 16px;}
+    .lft{margin-left:80px; padding-top:-50px;}
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -109,21 +111,17 @@ $_SESSION['csrf_token_time'] = time();
 <!--- PAGE CONTENT -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
-        
         <form method='POST' action=''><input class='brandReg' type='button' onclick="window.location.href='brandRegistration.php';" value='JOIN AS A BRAND'/></form>
         <form method='POST' action=''><input class='profReg' type='button' onclick="window.location.href='professionalsRegistration.php';" value='JOIN AS A PROFESSIONAL'/></form>
         <form method='POST' action=''><input class='logIn' type='button' onclick="window.location.href='login.php';" value='LOG IN'/></form>
-        
         <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
-    
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        
-        <input class='searchBar' type="text" name="search" placeholder="Search" />
-        <input type="submit" name="submit" value="Search"/></form>
+        <input class='searchBar' type="button" name="search" value="SEARCH FOR INSPIRATION..." onclick="window.location.href='showcase.php';"/>
+        <!--a href="showcase.php" class='nextRound'><b>&#8250;</b></a-->
     </div>
 
     <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
-    <div class="alert alert-success">
+    <br><div class="alert alert-success">
         <strong>Success!</strong> You are logged in!
     </div>
     <?php endif ?>
@@ -181,8 +179,8 @@ $_SESSION['csrf_token_time'] = time();
         <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
     </div>
 
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
-<p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></p>
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-70px;">
+<p class="lft">&copy; Copyright 2022 Branzpir<span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></span></p>
 </div>
 <script>
 function w3_open() {
