@@ -72,6 +72,9 @@ $search=trim($search);
 $search=explode(' ', $search);
 $countsearchterms=count($search);
 $submitbutton=$_POST['submit'];
+
+//$res = sqlSelect($C, 'SELECT professionals.id,professionals.password,COUNT(loginattempts.id) FROM professionals LEFT JOIN loginattempts ON professionals.id = user AND timestamp>? WHERE email=? GROUP BY professionals.id', 'is', $hourAgo, $email);
+//$professionals = $res->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -138,12 +141,13 @@ $submitbutton=$_POST['submit'];
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
         <form action='' method='POST'>
-        <input class='smallSearch' type="text" name="search" value="<?php echo $searchoriginal;?>" placeholder="Search"/><?php if($submitbutton){
-		if(empty($searchoriginal)) { echo " A search query must be entered";}} ?>
+        <input class='smallSearch' type="text" name="search" placeholder="Search"/>
         <input type="submit" name="submit" value="Search"/></form>
+        <?php if (($_SESSION['loggedin'] == true) && isset($_SESSION['profID'])) : ?>
         <form method='POST' action='showcase.php' enctype='multipart/form-data'>
         <input class ='button' type='file' name='image' value='' accept='image/*'/>
         <input class='uploadbtn' type='submit' name='upload' value='Upload'/></form>
+        <?php endif ?>
         <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
         <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
@@ -341,7 +345,7 @@ echo "No results for this search entered";
         </div>
     </div>
 
-    <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
 <p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></p>
 </div>
 <script>
