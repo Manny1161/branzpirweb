@@ -76,7 +76,57 @@ $_SESSION['csrf_token_time'] = time();
     .brandReg{float:right; margin-top:-5px; border-radius:20px; color:#bfbfbf; background-color:white;}
     .searchBar{width:300px; margin-top:-20px; color:#bfbfbf; background-color:white; text-align:left; border-radius:15px;}
     .nextRound{background-color:red; color:white; border-radius:50%; margin-left:-42px; font-size:10px; padding: 8px 16px;}
-    .lft{margin-left:80px; padding-top:-50px;}
+    .nlog{width:3%;float:right; margin-top:-5px; cursor:pointer;}
+
+	/* Dropdown Button */
+	.dropbtn {
+	  background-color: white;
+	  color: white;
+	  font-size: 16px;
+	  border: none;
+	}
+
+	/* The container <div> - needed to position the dropdown content */
+	.dropdown {
+	  position:relative;
+	  
+	}
+
+	/* Dropdown Content (Hidden by Default) */
+	.dropdown-content {
+	  display: none;
+	  position: absolute;
+	  right:350px;
+	  background-color: #f1f1f1;
+	  min-width: 160px;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	}
+
+	/* Links inside the dropdown */
+	.dropdown-content a {
+	  color: black;
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	}
+
+	.caption{
+	  padding: 15px;
+	  text-align:center;
+	  text-decoration:underline;
+	  color:white
+	}
+
+	/* Change color of dropdown links on hover */
+	.dropdown-content a:hover {background-color: #ddd;}
+
+	/* Show the dropdown menu on hover */
+	.dropdown:hover .dropdown-content {display: block;}
+
+	/* Change the background color of the dropdown button when the dropdown content is shown */
+	.dropdown:hover .dropbtn {background-color: white;}
+
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -114,7 +164,16 @@ $_SESSION['csrf_token_time'] = time();
         <form method='POST' action=''><input class='brandReg' type='button' onclick="window.location.href='brandRegistration.php';" value='JOIN AS A BRAND'/></form>
         <form method='POST' action=''><input class='profReg' type='button' onclick="window.location.href='professionalsRegistration.php';" value='JOIN AS A PROFESSIONAL'/></form>
         <form method='POST' action=''><input class='logIn' type='button' onclick="window.location.href='login.php';" value='LOG IN'/></form>
-        <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
+		<div class='dropdown'>
+			<img class='nlog' src='3033143.png'>
+			<div class='dropdown-content'>
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+			</div>
+		</div>
+
+		<img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
         <input class='searchBar' type="button" name="search" value="SEARCH FOR INSPIRATION..." onclick="window.location.href='showcase.php';"/>
         <!--a href="showcase.php" class='nextRound'><b>&#8250;</b></a-->
@@ -126,16 +185,16 @@ $_SESSION['csrf_token_time'] = time();
     </div>
     <?php endif ?>
 
-    <div class="w3-row-padding">
+   <div class="w3-row-padding">
         <div class="w3-half">
-            <img src="uploads/visirite-function-sign-outdoor-aluminium.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
-            <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
-            <img src="uploads/car-sign-design-graphic.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> 
+            <img src="https://www.w3schools.com/w3images/kitchenconcrete.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
+            <img src="https://www.w3schools.com/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
+            <img src="https://www.w3schools.com/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> 
         </div>
         <div class="w3-half">
-            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
-            <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
-            <img src="uploads/LED-Backlit-Signs-4.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design"> 
+            <img src="https://www.w3schools.com/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
+            <img src="https://www.w3schools.com/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
+            <img src="https://www.w3schools.com/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design"> 
         </div>
     </div>
 
