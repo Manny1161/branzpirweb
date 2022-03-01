@@ -1,41 +1,83 @@
 <!--?php
-require_once 'utils.php';
-		
-$errors = [];
-
-if(isset($_POST) & !empty($_POST) && $_SESSION['loggedin'] == true)
-{
-    if(isset($_POST['csrf_token']))
-    {
-        if($_POST['csrf_token'] == $_SESSION['csrf_token'])
-        {
-            $errors[] = "CSRF Token Validation Success!";
-            if($_SESSION['loggedin']==true)
-            {
-                echo 1;
-            }
-        }
-        else
-        {
-            $errors[] = "Problem with CSRF Token Validation!";
-        }
-    }
-    $max_time = 60*60*24;
-    if(isset($_SESSION['csrf_token_time']))
-    {
-        $token_time = $_SESSION['csrf_token_time'];
-        if($token_time + $max_time >= time())
-        {}
-    }
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+  if($check !== false) {
+    echo "File is an image - " . $check["mime"] . ".";
+    $uploadOk = 1;
+  } else {
+    echo "File is not an image.";
+    $uploadOk = 0;
+  }
 }
-$token = md5(uniqid(rand(), true));
-$_SESSION['csrf_token'] = $token;
-$_SESSION['csrf_token_time'] = time();
-?-->
+// Check if file already exists
+if (file_exists($target_file)) {
+  echo "Sorry, file already exists.";
+  $uploadOk = 0;
+}
+// Check file size
+if ($_FILES["fileToUpload"]["size"] > 500000) {
+  echo "Sorry, your file is too large.";
+  $uploadOk = 0;
+}
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+  echo "Sorry, only JPG, JPEG & PNG files are allowed.";
+  $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+  echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+    echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+  } else {
+    echo "Sorry, there was an error uploading your file.";
+  }
+}
+?>-->
 
 <?php
-    error_reporting(0);
-    require_once 'utils.php';
+error_reporting(0);
+require_once 'utils.php';
+$msg = '';
+if(isset($_POST['upload']))
+{
+  $fname = $_FILES['image']['name'];
+  $tempname = $_FILES['image']['tmp_name'];
+  $folder = 'uploads/'.($fname);
+  if($C = connect())
+  {
+    move_uploaded_file($tempname, $folder);
+    $res = sqlInsert($C, "INSERT INTO images (filename) VALUES ('$fname')");
+    move_uploaded_file($tempname, 'uploads/'.$filename);
+    mysqli_query($C, $res);
+    $_SESSION['profID'] = $user['id'];
+    $alt = sqlSelect($C, 'SELECT professionals.username FROM professionals WHERE professionals.id=?', $user['id']);
+    $prof = $alt->fetch_assoc();
+   
+  }
+  else
+  {
+    echo 'fail';
+  }
+}
+
+$search=$_POST['search'];
+$searchoriginal=$search;
+$search=strtolower($search);
+$search=trim($search);
+$search=explode(' ', $search);
+$countsearchterms=count($search);
+$submitbutton=$_POST['submit'];
+
+//$res = sqlSelect($C, 'SELECT professionals.id,professionals.password,COUNT(loginattempts.id) FROM professionals LEFT JOIN loginattempts ON professionals.id = user AND timestamp>? WHERE email=? GROUP BY professionals.id', 'is', $hourAgo, $email);
+//$professionals = $res->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -48,9 +90,6 @@ $_SESSION['csrf_token_time'] = time();
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
 </head>
 <style>
@@ -60,73 +99,19 @@ $_SESSION['csrf_token_time'] = time();
     .w3-half img:hover{opacity:0.8}
     h1,h2{color:#a6001a;}
     /*CHECK IF SCREEN IS LESS THAN 992 PIXELS FOR SMALL SCREENS*/ 
-    .smallSearch @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
+    .smallSearch @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:30px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
     input[type=text]:focus{width:50%}
 
     /*CHECK IF SCREEN IS LESS THAN 601 PIXELS FOR LARGER SCREENS*/
-    @media all and (max-width:601px){input[type=text]{width:250px;position:absolute;left:200px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
+    @media all and (max-width:601px){input[type=text]{width:250px;position:absolute;left:200px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:30px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
     input[type=text]:focus{width:50%}
 
-    .logIn{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; border:none; color:white; background-color:#bfbfbf;}
-    .profReg{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; color:#bfbfbf; background-color:white;}
-    .brandReg{float:right; margin-top:-5px; border-radius:20px; color:#bfbfbf; background-color:white;}
-    .searchBar{width:300px; margin-top:-20px; color:#bfbfbf; background-color:white; text-align:left; border-radius:15px;}
-    .nextRound{background-color:red; color:white; border-radius:50%; margin-left:-42px; font-size:10px; padding: 8px 16px;}
-    .nlog{width:3%;float:right; margin-top:-5px; cursor:pointer;}
-
-	/* Dropdown Button */
-	.dropbtn {
-	  background-color: white;
-	  color: white;
-	  font-size: 16px;
-	  border: none;
-	}
-
-	/* The container <div> - needed to position the dropdown content */
-	.dropdown {
-	  position:relative;
-	  
-	}
-
-	/* Dropdown Content (Hidden by Default) */
-	.dropdown-content {
-	  display: none;
-	  position: absolute;
-	  right:350px;
-	  background-color: #f1f1f1;
-	  min-width: 160px;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	  z-index: 1;
-	}
-
-	/* Links inside the dropdown */
-	.dropdown-content a {
-	  color: black;
-	  padding: 12px 16px;
-	  text-decoration: none;
-	  display: block;
-	}
-
-	.caption{
-	  padding: 15px;
-	  text-align:center;
-	  text-decoration:underline;
-	  color:white
-	}
-
-	/* Change color of dropdown links on hover */
-	.dropdown-content a:hover {background-color: #ddd;}
-
-	/* Show the dropdown menu on hover */
-	.dropdown:hover .dropdown-content {display: block;}
-
-	/* Change the background color of the dropdown button when the dropdown content is shown */
-	.dropdown:hover .dropbtn {background-color: white;}
-
+    .uploadbtn{float:right; margin-top:-30px;}
+    .button{float:right; margin-top:-30px;}
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -134,68 +119,224 @@ $_SESSION['csrf_token_time'] = time();
     <div class="w3-container">
         <h3 class="w3-padding-64"><b><br>branzpir</b></h3>
     </div>
-
     <div class="w3-bar-block">
         <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href='services.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
-        <a href='professionalsLogin.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
-        <a href='contact.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-        <a href='youandbranzpir.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
-        <a href='login.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Login</a>
-        <a href='registration.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Register</a>
-        <a href='logout.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+        <a href="services.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
+        <a href="professionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
+        <a href="contact.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+        <a href="youandbranzpir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
     </div>
 </nav>
 
 <!--- TOP MENU ON SMALL SCREENS -->
 <header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
     <a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
-    <!--span><a href='index.php' style='text-decoration:none; color:white'>branzpir</a></span-->
-    <!--span><input class='fbutton' type='button' onclick="window.open('https:/www.facebook.com/eurotechaustralia/','_blank');" value='f'/></span-->
+    <span><a href='index.php' style='text-decoration:none'>branzpir</a></span>
 </header>
 
 <!--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS -->
-<div class="w3-overlay w3-hide-small" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!--- PAGE CONTENT -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
-        <form method='POST' action=''><input class='brandReg' type='button' onclick="window.location.href='brandRegistration.php';" value='JOIN AS A BRAND'/></form>
-        <form method='POST' action=''><input class='profReg' type='button' onclick="window.location.href='professionalsRegistration.php';" value='JOIN AS A PROFESSIONAL'/></form>
-        <form method='POST' action=''><input class='logIn' type='button' onclick="window.location.href='login.php';" value='LOG IN'/></form>
-		<div class='dropdown'>
-			<img class='nlog' src='3033143.png'>
-			<div class='dropdown-content'>
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
-			</div>
-		</div>
-
-		<img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
+        <form action='' method='POST'>
+        <input class='smallSearch' type="text" name="search" placeholder="Search"/>
+        <input type="submit" name="submit" value="Search"/></form>
+        <?php if (($_SESSION['loggedin'] == true) && isset($_SESSION['profID'])) : ?>
+        <form method='POST' action='showcase.php' enctype='multipart/form-data'>
+        <input class ='button' type='file' name='image' value='' accept='image/*'/>
+        <input class='uploadbtn' type='submit' name='upload' value='Upload'/></form>
+        <?php endif ?>
+        <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
+        <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        <input class='searchBar' type="button" name="search" value="SEARCH FOR INSPIRATION..." onclick="window.location.href='showcase.php';"/>
-        <!--a href="showcase.php" class='nextRound'><b>&#8250;</b></a-->
     </div>
+ 
+<?php
+$directory = "uploads/";
 
-    <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
-    <br><div class="alert alert-success">
-        <strong>Success!</strong> You are logged in!
-    </div>
-    <?php endif ?>
 
-   <div class="w3-row-padding">
+if ($submitbutton){
+if (!empty($searchoriginal)) 
+{
+if (is_dir($directory)){
+
+  if ($open = opendir($directory)){
+if ($countsearchterms == 1)
+{
+    while (($file = readdir($open)) !== false){
+	$fileoriginal= $file;
+	$file= strtolower($file);
+	$position= strpos("$file", ".");
+	$fileextension= substr($file, $position + 1);
+	$fileextension= strtolower($fileextension);
+	
+	
+      if ((strpos("$file",  "$search[0]") !== false) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
+	{
+	$array[] += "$file";
+  
+	 echo "<img style='width: 48%; margin:8px; cursor:pointer;' onclick=onClick(this) src='/uploads/$fileoriginal'>";
+}
+
+    }
+}
+else if ($countsearchterms == 2) {
+while (($file = readdir($open)) !== false){
+	$fileoriginal= $file;
+	$file= strtolower($file);
+	$position= strpos("$file", ".");
+	$fileextension= substr($file, $position + 1);
+	$fileextension= strtolower($fileextension);
+	
+
+      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false)) && (($fileextension == "jpg") 
+|| ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp"))) {
+	$array[] += "$file";
+	 echo "<img style='width: 200px;' src='/images/$fileoriginal'>". "<br><br><hr>";
+}
+ 
+	
+    }
+    
+
+}
+
+else if ($countsearchterms == 3) {
+while (($file = readdir($open)) !== false){
+	$fileoriginal= $file;
+	$file= strtolower($file);
+	$position= strpos("$file", ".");
+	$fileextension= substr($file, $position + 1);
+	$fileextension= strtolower($fileextension);
+	
+
+      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)) 
+&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
+	{
+	$array[] += "$file";
+	 echo "<img style='width: 200px;' src='/images/$fileoriginal'>". "<br><br><hr>";
+}
+ 
+	
+    }
+    
+
+}
+
+else if ($countsearchterms == 4) {
+while (($file = readdir($open)) !== false){
+	$fileoriginal= $file;
+	$file= strtolower($file);
+	$position= strpos("$file", ".");
+	$fileextension= substr($file, $position + 1);
+	$fileextension= strtolower($fileextension);
+	
+
+      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false))
+&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
+	{
+	$array[] += "$file";
+	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+}
+ 
+	
+    }
+    
+
+}
+
+else if ($countsearchterms == 5) {
+while (($file = readdir($open)) !== false){
+	$fileoriginal= $file;
+	$file= strtolower($file);
+	$position= strpos("$file", ".");
+	$fileextension= substr($file, $position + 1);
+	$fileextension= strtolower($fileextension);
+	
+
+      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
+&& (strpos("$file",  "$search[4]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
+	{
+	$array[] += "$file";
+	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+}
+}  
+}
+else if ($countsearchterms == 6) {
+while (($file = readdir($open)) !== false){
+	$fileoriginal= $file;
+	$file= strtolower($file);
+	$position= strpos("$file", ".");
+	$fileextension= substr($file, $position + 1);
+	$fileextension= strtolower($fileextension);
+	
+
+      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
+&& (strpos("$file",  "$search[4]") !== false) && (strpos("$file",  "$search[5]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") 
+|| ($fileextension == "png") || ($fileextension == "bmp")))
+	{
+	$array[] += "$file";
+	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+}
+}  
+}
+else if ($countsearchterms == 7) {
+while (($file = readdir($open)) !== false){
+	$fileoriginal= $file;
+	$file= strtolower($file);
+	$position= strpos("$file", ".");
+	$fileextension= substr($file, $position + 1);
+	$fileextension= strtolower($fileextension);
+
+      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
+&& (strpos("$file",  "$search[4]") !== false) && (strpos("$file",  "$search[5]") !== false) && (strpos("$file",  "$search[6]") !== false))
+&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
+	{
+	$array[] += "$file";
+	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+}
+}  
+}
+closedir($open);
+    }
+
+  }//while loop
+
+$arraycount= count($array);
+
+if ($arraycount == 0)
+{
+echo "No results for this search entered";
+}
+}
+}
+?>
+
+    <div class="w3-row-padding">
         <div class="w3-half">
-            <img src="https://www.w3schools.com/w3images/kitchenconcrete.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
-            <img src="https://www.w3schools.com/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
-            <img src="https://www.w3schools.com/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> 
+            <img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks<br><?php echo $prof ?>">
+            <img src="uploads/bar-lightbox-signage-letters-retail-restaurant.jpg" style="width:100%" onclick="onClick(this)" alt="Kitchen">
+            <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%"  onclick="onClick(this)" alt="0">
+            <img src="uploads/Outdoor-Signage-Foundation-Academy-Orlando-Fl.jpg" style="width:100%" onclick="onClick(this)" alt="2">
+            <img src="uploads/overhead-signage-aluminium-letter-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
+            <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
+            <img src="uploads/small-signage-pvc-sheet-directions.jpeg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
+            
         </div>
         <div class="w3-half">
-            <img src="https://www.w3schools.com/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
-            <img src="https://www.w3schools.com/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
-            <img src="https://www.w3schools.com/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design"> 
-        </div>
+            <img src="uploads/unique-wood-glass-standoff-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
+            <img src="uploads/LED-Backlit-Signs-4.jpg" style="width:100%" onclick="onClick(this)" alt="Twin Peaks">
+            <img src="uploads/visirite-function-sign-outdoor-aluminium.jpg" style="width:100%" onclick="onClick(this)" alt="1">
+            <img src="uploads/car-sign-design-graphic.jpg" style="width:100%" onclick="onClick(this)" alt="3">
+            <img src="uploads/car-sign-design-graphic-design.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
+            <img src="uploads/ecoflex-base-aluminium-sheet-outdoor-function.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design">
+            <img src ="uploads/3d-restaurant-signage-1.jpg" style="width:100%" onclick="onClick(this)" alt="Letter mount sign">
+            <img src="uploads/outdoor-sign-wire-stake-estate-directions.jpg" style="width:100%" onclick="onClick(this)" alt="aluminium sheet sign"> 
+            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
+          </div>
     </div>
 
     <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
@@ -206,56 +347,9 @@ $_SESSION['csrf_token_time'] = time();
         </div>
     </div>
 
-    <div class="w3-container" id="services" style="margin-top:75px">
-        <h1 class="w3-xxxlarge"><b>Services</b></h1>
-        <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        <p>Branzpir is your connection to brand enpowerment.</p>
-        <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
-        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
-    </div>
-
-    <div class="w3-container" id="professionals" style="margin-top:75px">
-        <h1 class="w3-xxxlarge"><b>Professionals</b></h1>
-        <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        <p>Branzpir is your connection to brand enpowerment.</p>
-        <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
-        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
-    </div>
-
-    <div class="w3-container" id="contact" style="margin-top:75px">
-        <h1 class="w3-xxxlarge"><b>Contact</b></h1>
-        <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        <p>Branzpir is your connection to brand enpowerment.</p>
-        <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
-        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
-    </div>
-
-    <div class="w3-container" id="youandbranzpir" style="margin-top:75px">
-        <h1 class="w3-xxxlarge"><b>You and Branzpir</b></h1>
-        <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        <p>Branzpir is your connection to brand enpowerment.</p>
-        <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
-        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
-    </div>
-
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-70px;">
-<p class="lft">&copy; Copyright 2022 Branzpir<span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></span></p>
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
+<p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></p>
 </div>
-<script>
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-    document.getElementById("myOverlay").style.display = "block";
-}
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-    document.getElementById("myOverlay").style.display = "none";
-}
-function onClick(element) {
-    document.getElementById("img01").src = element.src;
-    document.getElementById("modal01").style.display = "block";
-    var captionText = document.getElementById("caption");
-    captionText.innerHTML = element.alt;
-}
-</script>
+<script src='index.js'></script>
 </body>
 </html>
