@@ -1,2 +1,2 @@
 http://www.learningaboutelectronics.com/Code-to-create-an-image-search-engine.txt
-put searched images in div tags, create input field for uploading description of images, store images as variables
+put searched images in div tags, create input field for uploading description of images as well as storing publishers names with the image, store images as variables
