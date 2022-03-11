@@ -4,19 +4,14 @@
 
 <?php
 error_reporting(0);
+require_once 'utils.php';
 
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["image"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-function findexts($filename)
-{
-    $filename = strtolower($filename);
-    $exts = split("[/\\.]", $filename);
-    $n = count($exts)-1;
-    $exts = $exts[$n];
-    return $exts;
-}
+$C = connect();
+
 // Check if image file is a actual image or fake image
 if(isset($_POST["upload"])) {
   $check = getimagesize($_FILES["image"]["tmp_name"]);
@@ -51,6 +46,8 @@ if(isset($_POST["upload"])) {
     $fname = $_POST['desc'] . '.';*/
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
       echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
+      /*$q1 = sqlInsert($C, 'INSERT INTO images VALUES (?, ?)', $_FILES["image"]["name"], $_POST['desc']);
+      mysqli_query($C, $q1);*/
     } else {
       echo '<p class="message">Sorry, there was an error uploading your file.';
     }
@@ -61,8 +58,8 @@ if(isset($_POST["upload"])) {
 
 <?php
 
-require_once 'utils.php';
-/*$msg = '';
+/*require_once 'utils.php';
+$msg = '';
 if(isset($_POST['upload']))
 {
   $fname = $_FILES['image']['name'];
@@ -71,15 +68,12 @@ if(isset($_POST['upload']))
   if($C = connect())
   {
     move_uploaded_file($tempname, $folder);
-    $res = sqlInsert($C, "INSERT INTO images (filename) VALUES ('$fname')");
+
     move_uploaded_file($tempname, 'uploads/'.$filename);
     mysqli_query($C, $res);
     $id = 8;
-    $res1 = sqlSelect($C, "SELECT username FROM professionals WHERE id=?", $id);
-    if($res1 && $res1->num_rows == 1)
-    {
-      $user = $res1->fetch_assoc();
-    }
+    
+    
   }
   else
   {
