@@ -11,6 +11,8 @@ $target_file = $target_dir . basename($_FILES["image"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 $C = connect();
+$q1 = sqlInsert($C, 'INSERT INTO images VALUES (filename, description, username)', $_FILES["image"]["name"], $_POST['desc'], $_SESSION['userName']);
+mysqli_query($C, $q1);
 
 // Check if image file is a actual image or fake image
 if(isset($_POST["upload"])) {
