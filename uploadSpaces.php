@@ -11,12 +11,13 @@ $target_file = $target_dir . basename($_FILES["image"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 $C = connect();
-$q1 = sqlInsert($C, 'INSERT INTO images VALUES (filename, description, username)', $_FILES["image"]["name"], $_POST['desc'], $_SESSION['userName']);
-mysqli_query($C, $q1);
 
 // Check if image file is a actual image or fake image
 if(isset($_POST["upload"])) {
   $check = getimagesize($_FILES["image"]["tmp_name"]);
+  $imagedetails = getimagesize($_FILES["image"]["tmp_name"]);
+  $width = $imagedetails[0];
+  $height = $imagedetails[1];
   if($check !== false) {
     echo "File is an image - " . $check["mime"] . ".";
     $uploadOk = 1;
@@ -34,6 +35,10 @@ if(isset($_POST["upload"])) {
     echo '<p class="message">Sorry, your file is too large</p>';
     $uploadOk = 0;
   }
+  /*if ($width > 580 || $height > 580){
+    echo '<p class="message">Sorry, your file is too large</p>';
+    $uploadOk = 0;
+  }*/
   // Allow certain file formats
   if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
     echo '<p class="message">Sorry, only JPG, JPEG & PNG files are allowed.</p>';
@@ -44,44 +49,18 @@ if(isset($_POST["upload"])) {
     echo '<p class="message">Sorry, your file was not uploaded</p>';
   // if everything is ok, try to upload file
   } else {
-    /*$ext = findexts($_FILES['image']['tmp_name']); 
-    $fname = $_POST['desc'] . '.';*/
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+      $fname = $_FILES['image']['name'];
+      $desc = $_POST['desc'];
+      $user = $_SESSION['profName'];
+      $res = sqlInsert($C, "INSERT INTO images (filename, description, username) VALUES ('$fname', '$desc', '$user')");
       echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
-      /*$q1 = sqlInsert($C, 'INSERT INTO images VALUES (?, ?)', $_FILES["image"]["name"], $_POST['desc']);
-      mysqli_query($C, $q1);*/
+      
     } else {
       echo '<p class="message">Sorry, there was an error uploading your file.';
     }
   }
 }
-
-?>
-
-<?php
-
-/*require_once 'utils.php';
-$msg = '';
-if(isset($_POST['upload']))
-{
-  $fname = $_FILES['image']['name'];
-  $tempname = $_FILES['image']['tmp_name'];
-  $folder = 'uploads/'.($fname);
-  if($C = connect())
-  {
-    move_uploaded_file($tempname, $folder);
-
-    move_uploaded_file($tempname, 'uploads/'.$filename);
-    mysqli_query($C, $res);
-    $id = 8;
-    
-    
-  }
-  else
-  {
-    echo 'fail';
-  }
-}*/
 
 $search=$_POST['search'];
 $searchoriginal=$search;
@@ -135,162 +114,4 @@ $('.message').delay(3000).fadeOut('slow', function() { $(this).remove(); });
 </script>
 </body>
 
-<?php
-$directory = "uploads/";
-if ($submitbutton){
-if (!empty($searchoriginal)) 
-{
-if (is_dir($directory)){
-
-  if ($open = opendir($directory)){
-if ($countsearchterms == 1)
-{
-    while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-	
-	
-      if ((strpos("$file",  "$search[0]") !== false) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-  
-	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal'>";
-}
-
-    }
-}
-else if ($countsearchterms == 2) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-	
-
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false)) && (($fileextension == "jpg") 
-|| ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp"))) {
-	$array[] += "$file";
-	 echo "<img style='width: 200px;' src='/images/$fileoriginal'>". "<br><br><hr>";
-}
- 
-	
-    }
-    
-
-}
-
-else if ($countsearchterms == 3) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-	
-
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)) 
-&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	 echo "<img style='width: 200px;' src='/images/$fileoriginal'>". "<br><br><hr>";
-}
- 
-	
-    }
-    
-
-}
-
-else if ($countsearchterms == 4) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-	
-
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false))
-&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
-}
- 
-	
-    }
-    
-
-}
-
-else if ($countsearchterms == 5) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-	
-
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
-&& (strpos("$file",  "$search[4]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
-}
-}  
-}
-else if ($countsearchterms == 6) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-	
-
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
-&& (strpos("$file",  "$search[4]") !== false) && (strpos("$file",  "$search[5]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") 
-|| ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
-}
-}  
-}
-else if ($countsearchterms == 7) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
-&& (strpos("$file",  "$search[4]") !== false) && (strpos("$file",  "$search[5]") !== false) && (strpos("$file",  "$search[6]") !== false))
-&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
-}
-}  
-}
-closedir($open);
-    }
-
-  }//while loop
-
-$arraycount= count($array);
-
-if ($arraycount == 0)
-{
-echo "No results for this search entered";
-}
-}
-}
-?>
 </html>
