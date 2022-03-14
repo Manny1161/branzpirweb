@@ -1,81 +1,6 @@
-<style>
-  .message{position:relative; left:360px; color:red}
-</style>
-
 <?php
-error_reporting(0);
-
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["image"]["name"]);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
-if(isset($_POST["upload"])) {
-  $check = getimagesize($_FILES["image"]["tmp_name"]);
-  if($check !== false) {
-    echo "File is an image - " . $check["mime"] . ".";
-    $uploadOk = 1;
-  } else {
-    echo '<p class="message">File is not an image</p>';
-    $uploadOk = 0;
-  }
-  // Check if file already exists
-  if (file_exists($target_file)) {
-    echo '<p class="message">Sorry, file already exists</p>';
-    $uploadOk = 0;
-  }
-  // Check file size
-  if ($_FILES["image"]["size"] > 500000) {
-    echo '<p class="message">Sorry, your file is too large</p>';
-    $uploadOk = 0;
-  }
-  // Allow certain file formats
-  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-    echo '<p class="message">Sorry, only JPG, JPEG & PNG files are allowed.</p>';
-    $uploadOk = 0;
-  }
-  // Check if $uploadOk is set to 0 by an error
-  if ($uploadOk == 0) {
-    echo '<p class="message">Sorry, your file was not uploaded</p>';
-  // if everything is ok, try to upload file
-  } else {
-    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-      echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
-    } else {
-      echo '<p class="message">Sorry, there was an error uploading your file.';
-    }
-  }
-}
-
-?>
-
-<?php
-
 require_once 'utils.php';
-$msg = '';
-if(isset($_POST['upload']))
-{
-  $fname = $_FILES['image']['name'];
-  $tempname = $_FILES['image']['tmp_name'];
-  $folder = 'uploads/'.($fname);
-  if($C = connect())
-  {
-    move_uploaded_file($tempname, $folder);
-    $res = sqlInsert($C, "INSERT INTO images (filename) VALUES ('$fname')");
-    move_uploaded_file($tempname, 'uploads/'.$filename);
-    mysqli_query($C, $res);
-    $id = 8;
-    $res1 = sqlSelect($C, "SELECT username FROM professionals WHERE id=?", $id);
-    if($res1 && $res1->num_rows == 1)
-    {
-      $user = $res1->fetch_assoc();
-    }
-  }
-  else
-  {
-    echo 'fail';
-  }
-}
+error_reporting(0);
 
 $search=$_POST['search'];
 $searchoriginal=$search;
@@ -85,8 +10,6 @@ $search=explode(' ', $search);
 $countsearchterms=count($search);
 $submitbutton=$_POST['submit'];
 
-//$res = sqlSelect($C, 'SELECT professionals.id,professionals.password,COUNT(loginattempts.id) FROM professionals LEFT JOIN loginattempts ON professionals.id = user AND timestamp>? WHERE email=? GROUP BY professionals.id', 'is', $hourAgo, $email);
-//$professionals = $res->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -101,8 +24,7 @@ $submitbutton=$_POST['submit'];
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> 
 </head>
 <style>
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
@@ -128,7 +50,6 @@ $submitbutton=$_POST['submit'];
     .fileinpt{float:right; margin-top:-30px;}
     .nfile{float:right; margin-top:-25px; border-radius:20px; border:none; color:black; background-color:white; cursor:pointer}
     .fileUpld{width:4%;float:right; margin-top:-25px; cursor:pointer}
-    
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -161,13 +82,7 @@ $submitbutton=$_POST['submit'];
         <form action='' method='POST'>
         <input class='smallSearch' type="text" name="search" placeholder="Search"/>
         <input type="submit" name="submit" value="Search"/></form>
-        <?php if (($_SESSION['loggedin'] == true) && isset($_SESSION['profID'])) : ?>
-        <!--form method='POST' action='showcase.php' enctype='multipart/form-data'>
-        <input class='fileinpt' type='text' name='fileinpt' value=''/>
-        <input class ='button' type='file' name='image' value='' accept='image/*'/>
-        <input class='uploadbtn' type='submit' name='upload' value='Upload'/>
-        <input class='fileinpt' type='text' name='fileinpt' value=''/>
-        </form-->
+        <?php if (($_SESSION['loggedin'] == true) && isset($_SESSION['profID']) /*&&if($_SESSION['verified'] == 1)*/) : ?>
         <form method='POST' action=''><input class='nfile' type='button' value='Upload'></form>
         <img class='fileUpld' src='568717.png' onclick="location.href='uploadSpaces.php';">
         <?php endif ?>
@@ -178,7 +93,6 @@ $submitbutton=$_POST['submit'];
  
 <?php
 $directory = "uploads/";
-
 
 if ($submitbutton){
 if (!empty($searchoriginal)) 
@@ -194,15 +108,11 @@ if ($countsearchterms == 1)
 	$position= strpos("$file", ".");
 	$fileextension= substr($file, $position + 1);
 	$fileextension= strtolower($fileextension);
-	
-	
       if ((strpos("$file",  "$search[0]") !== false) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
-  
 	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal'>";
 }
-
     }
 }
 else if ($countsearchterms == 2) {
@@ -212,20 +122,13 @@ while (($file = readdir($open)) !== false){
 	$position= strpos("$file", ".");
 	$fileextension= substr($file, $position + 1);
 	$fileextension= strtolower($fileextension);
-	
-
       if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false)) && (($fileextension == "jpg") 
 || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp"))) {
 	$array[] += "$file";
 	 echo "<img style='width: 200px;' src='/images/$fileoriginal'>". "<br><br><hr>";
 }
- 
-	
     }
-    
-
 }
-
 else if ($countsearchterms == 3) {
 while (($file = readdir($open)) !== false){
 	$fileoriginal= $file;
@@ -233,21 +136,14 @@ while (($file = readdir($open)) !== false){
 	$position= strpos("$file", ".");
 	$fileextension= substr($file, $position + 1);
 	$fileextension= strtolower($fileextension);
-	
-
       if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)) 
 && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
 	 echo "<img style='width: 200px;' src='/images/$fileoriginal'>". "<br><br><hr>";
 }
- 
-	
     }
-    
-
 }
-
 else if ($countsearchterms == 4) {
 while (($file = readdir($open)) !== false){
 	$fileoriginal= $file;
@@ -255,21 +151,14 @@ while (($file = readdir($open)) !== false){
 	$position= strpos("$file", ".");
 	$fileextension= substr($file, $position + 1);
 	$fileextension= strtolower($fileextension);
-	
-
       if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false))
 && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
 	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
 }
- 
-	
     }
-    
-
 }
-
 else if ($countsearchterms == 5) {
 while (($file = readdir($open)) !== false){
 	$fileoriginal= $file;
@@ -277,8 +166,6 @@ while (($file = readdir($open)) !== false){
 	$position= strpos("$file", ".");
 	$fileextension= substr($file, $position + 1);
 	$fileextension= strtolower($fileextension);
-	
-
       if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
 && (strpos("$file",  "$search[4]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
@@ -294,8 +181,6 @@ while (($file = readdir($open)) !== false){
 	$position= strpos("$file", ".");
 	$fileextension= substr($file, $position + 1);
 	$fileextension= strtolower($fileextension);
-	
-
       if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
 && (strpos("$file",  "$search[4]") !== false) && (strpos("$file",  "$search[5]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") 
 || ($fileextension == "png") || ($fileextension == "bmp")))
@@ -336,10 +221,9 @@ echo "No results for this search entered";
 }
 }
 ?>
-
     <div class="w3-row-padding">
         <div class="w3-half">
-            <img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks<br><?php echo $_SESSION['profName'] ?>">
+            <img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" title="A Frame Sign" alt="Concrete meets bricks<br><?php echo $_SESSION['profName'] ?>">
             <span><p><?php echo $_SESSION['profName']?><br>some other text</p></span>
             <img src="uploads/bar-lightbox-signage-letters-retail-restaurant.jpg" style="width:100%" onclick="onClick(this)" alt="Kitchen">
             <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%"  onclick="onClick(this)" alt="0">
@@ -347,7 +231,6 @@ echo "No results for this search entered";
             <img src="uploads/overhead-signage-aluminium-letter-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
             <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
             <img src="uploads/small-signage-pvc-sheet-directions.jpeg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
-            
         </div>
         <div class="w3-half">
             <img src="uploads/unique-wood-glass-standoff-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
@@ -361,7 +244,6 @@ echo "No results for this search entered";
             <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
           </div>
     </div>
-
     <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
         <span class="w3-button w3-black w3-xxlarge w3-display-topright">x</span>
         <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
@@ -369,7 +251,6 @@ echo "No results for this search entered";
             <p id="caption"></p>    
         </div>
     </div>
-
 <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
 <p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech<?php echo $user['username'] ?></a></p>
 </div>
