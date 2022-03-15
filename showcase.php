@@ -93,6 +93,8 @@ $submitbutton=$_POST['submit'];
  
 <?php
 $directory = "uploads/";
+$C = connect();
+
 
 if ($submitbutton){
 if (!empty($searchoriginal)) 
@@ -111,7 +113,11 @@ if ($countsearchterms == 1)
       if ((strpos("$file",  "$search[0]") !== false) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
-	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal'>";
+    $res = sqlSelect($C, 'SELECT description FROM images WHERE filename=?', 's', $fileoriginal);
+    $alt = $res->fetch_assoc();
+    $_SESSION['alt'] = $alt['description'];
+    $imgtxt = $_SESSION['alt'];
+	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
 }
     }
 }
