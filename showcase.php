@@ -17,7 +17,7 @@ $submitbutton=$_POST['submit'];
 <head>
     <title>branzpir</title>
     <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
@@ -70,7 +70,6 @@ $submitbutton=$_POST['submit'];
 <!--- TOP MENU ON SMALL SCREENS -->
 <header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
     <a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
-    <span><a href='index.php' style='text-decoration:white'>branzpir</a></span>
 </header>
 
 <!--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS -->
@@ -229,17 +228,17 @@ echo "No results for this search entered";
 ?>
     <div class="w3-row-padding">
         <div class="w3-half">
-            <img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" title="A Frame Sign" alt="Concrete meets bricks<br><?php echo $_SESSION['profName'] ?>">
-            <span><p><?php echo $_SESSION['profName']?><br>some other text</p></span>
+            <!--img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" title="A Frame Sign" alt="Concrete meets bricks<br><?php echo $_SESSION['profName'] ?>">
+            <span><p><-?php echo $_SESSION['profName']?><br>some other text</p></span>
             <img src="uploads/bar-lightbox-signage-letters-retail-restaurant.jpg" style="width:100%" onclick="onClick(this)" alt="Kitchen">
             <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%"  onclick="onClick(this)" alt="0">
             <img src="uploads/Outdoor-Signage-Foundation-Academy-Orlando-Fl.jpg" style="width:100%" onclick="onClick(this)" alt="2">
             <img src="uploads/overhead-signage-aluminium-letter-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
             <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
-            <img src="uploads/small-signage-pvc-sheet-directions.jpeg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
+            <img src="uploads/small-signage-pvc-sheet-directions.jpeg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign"-->
         </div>
         <div class="w3-half">
-            <img src="uploads/unique-wood-glass-standoff-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
+            <!--img src="uploads/unique-wood-glass-standoff-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
             <img src="uploads/LED-Backlit-Signs-4.jpg" style="width:100%" onclick="onClick(this)" alt="Twin Peaks">
             <img src="uploads/visirite-function-sign-outdoor-aluminium.jpg" style="width:100%" onclick="onClick(this)" alt="1">
             <img src="uploads/car-sign-design-graphic.jpg" style="width:100%" onclick="onClick(this)" alt="3">
@@ -247,7 +246,7 @@ echo "No results for this search entered";
             <img src="uploads/ecoflex-base-aluminium-sheet-outdoor-function.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design">
             <img src ="uploads/3d-restaurant-signage-1.jpg" style="width:100%" onclick="onClick(this)" alt="Letter mount sign">
             <img src="uploads/outdoor-sign-wire-stake-estate-directions.jpg" style="width:100%" onclick="onClick(this)" alt="aluminium sheet sign"> 
-            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
+            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"--> 
           </div>
     </div>
     <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
@@ -258,7 +257,7 @@ echo "No results for this search entered";
         </div>
     </div>
 <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
-<p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech<?php echo $user['username'] ?></a></p>
+<p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></p>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src='index.js'></script>
