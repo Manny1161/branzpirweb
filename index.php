@@ -8,7 +8,7 @@
 <head>
     <title>branzpir</title>
     <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
@@ -41,7 +41,7 @@
     .brandReg{float:right; margin-top:-5px; border-radius:20px; border:none; color:black; background-color:white;}
     .searchBar{width:300px; margin-top:-20px; color:#bfbfbf; background-color:white; text-align:left; border-radius:15px;}
     .nextRound{background-color:red; color:white; border-radius:50%; margin-left:-42px; font-size:10px; padding: 8px 16px;}
-    .lft{margin-left:80px; padding-top:-50px;}
+    .lft{margin-left:80px; padding-top:-50px; font-size:13px; text-align:left;}
     .nlog{width:3%;float:right; margin-top:-5px; cursor:pointer;}
     .nprof{width:3%;float:right;margin-top:-5px;;cursor:pointer;}
     .nbrand{width:3%; float:right; margin-top:-5px; cursor:pointer;}
@@ -255,7 +255,10 @@
 			<div class='brandropdown-content'>
 				<a href="login.php">Log In</a>
 				<a href="registration.php">Join as a brand</a>
-				<a href="logout.php">Logout</a>
+                <?php if(isset($_SESSION['brandID'])) : ?>
+                <a href="logout.php">Logout</a>
+                <?php endif ?>
+				
 			</div>
 		</div>
 
@@ -265,7 +268,9 @@
 			<div class='profdropdown-content'>
 				<a href="professionalsLogin.php">Log In</a>
 				<a href="professionalsRegistration.php">Join as a pro</a>
+                <?php if(isset($_SESSION['profID'])) : ?>
 				<a href="logout.php">Logout</a>
+                <?php endif ?>
 			</div>
 		</div>
         
@@ -276,7 +281,9 @@
 			<div class='dropdown-content'>
 				<a href="login.php">Log In</a>
 				<a href="registration.php">Register</a>
-				<a href="logout.php">Logout</a>
+				<?php if(isset($_SESSION['userID'])) : ?>
+                <a href="logout.php">Logout</a>
+                <?php endif ?>
 			</div>
 		</div>
         
@@ -345,7 +352,7 @@
         <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
     </div>
 
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-70px;">
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:100%; margin-left:0px;">
 <p class="lft">&copy; Copyright 2022 Branzpir<span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></span></p>
 </div>
 <script src='index.js'></script>
