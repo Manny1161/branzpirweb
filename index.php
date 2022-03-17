@@ -19,7 +19,8 @@
     
 </head>
 <style>
-    body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
+    body,h1,h2,h3,h4 {font-family: "Poppins", san-serif}
+    h5 {text-align:center; font-family: "Poppins", san-serif}
     body {font-size:16px;}
     .w3-half img{margin-bottom:-6px;margin-top:16px;opactiy:0.8;cursor:pointer}
     .w3-half img:hover{opacity:0.8}
@@ -45,6 +46,7 @@
     .nlog{width:3%;float:right; margin-top:-5px; cursor:pointer;}
     .nprof{width:3%;float:right;margin-top:-5px;;cursor:pointer;}
     .nbrand{width:3%; float:right; margin-top:-5px; cursor:pointer;}
+    .mainImg{width:100%; padding-top:15px}
 
     /* Dropdown Button */
 	.dropbtn {
@@ -288,7 +290,7 @@
 		</div>
         
         <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
-        <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
+        <!--hr style="width:50px;border:5px solid #a6001a" class="w3-round"-->
         <input class='searchBar' type="button" name="search" value="SEARCH FOR INSPIRATION..." onclick="window.location.href='showcase.php';"/>
         <!--a href="showcase.php" class='nextRound'><b>&#8250;</b></a-->
     </div>
@@ -300,7 +302,8 @@
     <?php endif ?>
 
     <div class="w3-row-padding">
-        <div class="w3-half">
+        <img src="uploads/home.png" class="mainImg">
+        <!--div class="w3-half">
             <img src="uploads/visirite-function-sign-outdoor-aluminium.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
             <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
             <img src="uploads/car-sign-design-graphic.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> 
@@ -309,7 +312,7 @@
             <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
             <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
             <img src="uploads/LED-Backlit-Signs-4.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design"> 
-        </div>
+        </div-->
     </div>
 
     <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
@@ -321,39 +324,37 @@
     </div>
 
     <div class="w3-container" id="services" style="margin-top:75px">
-        <h1 class="w3-xxxlarge"><b>Services</b></h1>
+        <h1 class="w3-xxxlarge"><b>Welcome To Branzpir</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
         <p>Branzpir is your connection to brand enpowerment.</p>
         <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
         <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
     </div>
 
-    <div class="w3-container" id="professionals" style="margin-top:75px">
-        <h1 class="w3-xxxlarge"><b>Professionals</b></h1>
-        <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        <p>Branzpir is your connection to brand enpowerment.</p>
-        <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
-        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
-    </div>
 
-    <div class="w3-container" id="contact" style="margin-top:75px">
-        <h1 class="w3-xxxlarge"><b>Contact</b></h1>
+    <div class="w3-row" style="margin-top:75px">
+        <h1 class="w3-xxxlarge"><b>Browse For Inspiration</b></h1>
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        <p>Branzpir is your connection to brand enpowerment.</p>
-        <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
-        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
+            <div class="w3-container w3-quarter">
+                <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%">
+                <h2><b>Indoors</b></h2>
+            </div>
+            <div class="w3-container w3-quarter">
+                <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%">
+                <h2><b>Building</b></h2>
+            </div>
+            <div class="w3-container w3-quarter">
+                <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%">
+                <h2><b>Outdoors</b></h2>
+            </div>
+            <div class="w3-container w3-quarter">
+                <img src="uploads/digital-sign-design.jpg" style="width:100%">
+                <h2><b>Digital</b></h2>
+            </div>
     </div>
-
-    <div class="w3-container" id="youandbranzpir" style="margin-top:75px">
-        <h1 class="w3-xxxlarge"><b>You and Branzpir</b></h1>
-        <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
-        <p>Branzpir is your connection to brand enpowerment.</p>
-        <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
-        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
-    </div>
-
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:100%; margin-left:0px;">
-<p class="lft">&copy; Copyright 2022 Branzpir<span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></span></p>
+<div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:18px; width:100%; margin-left:0px;">
+<span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></span></p>
+</div>
 </div>
 <script src='index.js'></script>
 </body>
