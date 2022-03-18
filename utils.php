@@ -45,36 +45,75 @@
 		return -1;
 	}
 
-	function createToken()
+	function sqlUpdate($C, $query, $format = false, ...$vars)
 	{
-		
+		$stmt = $C->prepare($query);
+		if($format) {
+			$stmt->bind_param($format, ...$vars);
+		}
+		if($stmt->execute()) {
+			$stmt->close();
+			return true;
+		}
+		$stmt->close();
+		return false;
+	}
+
+	function createToken() {
 		$seed = urlSafeEncode(random_bytes(8));
 		$t = time();
 		$hash = urlSafeEncode(hash_hmac('sha256', session_id() . $seed . $t, CSRF_TOKEN_SECRET, true));
 		return urlSafeEncode($hash . '|' . $seed . '|' . $t);
 	}
 
-	function validateToken($token)
-	{
+	function validateToken($token) {
 		$parts = explode('|', urlSafeDecode($token));
-		if(count($parts) === 3)
-		{
+		if(count($parts) === 3) {
 			$hash = hash_hmac('sha256', session_id() . $parts[1] . $parts[2], CSRF_TOKEN_SECRET, true);
-			if(hash_equals($hash, urlSafeDecode($parts[0])))
-			{
+			if(hash_equals($hash, urlSafeDecode($parts[0]))) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	function urlSafeEncode($m)
-	{
+	function urlSafeEncode($m) {
 		return rtrim(strtr(base64_encode($m), '+/', '-_'), '=');
 	}
-
-	function urlSafeDecode($m)
-	{
+	function urlSafeDecode($m) {
 		return base64_decode(strtr($m, '-_', '+/'));
 	}
+
+	function validatePhone($string)
+	{
+		$numbersOnly = preg_replace("[^0-9]", "", $string);
+		$numberOfDigits = strlen($numbersOnly);
+		if(preg_match('#[0-9]{10}#', $string))
+		{
+			return true;
+		}
+		else if($numberOfDigits == 7 || $numberOfDigits == 10)
+		{
+			echo $numbersOnly;
+			return false;
+		}
+		else
+		{
+			echo "Invalid Number";
+			return false;
+		}
+	}
+
+	function validatePostCode($string)
+	{
+		if(preg_match('#[0-9]{4}#', $string))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 ?>
