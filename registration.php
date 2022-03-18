@@ -31,7 +31,7 @@
 	{
 		if(isset($_POST['csrf_token']))
 		{
-			if($_POST['csrf_token'] == $_SESSION['csrf_token'])
+			if($_POST['csrf_token'] != $_SESSION['csrf_token'])
 			{
 				$errors[] = "9";
 			}
