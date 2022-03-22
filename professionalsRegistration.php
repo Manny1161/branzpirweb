@@ -63,12 +63,12 @@
 		$C = connect();
 		if($C) {
 			//CHECK IF USER ALREADY EXISTS
-			$res = sqlSelect($C, 'SELECT id FROM _professionals WHERE email=?', 's', $_POST['email']);
+			$res = sqlSelect($C, 'SELECT id FROM professionals WHERE email=?', 's', $_POST['email']);
 			if($res && $res->num_rows === 0) {
 				//CREATE THE ACCOUNT
 				$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				//$id = sqlInsert($C, 'INSERT INTO professionals VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['username'], $_POST['email'], $hash);
-				$id = sqlInsert($C, 'INSERT INTO _professionals VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 'ssssssssss', $_POST['username'], $_POST['category'], $_POST['number'], $hash, $_POST['email'], $_POST['addy1'], $_POST['addy2'], $_POST['post-code'], $_POST['state'], $_POST['business-desc']);
+				$id = sqlInsert($C, 'INSERT INTO professionals VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 'ssssssssss', $_POST['username'], $_POST['category'], $_POST['number'], $hash, $_POST['email'], $_POST['addy1'], $_POST['addy2'], $_POST['post-code'], $_POST['state'], $_POST['business-desc']);
 				if($id !== -1) {
 					$errors[] = 0;
 					header('location:professionalsLogin.php');
