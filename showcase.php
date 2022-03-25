@@ -1,3 +1,7 @@
+<style>
+  .message{color:red}
+</style>
+
 <?php
 require_once 'utils.php';
 error_reporting(0);
@@ -9,6 +13,7 @@ $search=trim($search);
 $search=explode(' ', $search);
 $countsearchterms=count($search);
 $submitbutton=$_POST['submit'];
+$C = connect();
 
 ?>
 
@@ -78,6 +83,7 @@ $submitbutton=$_POST['submit'];
 <!--- PAGE CONTENT -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
     <div class="w3-container" style="margin-top:80px" id="showcase">
+        <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer;' onclick="window.location.href='index.php';">
         <form action='' method='POST'>
         <input class='smallSearch' type="text" name="search" placeholder="Search"/>
         <input type="submit" name="submit" value="Search"/></form>
@@ -85,9 +91,8 @@ $submitbutton=$_POST['submit'];
         <form method='POST' action=''><input class='nfile' type='button' value='Upload'></form>
         <img class='fileUpld' src='568717.png' onclick="location.href='uploadSpaces.php';">
         <?php endif ?>
-        <h1 class="w3-jumbo"><b>Be Visually Inspired</b></h1>
-        <h1 class="w3-xxxlarge"><b>Showcase.</b></h1>
-        <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
+        
+        <!--hr style="width:50px;border:5px solid #a6001a" class="w3-round"-->
     </div>
  
 <?php
@@ -221,24 +226,42 @@ $arraycount= count($array);
 
 if ($arraycount == 0)
 {
-echo "No results for this search entered";
+echo "<p class='message'>No results for this search entered</p>";
 }
 }
 }
 ?>
     <div class="w3-row-padding">
-        <div class="w3-half">
-            <!--img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" title="A Frame Sign" alt="Concrete meets bricks<br><?php echo $_SESSION['profName'] ?>">
+        <img src="uploads/home.png" style="width:100%">
+        <?php
+        if($res=sqlSelect($C, 'SELECT filename from images'))
+        {
+            if($count=$res->num_rows)
+            {
+                while($row=$res->fetch_object())
+                {
+        ?>      
+                    <div class="w3-half">
+                        <?php echo "<img src='uploads/$row->filename' style=width:100% onclick='onClick(this)'>" ?>
+                    </div>
+        <?php
+                }
+            $res->free();
+            }
+        }
+        ?>
+        <!--div class="w3-half">
+            <img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" title="A Frame Sign" alt="Concrete meets bricks<br><-?php echo $_SESSION['profName'] ?>">
             <span><p><-?php echo $_SESSION['profName']?><br>some other text</p></span>
             <img src="uploads/bar-lightbox-signage-letters-retail-restaurant.jpg" style="width:100%" onclick="onClick(this)" alt="Kitchen">
             <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%"  onclick="onClick(this)" alt="0">
             <img src="uploads/Outdoor-Signage-Foundation-Academy-Orlando-Fl.jpg" style="width:100%" onclick="onClick(this)" alt="2">
             <img src="uploads/overhead-signage-aluminium-letter-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
             <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
-            <img src="uploads/small-signage-pvc-sheet-directions.jpeg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign"-->
+            <img src="uploads/small-signage-pvc-sheet-directions.jpeg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
         </div>
         <div class="w3-half">
-            <!--img src="uploads/unique-wood-glass-standoff-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
+            <--img src="uploads/unique-wood-glass-standoff-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
             <img src="uploads/LED-Backlit-Signs-4.jpg" style="width:100%" onclick="onClick(this)" alt="Twin Peaks">
             <img src="uploads/visirite-function-sign-outdoor-aluminium.jpg" style="width:100%" onclick="onClick(this)" alt="1">
             <img src="uploads/car-sign-design-graphic.jpg" style="width:100%" onclick="onClick(this)" alt="3">
@@ -246,8 +269,8 @@ echo "No results for this search entered";
             <img src="uploads/ecoflex-base-aluminium-sheet-outdoor-function.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design">
             <img src ="uploads/3d-restaurant-signage-1.jpg" style="width:100%" onclick="onClick(this)" alt="Letter mount sign">
             <img src="uploads/outdoor-sign-wire-stake-estate-directions.jpg" style="width:100%" onclick="onClick(this)" alt="aluminium sheet sign"> 
-            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"--> 
-          </div>
+            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
+          </div-->
     </div>
     <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
         <span class="w3-button w3-black w3-xxlarge w3-display-topright">x</span>
@@ -256,9 +279,9 @@ echo "No results for this search entered";
             <p id="caption"></p>    
         </div>
     </div>
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px; width:110%; margin-left:-90px;">
-<p class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></p>
-</div>
+    <div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:18px; width:100%; margin-left:0px;">
+        <span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" class="foot-link" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></span>
+    </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src='index.js'></script>
 <script>
