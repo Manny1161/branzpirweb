@@ -1,17 +1,27 @@
 <?php
     require_once 'utils.php';
+    error_reporting(0);
     $C = connect();
     $name = 'branzpir';
     $name1 = 'Digital Impressions';
     $name2 = 'MK Designs';
+    /*$selected_category = $_GET['category'];
+    $_SESSION['cat'] = $_GET['category'];*/
     // FIX THIS
-    $desc = sqlSelect($C, 'SELECT description FROM professionals WHERE username=?','s', $name);
+    $desc = sqlSelect($C, 'SELECT description, number, address1, address2, postcode, state FROM professionals WHERE username=?','s', $name);
     $desc1 = sqlSelect($C, 'SELECT description FROM professionals WHERE username=?','s', $name1);
     $desc2 = sqlSelect($C, 'SELECT description FROM professionals WHERE username=?','s', $name2);
     if($desc->num_rows==1 || $desc1->num_rows==1 || $desc2->num_rows==1) 
     {
         $q = $desc->fetch_assoc();
         $_SESSION['profDesc'] = $q['description'];
+        $_SESSION['profNum'] = $q['number'];
+        $_SESSION['profAddy1'] = $q['address1'];
+        $_SESSION['profAddy2'] = $q['address2'];
+        $_SESSION['profPost'] = $q['postcode'];
+        $_SESSION['profState'] = $q['state'];
+
+        
 
         $q1 = $desc1->fetch_assoc();
         $_SESSION['profDesc1'] = $q1['description'];
@@ -131,6 +141,18 @@
     .br-img-txt {display:inline-block;vertical-align:top}
     .br-img-desc{display:inline;vertical-align:top}
     .box{display:flex; align-items:flex-start}
+    .search{width:400px; height:40px}
+    .sub{height:40px}
+    .main-container{
+        float: left;
+        position:relative;
+        left: 50%;
+    }
+    .fixer-container{
+        float:left;
+        position: relative;
+        left: -50%
+    }
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -158,20 +180,56 @@
 
 <!---main-content--->
 <h2 style="text-align:center; margin-top:70px">Find the right pro for your project</h2>
+<div class="main-container">
+    <div class="fixer-container">
+        <input class="search" type="text" name="search" placeholder="What service do you need?"/>
+        <input class="sub" type="submit" name="submit" value="Search"/>
+    </div>
+</div>
+<div class="w3-main" style="margin-left:340px;margin-right:40px;margin-top:80px">
 
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
-    <div class="box">
+    <!--div class="box">
         <img class="br-img" src="uploads/large-lightbox-signage-commercial.jpeg">
-        <span><b>branzpir</b><br><q><?php echo $_SESSION['profDesc']?></q></span>
+        <span><b><a href='profProfile.php?category=branzpir'>branzpir</a></b><br><q><-?php echo $_SESSION['profDesc']?></q><br>
+        <-?php echo $_SESSION['profNum']?><br><-?php echo $_SESSION['profAddy1']?>
+        <-?php echo $_SESSION['profAddy2']?>&nbsp;<-?php echo $_SESSION['profState']?>
+        <-?php echo $_SESSION['profPost']?></span>
     </div>
     <div class="box">
     <img class="br-img" src="uploads/visirite-function-sign-outdoor-aluminium.jpg">
-        <span><b>Digital Impressions</b><br><q><?php echo $_SESSION['profDesc1']?></q></span>
+        <span><b><a href='profProfile.php?category=Digital Impressions'>Digital Impressions</a></b><br><q><-?php echo $_SESSION['profDesc1']?></q></span>
     </div>
     <div class="box">
     <img class="br-img" src="uploads/digital-sign-design.jpg">
-        <span><b>MK Designs</b><br><q><?php echo $_SESSION['profDesc2']?></q></span>
-    </div>
+        <span><b><a href='profProfile.php?category=MK Designs'>MK Designs</a></b><br><q><-?php echo $_SESSION['profDesc2']?></q></span>
+    </div-->
+    <?php
+        if($pro=sqlSelect($C, 'SELECT username, description, number, address1, address2, postcode, state FROM professionals'))
+        {
+            //FIX THIS SO IT SELECTS IMAGES FROM IMAGES TABLE WITH THE SAME USERNAME AS PROFESSIONALS TABLE
+            if($img=sqlSelect($C, 'SELECT filename FROM images'))
+            {
+                if($count=$pro->num_rows)
+                {
+                    if($count=$img->num_rows)
+                    {
+                        while(($prow=$pro->fetch_object()) && ($irow=$img->fetch_object()))
+                        {
+                            
+    ?>
+                            <div class="box">
+                                <?php echo "<img class='br-img' src='uploads/$irow->filename'>"?>
+                                <?php echo "<span><b><a href='profProfile.php?category=$prow->username'>$prow->username</a></b><br><q>$prow->description</q><br>"?>
+                            </div>                            
+    <?php
+                        }
+                    }
+                    $pro->free();
+                    $img->free();
+                }
+            }
+        }
+    ?>
     <div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:18px; width:100%; margin-left:0px;">
         <span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" class="foot-link" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></span>
     </div>
@@ -180,4 +238,3 @@
 </body>
 
 </html>
-
