@@ -207,6 +207,7 @@
         if($pro=sqlSelect($C, 'SELECT username, description, number, address1, address2, postcode, state FROM professionals'))
         {
             //FIX THIS SO IT SELECTS IMAGES FROM IMAGES TABLE WITH THE SAME USERNAME AS PROFESSIONALS TABLE
+	    // select i.filename p.username from images i inner join professionals p on/where i.username=p.username
             if($img=sqlSelect($C, 'SELECT filename FROM images'))
             {
                 if($count=$pro->num_rows)
