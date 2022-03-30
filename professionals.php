@@ -90,7 +90,6 @@
 	$_SESSION['csrf_token'] = $token;
 	$_SESSION['csrf_token_time'] = time();
     
-
 ?>
 <html lang="en">
 <head>
@@ -125,8 +124,8 @@
         position: relative;
         left: -50%;
     }
-
 </style>
+
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
@@ -153,10 +152,7 @@
 
 <!---main-content--->
 <h2 style="text-align:center; margin-top:70px ">Find the right pro for your project</h2>
-<!--form action='' method='POST'>
-    <input class="search" type="text" name="search" placeholder="What service do you need?"/>
-    <input class="sub" type="submit" name="submit" value="Search"/>
-</form-->
+
 <div class="main-container">
     <div class="fixer-container">
         <form action='' method='POST'>
@@ -165,12 +161,13 @@
         </form>
     </div>
 </div>
-        <?php if(isset($_POST['submit']))
+        <?php
+        if(isset($_POST['submit']))
         {
             $search = $_POST['search'];
-            if($pro1=sqlSelect($C, "SELECT p.username, p.description, p.number, p.address1, p.address2, p.postcode, p.state FROM professionals p INNER JOIN images i ON p.username=i.username WHERE p.username LIKE '%$search%' AND i.username LIKE '%$search%'"));
+            if($pro1=sqlSelect($C, "SELECT p.username, p.category, p.description, p.number, p.address1, p.address2, p.postcode, p.state FROM professionals p INNER JOIN images i ON p.username=i.username WHERE p.category LIKE '%$search%' OR p.username LIKE '%$search%' AND i.username LIKE '%$search%'"));
             {
-                if($img1=sqlSelect($C, "SELECT filename FROM images WHERE username LIKE '$search'"))
+                if($img1=sqlSelect($C, "SELECT i.filename FROM images i INNER JOIN professionals p WHERE i.username LIKE '%$search%' AND p.username LIKE '%$search%' OR p.category LIKE '%$search%'"))
                 {
                     if($count1=$pro1->num_rows)
                     {
@@ -232,4 +229,3 @@
 </body>
 
 </html>
-
