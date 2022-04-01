@@ -135,7 +135,6 @@
     <div class="w3-bar-block">
         <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href="services.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
         <a href="professionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
         <a href="contact.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
         <a href="youandbranzpir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
@@ -167,7 +166,7 @@
             $search = $_POST['search'];
             if($pro1=sqlSelect($C, "SELECT p.username, p.category, p.description, p.number, p.address1, p.address2, p.postcode, p.state FROM professionals p INNER JOIN images i ON p.username=i.username WHERE p.category LIKE '%$search%' OR p.username LIKE '%$search%' AND i.username LIKE '%$search%'"));
             {
-                if($img1=sqlSelect($C, "SELECT i.filename FROM images i INNER JOIN professionals p WHERE i.username LIKE '%$search%' AND p.username LIKE '%$search%' OR p.category LIKE '%$search%'"))
+                if($img1=sqlSelect($C, "SELECT i.filename FROM images i INNER JOIN professionals p WHERE i.username=p.username AND p.category LIKE '%$search%' OR i.username LIKE '%$search%'"))
                 {
                     if($count1=$pro1->num_rows)
                     {
