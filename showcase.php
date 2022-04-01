@@ -38,23 +38,34 @@ $C = connect();
     .w3-half img:hover{opacity:0.8}
     h1,h2{color:#a6001a;}
     /*CHECK IF SCREEN IS LESS THAN 992 PIXELS FOR SMALL SCREENS*/ 
-    .smallSearch @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:30px;font: size 12px;
+    /*.smallSearch @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:30px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
-    input[type=text]:focus{width:50%}
+    input[type=text]:focus{width:50%}*/
 
-    /*CHECK IF SCREEN IS LESS THAN 601 PIXELS FOR LARGER SCREENS*/
+    /*CHECK IF SCREEN IS LESS THAN 601 PIXELS FOR LARGER SCREENS
     @media all and (max-width:601px){input[type=text]{width:250px;position:absolute;left:200px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:30px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
-    input[type=text]:focus{width:50%}
-
+    input[type=text]:focus{width:50%}*/
+    .search{width:300px; height:40px}
     .profUpld{float:right; margin-top:-50px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
     .uploadbtn{float:right; margin-top:-30px;}
     .button{float:right; margin-top:-30px;}
     .fileinpt{float:right; margin-top:-30px;}
     .nfile{float:right; margin-top:-25px; border-radius:20px; border:none; color:black; background-color:white; cursor:pointer}
     .fileUpld{width:4%;float:right; margin-top:-25px; cursor:pointer}
+    .submit{height:40px}
+    .main-container{
+        float: left;
+        position:relative;
+        left: 50%;
+    }
+    .fixer-container{
+        float:left;
+        position: relative;
+        left: -50%;
+    }
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -65,7 +76,6 @@ $C = connect();
     <div class="w3-bar-block">
         <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href="services.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
         <a href="professionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
         <a href="contact.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
         <a href="youandbranzpir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
@@ -81,18 +91,22 @@ $C = connect();
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!--- PAGE CONTENT -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
+<div class="w3-main" style="margin-left:340px;margin-right:40px;">
     <div class="w3-container" style="margin-top:80px" id="showcase">
-        <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer;' onclick="window.location.href='index.php';">
-        <form action='' method='POST'>
-        <input class='smallSearch' type="text" name="search" placeholder="Search"/>
-        <input type="submit" name="submit" value="Search"/></form>
+        <div class="main-container">
+            <div class="fixer-container" >
+                <form action='' method='POST'>
+                    <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer;' onclick="window.location.href='index.php';">
+
+                    <input class='search' type="text" name="search" placeholder="Search"/>
+                    <input class='submit' type="submit" name="submit" value="Search"/></form>
+            </div>
+        </div>
+
         <?php if (($_SESSION['loggedin'] == true) && isset($_SESSION['profID']) /*&&if($_SESSION['verified'] == 1)*/) : ?>
         <form method='POST' action=''><input class='nfile' type='button' value='Upload'></form>
         <img class='fileUpld' src='568717.png' onclick="location.href='uploadSpaces.php';">
         <?php endif ?>
-        
-        <!--hr style="width:50px;border:5px solid #a6001a" class="w3-round"-->
     </div>
  
 <?php
@@ -135,7 +149,7 @@ while (($file = readdir($open)) !== false){
       if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false)) && (($fileextension == "jpg") 
 || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp"))) {
 	$array[] += "$file";
-	 echo "<img style='width: 200px;' src='/images/$fileoriginal'>". "<br><br><hr>";
+	 echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
 }
     }
 }
@@ -150,7 +164,7 @@ while (($file = readdir($open)) !== false){
 && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
-	 echo "<img style='width: 200px;' src='/images/$fileoriginal'>". "<br><br><hr>";
+    echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
 }
     }
 }
@@ -165,7 +179,7 @@ while (($file = readdir($open)) !== false){
 && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
-	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
 }
     }
 }
@@ -180,7 +194,7 @@ while (($file = readdir($open)) !== false){
 && (strpos("$file",  "$search[4]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
-	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
 }
 }  
 }
@@ -196,7 +210,7 @@ while (($file = readdir($open)) !== false){
 || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
-	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
 }
 }  
 }
@@ -213,7 +227,7 @@ while (($file = readdir($open)) !== false){
 && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
 	{
 	$array[] += "$file";
-	echo "<img style='width: 200px;' src='/uploads/$fileoriginal'>". "<br><br><hr>";
+	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
 }
 }  
 }
@@ -232,9 +246,8 @@ echo "<p class='message'>No results for this search entered</p>";
 }
 ?>
     <div class="w3-row-padding">
-        <img src="uploads/home.png" style="width:100%">
         <?php
-        if($res=sqlSelect($C, 'SELECT filename from images'))
+        if($res=sqlSelect($C, 'SELECT filename, description, username from images'))
         {
             if($count=$res->num_rows)
             {
@@ -242,7 +255,8 @@ echo "<p class='message'>No results for this search entered</p>";
                 {
         ?>      
                     <div class="w3-half">
-                        <?php echo "<img src='uploads/$row->filename' style=width:100% onclick='onClick(this)'>" ?>
+                        <?php echo "<img src='uploads/$row->filename' style='width:100%; padding-bottom:5px' onclick='onClick(this)' alt='$row->username<br><q>$row->description</q>'>
+                        <span><b><a style='color:black'; href='profProfile.php?category=$row->username'>$row->username</a></b><br><q>$row->description</q>"?>
                     </div>
         <?php
                 }
@@ -250,27 +264,6 @@ echo "<p class='message'>No results for this search entered</p>";
             }
         }
         ?>
-        <!--div class="w3-half">
-            <img src="uploads/a-frame-signs-2.jpg" style="width:100%" onclick="onClick(this)" title="A Frame Sign" alt="Concrete meets bricks<br><-?php echo $_SESSION['profName'] ?>">
-            <span><p><-?php echo $_SESSION['profName']?><br>some other text</p></span>
-            <img src="uploads/bar-lightbox-signage-letters-retail-restaurant.jpg" style="width:100%" onclick="onClick(this)" alt="Kitchen">
-            <img src="uploads/large-lightbox-signage-commercial.jpeg" style="width:100%"  onclick="onClick(this)" alt="0">
-            <img src="uploads/Outdoor-Signage-Foundation-Academy-Orlando-Fl.jpg" style="width:100%" onclick="onClick(this)" alt="2">
-            <img src="uploads/overhead-signage-aluminium-letter-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandanavian design">
-            <img src="uploads/signage-lightbox-overhead.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
-            <img src="uploads/small-signage-pvc-sheet-directions.jpeg" style="width:100%" onclick="onClick(this)" alt="LED lightbox letter sign">
-        </div>
-        <div class="w3-half">
-            <--img src="uploads/unique-wood-glass-standoff-engraving.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
-            <img src="uploads/LED-Backlit-Signs-4.jpg" style="width:100%" onclick="onClick(this)" alt="Twin Peaks">
-            <img src="uploads/visirite-function-sign-outdoor-aluminium.jpg" style="width:100%" onclick="onClick(this)" alt="1">
-            <img src="uploads/car-sign-design-graphic.jpg" style="width:100%" onclick="onClick(this)" alt="3">
-            <img src="uploads/car-sign-design-graphic-design.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
-            <img src="uploads/ecoflex-base-aluminium-sheet-outdoor-function.jpg" style="width:100%" onclick="onClick(this)" alt="Scandanavian design">
-            <img src ="uploads/3d-restaurant-signage-1.jpg" style="width:100%" onclick="onClick(this)" alt="Letter mount sign">
-            <img src="uploads/outdoor-sign-wire-stake-estate-directions.jpg" style="width:100%" onclick="onClick(this)" alt="aluminium sheet sign"> 
-            <img src="uploads/Stud-Mount-Sign-standoffs.jpg" style="width:100%" onclick="onClick(this)" alt="Overhead graphic sign"> 
-          </div-->
     </div>
     <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
         <span class="w3-button w3-black w3-xxlarge w3-display-topright">x</span>
