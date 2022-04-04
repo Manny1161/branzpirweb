@@ -6,3 +6,4 @@ https://stackoverflow.com/questions/45724112/php-creating-a-custom-profile-page
 check session isset and sessionid == professional id, click 'edit profile' from dropdown menu on index page, display editable data from profProfile page with pencil icon
 beside data, open textbox upon clicking on that pencil, allow user to enter new data and click 'submit or save' button which does a sqlUpdate on the database, displaying
 the new content of the professional.
+https://stackoverflow.com/questions/21312839/how-to-create-a-edit-profile-page-for-users-on-frontend-with-custom-fields-on-wo
