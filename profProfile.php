@@ -84,6 +84,17 @@ if(is_dir($directory));
 
 <h2 style="text-align:center; margin-top:70px"><?php echo $_SESSION['cat'];?></h2>
 <h5 style="text-align:center; color:grey"><?php echo $_SESSION['profCat'];?></h5>
+****<?php if($_SESSION['loggedin'] && $_SESSION['profName'] == $_SESSION['cat']) : ?>
+    <button type="button" id="editBtn">Edit Profile</button>
+    <form action='' method='POST'>
+        <input type="text" name="textBox" id="textBox"/>
+        <input type="submit" name="subBtn" value="Save" id="subBtn"/>
+    </form>
+    <?php if(isset($_POST['subBtn'])){
+        sqlUpdate($C, "UPDATE professionals SET category=? WHERE username=?", 'ss', $_POST['textBox'], $_SESSION['cat']);   
+    }?>
+    <script src="index.js"></script>
+<?php endif?>****
 <div class="w3-main" style="margin-right:400px">
     <div class="w3-right">
         <div class="w3-container" style="margin-top:80px">
