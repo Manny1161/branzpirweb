@@ -1,94 +1,8 @@
 <?php
+    <?php
     require_once 'utils.php';
     //error_reporting(0);
     $C = connect();
-    if(isset($_POST) & !empty($_POST))
-    {
-		if(isset($_POST['csrf_token']))
-		{
-			if($_POST['csrf_token'] == $_SESSION['csrf_token'])
-			{
-				$errors[] = "CSRF Token Validation Success!";
-			}
-			else
-			{
-				$errors[] = "Problem with CSRF Token Validation!";
-			}
-		}
-		$max_time = 60*60*24;
-		if(isset($_SESSION['csrf_token_time']))
-		{
-			$token_time = $_SESSION['csrf_token_time'];
-			if($token_time + $max_time >= time())
-			{
-                if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password'])) {
-                    $email = $_POST['email'];
-                    $password = $_POST['password'];
-                    $hash = password_hash($password, PASSWORD_DEFAULT);
-                    $C = connect();
-                    if($C)
-                    {
-                        $hourAgo = time() - 60*60;
-                        $res = sqlSelect($C, 'SELECT professionals.id,professionals.password,COUNT(loginattempts.id) FROM professionals LEFT JOIN loginattempts ON professionals.id = user AND timestamp>? WHERE email=? GROUP BY professionals.id', 'is', $hourAgo, $email);
-                        if($res && $res->num_rows == 1)
-                        {
-                            $user = $res->fetch_assoc();
-                            //if($user['verified'])
-                            if($user['COUNT(loginattempts.id)'] <= MAX_LOGIN_ATTEMPTS_PER_HOUR)
-                            {
-                                if(password_verify($password, $user['password']))
-                                {
-                                    $_SESSION['loggedin'] = true;
-                                    $_SESSION['userID'] = $user['id'];
-                                    sqlUpdate($C, 'DELETE FROM loginattempts WHERE user = ?', 'i', $user['id']);
-                                    header('location:index.php');
-                                }
-                                else
-                                {
-                                    $id = sqlInsert($C, 'INSERT INTO loginattempts VALUES (NULL, ?, ?, ?)', 'isi', $user['id'], $_SERVER['REMOTE_ADDR'], time());
-                                    if($id != -1)
-                                    {
-                                        echo 1;
-                                    }
-                                    else
-                                    {
-                                        echo 2;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                echo 3;
-                            }
-                        }
-                        else
-                        {
-                            echo 4;
-                        }
-                        $res->free_result();
-                    }
-                    else
-                    {
-                        echo 1;
-                    }
-                    $C->close();
-                }
-                else
-                {
-                    echo 2;
-                }
-            }
-            else
-            {
-                    unset($_SESSION['csrf_token']);
-                    unset($_SESSION['csrf_token_time']);
-                    $errors[] = "CSRF Token Expired... :( Please reload the page.";
-            }
-        }
-    }
-    $token = md5(uniqid(rand(), true));
-	$_SESSION['csrf_token'] = $token;
-	$_SESSION['csrf_token_time'] = time();
     
 ?>
 <html lang="en">
@@ -198,7 +112,7 @@
     <?php
         if($pro=sqlSelect($C, 'SELECT p.username, p.description, p.number, p.address1, p.address2, p.postcode, p.state FROM professionals p INNER JOIN images i ON p.username=i.username'))
         {
-            if($img=sqlSelect($C, 'SELECT filename FROM images'))
+            if($img=sqlSelect($C, 'SELECT filename FROM images GROUP BY username'))
             {
                 if($count=$pro->num_rows)
                 {
