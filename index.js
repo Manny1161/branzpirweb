@@ -12,3 +12,28 @@ function onClick(element) {
     var captionText = document.getElementById("caption");
     captionText.innerHTML = element.alt;
 }
+function openEditProfile() {
+    document.getElementById("openEditProfileForm").style.display = "block";
+}
+function openProfilePicture() {
+    document.getElementById("openProfilePictureForm").style.display = "block";
+}
+function closeProfilePicture() {
+    document.getElementById("openProfilePictureForm").style.display = "none";
+}
+function closeEditProfile() {
+    document.getElementById("openEditProfileForm").style.display = "none";
+}
+
+var modal = document.getElementById("openEditProfileForm");
+window.onclick = function(event) {
+    if(event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+$('#editBtn').click(function()
+{
+    $('#textBox').show();
+    $('#subBtn').show();
+});
