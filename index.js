@@ -18,6 +18,24 @@ function openEditProfile() {
 function openProfilePicture() {
     document.getElementById("openProfilePictureForm").style.display = "block";
 }
+function openReview() {
+    document.getElementById("openReviewForm").style.display = "block";
+    document.getElementById("openOverviewForm").style.display = "none";
+    document.getElementById("openContactForm").style.display = "none";
+}
+
+function openContact() {
+    document.getElementById("openReviewForm").style.display = "none";
+    document.getElementById("openOverviewForm").style.display = "none";
+    document.getElementById("openContactForm").style.display = "block";
+}
+
+function openOverview() {
+    document.getElementById("openReviewForm").style.display = "none";
+    document.getElementById("openOverviewForm").style.display = "block";
+    document.getElementById("openContactForm").style.display = "none";
+}
+
 function closeProfilePicture() {
     document.getElementById("openProfilePictureForm").style.display = "none";
 }
@@ -26,14 +44,13 @@ function closeEditProfile() {
 }
 
 var modal = document.getElementById("openEditProfileForm");
-window.onclick = function(event) {
-    if(event.target == modal) {
+window.onclick = function (event) {
+    if (event.target == modal) {
         modal.style.display = "none";
     }
 }
 
-$('#editBtn').click(function()
-{
+$('#editBtn').click(function () {
     $('#textBox').show();
     $('#subBtn').show();
 });
