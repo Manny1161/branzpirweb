@@ -1,5 +1,4 @@
 <?php
-    <?php
     require_once 'utils.php';
     //error_reporting(0);
     $C = connect();
@@ -78,9 +77,9 @@
         if(isset($_POST['submit']))
         {
             $search = $_POST['search'];
-            if($pro1=sqlSelect($C, "SELECT p.username, p.category, p.description, p.number, p.address1, p.address2, p.postcode, p.state FROM professionals p INNER JOIN images i ON p.username=i.username WHERE p.category LIKE '%$search%' OR p.username LIKE '%$search%' AND i.username LIKE '%$search%'"));
+            if($pro1=sqlSelect($C, "SELECT p.username, p.description FROM professionals p INNER JOIN profileavatar i ON p.username=i.username WHERE p.category LIKE '%$search%' OR p.username LIKE '%$search%' AND i.username LIKE '%$search%'"));
             {
-                if($img1=sqlSelect($C, "SELECT i.filename FROM images i INNER JOIN professionals p WHERE i.username=p.username AND p.category LIKE '%$search%' OR i.username LIKE '%$search%'"))
+                if($img1=sqlSelect($C, "SELECT i.filename FROM profileavatar i INNER JOIN professionals p ON i.username=p.username WHERE i.username LIKE '%$search%' OR p.category LIKE '%$search%'"))
                 {
                     if($count1=$pro1->num_rows)
                     {
@@ -92,8 +91,8 @@
                             
                             <div class="w3-main" style="margin-left:340px;margin-right:40px;margin-top:80px">
                                 <div class="box">
-                                    <?php echo "<img class='br-img' src='uploads/$irow1->filename'>"?>
-                                    <?php echo "<span><b><a href='profProfile.php?category=$prow1->username'>$prow1->username</a></b><br><q>$prow1->description</q><br></span>"?>
+                                    <?php echo "<img class='br-img' src='profileavatars/$irow1->filename'>"?>
+                                    <?php echo "<span><b><a href='newUserProfile.php?category=$prow1->username'>$prow1->username</a></b><br><q>$prow1->description</q><br></span>"?>
                                 </div>
                             </div>                            
         <?php
@@ -110,9 +109,9 @@
 
 <div class="w3-main" style="margin-left:340px;margin-right:40px;margin-top:80px">
     <?php
-        if($pro=sqlSelect($C, 'SELECT p.username, p.description, p.number, p.address1, p.address2, p.postcode, p.state FROM professionals p INNER JOIN images i ON p.username=i.username'))
+        if($pro=sqlSelect($C, 'SELECT p.username, p.description, p.number, p.address1, p.address2, p.postcode, p.state FROM professionals p INNER JOIN profileavatar i ON p.username=i.username'))
         {
-            if($img=sqlSelect($C, 'SELECT filename FROM images GROUP BY username'))
+            if($img=sqlSelect($C, 'SELECT filename FROM profileavatar i INNER JOIN professionals p ON i.username=p.username'))
             {
                 if($count=$pro->num_rows)
                 {
@@ -121,9 +120,10 @@
                         while(($prow=$pro->fetch_object()) && ($irow=$img->fetch_object()))
                         {    
     ?>
+                        
                             <div class="box">
-                                <?php echo "<img class='br-img' src='uploads/$irow->filename'>"?>
-                                <?php echo "<span><b><a href='profProfile.php?category=$prow->username'>$prow->username</a></b><br><q>$prow->description</q><br>"?>
+                                <?php echo "<img class='br-img' src='profileavatars/$irow->filename'>"?>
+                                <?php echo "<span><b><a href='newUserProfile.php?category=$prow->username'>$prow->username</a></b><br><q>$prow->description</q><br>"?>
                             </div>                            
     <?php
                         }
@@ -139,6 +139,12 @@
     </div>
 </div>
 <script src='index.js'></script>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 </body>
 
 </html>
+
