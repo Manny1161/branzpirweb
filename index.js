@@ -36,13 +36,23 @@ function openOverview() {
     document.getElementById("openContactForm").style.display = "none";
 }
 
+function openImage(element) {
+    document.getElementById("profImg").src = element.src;
+    document.getElementById("openImageForm").style.display = "block";
+}
+
+function closeImage() {
+    document.getElementById("openImageForm").style.display = "none";
+}
 function closeProfilePicture() {
     document.getElementById("openProfilePictureForm").style.display = "none";
 }
 function closeEditProfile() {
     document.getElementById("openEditProfileForm").style.display = "none";
 }
-
+function closeContact() {
+    document.getElementById("openContactForm").style.display = "none";
+}
 var modal = document.getElementById("openEditProfileForm");
 window.onclick = function (event) {
     if (event.target == modal) {
@@ -50,7 +60,3 @@ window.onclick = function (event) {
     }
 }
 
-$('#editBtn').click(function () {
-    $('#textBox').show();
-    $('#subBtn').show();
-});
