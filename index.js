@@ -41,6 +41,14 @@ function openImage(element) {
     document.getElementById("openImageForm").style.display = "block";
 }
 
+function openImages() {
+    document.getElementById("openImageCard").style.display = "block";
+
+}
+function closeImages() {
+    document.getElementById("openImageCard").style.display = "none";
+}
+
 function closeImage() {
     document.getElementById("openImageForm").style.display = "none";
 }
