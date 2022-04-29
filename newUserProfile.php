@@ -6,7 +6,7 @@ $_SESSION['cat'] = $_GET['category'];
 $pro = $_SESSION['cat'];
 $C = connect();
 $res = sqlSelect($C, 'SELECT description, category, number, address1, state, postcode, address2, facebook, linkedin, website FROM professionals WHERE username=?', 's', $_SESSION['cat']);
-$img = sqlSelect($C, "SELECT filename, description FROM images WHERE username=?", 's', $_SESSION['cat']);
+$img = sqlSelect($C, "SELECT filename, description, project FROM images WHERE username=?", 's', $_SESSION['cat']);
 if($res && $res->num_rows == 1)
 {
     $q = $res->fetch_assoc();
@@ -27,6 +27,7 @@ if($img && $img->num_rows == 1)
     $i = $img->fetch_assoc();
     $_SESSION['profImg'] = $i['filename'];
     $_SESSION['imgDesc'] = $i['description'];
+    $_SESSION['profProj'] = $i['project'];
 }
 
 $directory = "uploads/";
@@ -278,9 +279,7 @@ if(isset($_POST["subBtn"])) {
                             </tr>
                             <tr>
                                 <td colspan='2' align='center'><input type='SUBMIT' name='subBtn' value='Save'/></td>
-                            </tr>
-                            
-                            
+                            </tr>                           
                         </table>
                     </form>
                     <div class="w3-container w3-border-top w3-padding-16">
@@ -353,34 +352,71 @@ if(isset($_POST["subBtn"])) {
                     <div class="w3-container w3-border-top w3-padding-16 w3-display-bottomright">
                         <button onclick="closeContact()" type="submit" class="w3-button w3-green">Send</button>
                     </div>
-                    
                 </div>
             </div>
-            <div class="py-4 px-4">
+            <div class="py-4 px-4" id="ProjectForm">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">Projects</h5><a href="#" class="btn btn-link text-muted">Show all</a>
                 </div>
                 <div class="row">
                 <?php
-                    if($proImg=sqlSelect($C, 'SELECT filename, description FROM images WHERE username=?', 's', $_SESSION['cat']))
+                    if($proImg=sqlSelect($C, 'SELECT filename, description FROM images WHERE username=? GROUP BY project', 's', $_SESSION['cat']))
                     {
                         if($count=$proImg->num_rows)
                         {
                             while($imgRow=$proImg->fetch_object())
                             {
-                ?>
-                                
+                                ?> 
                                 <div class="col-lg-6 pr-lg-1 mb-2">
-                                    <?php echo "<img style='height:300px; width:550px; object-fit:cover;' onclick='openImage(this)' class='img-fluid rounded shadow-sm' src='uploads/$imgRow->filename' >" ?>
+                                    <?php echo "<img style='height:300px; width:550px; object-fit:cover;' onclick='openImages()' class='img-fluid rounded shadow-sm' src='uploads/$imgRow->filename' >" ?>
                                 </div>
-                            
+                                <?php
+                            }
+                        }
+                        $proImg->free();
+                    }    
+                ?>
+                </div>
+            </div>
+            <div id="openImageCard" class="ecommerce-gallery" style="display:none">
+                <div class="row py-3 shadow-5">
+                    <div class="col-6 mb-1">
+                        <div class="lightbox">
+                            <img src="uploads/1624926477201.jpg" class="ecommerce-gallery-main-img active w-100" style="height:300px;object-fit:cover"/>
+                        </div>
+                    </div>
+                <?php
+                    if($proImg=sqlSelect($C, 'SELECT filename, description FROM images WHERE username=? AND project=?', 'ss', $_SESSION['cat'], 'vista'))
+                    {
+                        if($count=$proImg->num_rows)
+                        {
+                            while($imgRow=$proImg->fetch_object())
+                            {
+                                ?> 
+                <div class="col-3 col-sm-3">
+                    <?php echo "<img src='uploads/$imgRow->filename' class='mt-1 active w-100' style='height:140px;object-fit:cover'/>"?>
+                </div>
                 <?php
                             }
                         }
                         $proImg->free();
                     }    
-
                 ?>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h4>Location</h4>
+                            <p>Welshpool WA</p>
+                            <br><br><br><h4>Description</h4>
+                            <p>smaple text</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>Budget</h4>
+                            <p>$1,000,000 or contact for more info</p>
+                            <br><br><br><h4>Time To Completion</h4>
+                            <p>4 Weeks</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="openImageForm" class="w3-modal " style="padding-top:0" onclick="this.style.display='none'">
@@ -388,20 +424,24 @@ if(isset($_POST["subBtn"])) {
                 <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
                     <img id="profImg"  style="object-fit:cover;height:50%;width:50%;float:left">
                     <?php
-                        if($pf=sqlSelect($C, 'SELECT filename FROM profileavatar WHERE username=?', 's', $_SESSION['cat']))
+                    
+                        if($pf=sqlSelect($C, 'SELECT filename FROM images WHERE username=? AND project=?', 'ss', $_SESSION['cat'], 'vista'))
                         {
                             if($count=$pf->num_rows)
                             {
                                 while($irow=$pf->fetch_object())
                                 {
-                    ?>
-                    <div class="w3-white col-sm" style="width:50%;height:50%;float:left">
-                        <div class="profile mr-3">
-                            <?php echo "<img style='float:left;margin-top:5px;width:50px;height:50px;' class='profImg rounded mb-2 img-thumbnail' src='profileavatars/$irow->filename'>"?>
-                            <span style="float:left;margin-top:15px;margin-left:5px;"><h4 class="mt-0 mb-0"><?php echo $_SESSION['cat']?></h4></span>
-                            <br><br><br><!--?php echo $_SESSION['imgDesc']?-->image description
-                        </div>
-                    <?php
+                                    ?>
+                                    <div class="container w3-white" style="width:50%;height:50%;float:left">
+                                        <div class="row">
+                                            <div class="col-6 col-sm-4">
+                                            
+                                                <?php echo "<img style='width:150px;height:150px' src='uploads/$irow->filename'>"?>
+                                            </div>
+                                        </div>
+                                    
+                                    
+                                    <?php
                                 }
                             }
                             $pf->free();
@@ -409,6 +449,7 @@ if(isset($_POST["subBtn"])) {
                     ?>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
