@@ -378,13 +378,32 @@ if(isset($_POST["subBtn"])) {
                 ?>
                 </div>
             </div>
-            <div id="openImageCard" class="ecommerce-gallery" style="display:none">
-                <div class="row py-3 shadow-5">
+            <div id="openImageCard" class="ecommerce-gallery px-4" style="display:none">
+                <div class="row py-3">
                     <div class="col-6 mb-1">
                         <div class="lightbox">
-                            <img src="uploads/1624926477201.jpg" class="ecommerce-gallery-main-img active w-100" style="height:300px;object-fit:cover"/>
+                        <?php
+                    if($proImg=sqlSelect($C, 'SELECT filename FROM images WHERE username=? GROUP BY project LIMIT 1', 's', $_SESSION['cat']))
+                    {
+                        if($count=$proImg->num_rows)
+                        {
+                            while($imgRow=$proImg->fetch_object())
+                            {
+                                ?> 
+                            <?php echo "<img src='uploads/$imgRow->filename' class='ecommerce-gallery-main-img active w-100 img-fluid rounded shadow-sm' style='height:300px;object-fit:cover'/>"?>
+                            <?php
+                            }
+                        }
+                        $proImg->free();
+                    }    
+                ?>
                         </div>
-                    </div>
+                </div>
+                
+                
+                
+               <div class="col-lg-6 pr-lg-1 mb-2 " style="width:50;%height:50%;display:flex;flex-flow:row wrap;justify-content:between">
+                
                 <?php
                     if($proImg=sqlSelect($C, 'SELECT filename, description FROM images WHERE username=? AND project=?', 'ss', $_SESSION['cat'], 'vista'))
                     {
@@ -392,16 +411,33 @@ if(isset($_POST["subBtn"])) {
                         {
                             while($imgRow=$proImg->fetch_object())
                             {
-                                ?> 
-                <div class="col-3 col-sm-3">
-                    <?php echo "<img src='uploads/$imgRow->filename' class='mt-1 active w-100' style='height:140px;object-fit:cover'/>"?>
-                </div>
+                                ?>
+
+                                
+                                    <div class="row" style=";width:200px;height:150px;flex-grow:0;flex-shrink:0;flex-basis:calc(50%-10px); margin-top:1px;">
+                                        
+                                            <div class="row row-cols-2 px-3">
+                                            
+                                                <?php echo "<img style='width:150px;height:148px;object-fit:cover;' class='img-fluid rounded shadow-sm' src='uploads/$imgRow->filename'>"?>
+                                                
+                                            </div>
+                                        
+                                        
+                                    </div>
+                                
+                            
+
+                                
+                                    
+                
                 <?php
                             }
                         }
                         $proImg->free();
                     }    
                 ?>
+                </div>
+                
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-6">
