@@ -10,3 +10,4 @@ https://stackoverflow.com/questions/21312839/how-to-create-a-edit-profile-page-f
 once uploading function is working properly, work on the layout and should be done!
 https://bbbootstrap.com/snippets/individual-user-profile-social-network-94176986
 https://mobirise.com/extensions/storem4/sliders-galleries.html
+'select * from images i1, images i2 where username=? AND i1.project=i2.project', 's',$_SESSION['cat']
