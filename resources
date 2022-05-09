@@ -11,3 +11,5 @@ once uploading function is working properly, work on the layout and should be do
 https://bbbootstrap.com/snippets/individual-user-profile-social-network-94176986
 https://mobirise.com/extensions/storem4/sliders-galleries.html
 'select * from images i1, images i2 where username=? AND i1.project=i2.project', 's',$_SESSION['cat']
+in img tag for the grouped images...create a form with a name variable assigned... e.g <img .... name='$imgRow->filename'>
+then in the mini image modal ting, do a select query to fetch this info ... select ... where project=?, 's', $_POST['name']
