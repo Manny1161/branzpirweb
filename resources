@@ -14,3 +14,4 @@ https://mobirise.com/extensions/storem4/sliders-galleries.html
 in img tag for the grouped images...create a form with a name variable assigned... e.g <img .... name='$imgRow->filename'>
 then in the mini image modal ting, do a select query to fetch this info ... select ... where project=?, 's', $_POST['name']
 create an array which would append the project names to, in the loops for the images, iterate through the array to find the project name which matches the name in the array.
+https://codeastro.com/download/download-ecommerce-website-project-in-php-with-source-code/
