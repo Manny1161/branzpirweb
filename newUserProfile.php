@@ -113,17 +113,17 @@ if(isset($_POST["subBtn"])) {
     echo "File is an image - " . $check["mime"] . ".";
     $uploadOk = 1;
   } else {
-    echo '<p class="message">File is not an image</p>';
+    //echo '<p class="message">File is not an image</p>';
     $uploadOk = 0;
   }
   // Allow certain file formats
   if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-    echo '<p class="message">Sorry, only JPG, JPEG & PNG files are allowed.</p>';
+    //echo '<p class="message">Sorry, only JPG, JPEG & PNG files are allowed.</p>';
     $uploadOk = 0;
   }
   // Check if $uploadOk is set to 0 by an error
   if ($uploadOk == 0) {
-    echo '<p class="message">Sorry, your file was not uploaded</p>';
+    //echo '<p class="message">Sorry, your file was not uploaded</p>';
   // if everything is ok, try to upload file
   } else {
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
@@ -377,18 +377,49 @@ if(isset($_POST["subBtn"])) {
                 </div>
                 <div class="row">
                 <?php
-                    if($proImg=sqlSelect($C, 'SELECT filename, description, project FROM images WHERE username=? GROUP BY project', 's', $_SESSION['cat']))
+                    if($proImg=sqlSelect($C, 'SELECT filename, description, project FROM images WHERE username=?', 's', $_SESSION['cat']))
                     {
                         if($count=$proImg->num_rows)
                         {
                             while($imgRow=$proImg->fetch_object())
                             {
-                                $iname = $imgRow->project;
+                                
                                 ?> 
                                 
                                 <div class="col-lg-6 pr-lg-1 mb-2">
-                                    <?php echo "<a href='#project1=$imgRow->project'><img style='height:300px; width:550px; object-fit:cover;' onclick='openImages()' class='img-fluid rounded shadow-sm' src='uploads/$imgRow->filename' alt='$imgRow->project'/></a>";
+                                    <?php echo "<a href='#$imgRow->project'><img style='height:300px; width:550px; object-fit:cover;' onclick='openImage(this)' class='img-fluid rounded shadow-sm' src='uploads/$imgRow->filename' alt='$imgRow->project'/></a>";
                                       ?>
+                                      <div id="openImageForm" class="w3-modal " style="padding-top:0" onclick="this.style.display='none'">
+                                        <!--span class="w3-button w3-black w3-xxlarge w3-display-topright">x</span-->
+                                        <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+                                            <img id="profImg"  style="object-fit:cover;height:50%;width:50%;float:left">
+                                            <?php
+                                            
+                                                if($pf=sqlSelect($C, 'SELECT filename FROM images WHERE username=? AND project=?', 'ss', $_SESSION['cat'], $imgRow->project))
+                                                {
+                                                    if($count=$pf->num_rows)
+                                                    {
+                                                        while($irow=$pf->fetch_object())
+                                                        {
+                                                            ?>
+                                                            <div class="container w3-white" style="width:50%;height:50%;float:left">
+                                                                <div class="row">
+                                                                    <div class="col-6 col-sm-4">
+                                                                    
+                                                                        <?php echo "<img style='width:150px;height:150px' src='uploads/$irow->filename'>"?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            
+                                                            <?php
+                                                        }
+                                                    }
+                                                    $pf->free();
+                                                }
+                                            ?>
+                                        </div>
+                                            </div>
                         
                                 </div>
                             
@@ -402,11 +433,11 @@ if(isset($_POST["subBtn"])) {
                 ?>
                 </div>
             </div>
-            <div id="openImageCard" class="ecommerce-gallery px-4" style="display:none">
+            <!--div id="openImageCard" class="ecommerce-gallery px-4" style="display:none">
                 <div class="row py-3">
                     <div class="col-6 mb-1">
                         <div class="lightbox">
-                        <?php
+                        <-?php
                     if($proImg=sqlSelect($C, 'SELECT filename FROM images WHERE username=? GROUP BY project LIMIT 1', 's', $_SESSION['cat']))
                     {
                         if($count=$proImg->num_rows)
@@ -415,12 +446,12 @@ if(isset($_POST["subBtn"])) {
                             {
                                 ?>
                                  
-                            <?php
+                            <-?php
                                 
                                 
                                 
                                 echo "<img src='uploads/$imgRow->filename' class='ecommerce-gallery-main-img active w-100 img-fluid rounded shadow-sm' style='height:300px;object-fit:cover'/>"?>
-                            <?php
+                            <-?php
                             }
                         }
                         $proImg->free();
@@ -433,7 +464,7 @@ if(isset($_POST["subBtn"])) {
                 
                <div class="col-lg-6 pr-lg-1 mb-2 " style="width:50;%height:50%;display:flex;flex-flow:row wrap;justify-content:between">
                 
-                <?php
+                <-?php
                
 
                             if($proImg=sqlSelect($C, 'SELECT filename FROM images WHERE username=? AND project=?', 'ss', $_SESSION['cat'], $iname))
@@ -442,6 +473,7 @@ if(isset($_POST["subBtn"])) {
                                 {
                                     while($imgRow=$proImg->fetch_object())
                                     {
+                                        
                                         ?>
 
                                         
@@ -449,8 +481,8 @@ if(isset($_POST["subBtn"])) {
                                                 
                                                     <div class="row row-cols-2 px-3">
                                                     
-                                                        <?php echo "<img style='width:150px;height:148px;object-fit:cover;' class='img-fluid rounded shadow-sm' src='uploads/$imgRow->filename'>"?>
-                                                        <?php echo $iname?>
+                                                        <-?php echo "<img style='width:150px;height:148px;object-fit:cover;' class='img-fluid rounded shadow-sm' src='uploads/$imgRow->filename'>"?>
+                                                        
                                                     </div>
                                                 
                                                 
@@ -461,7 +493,7 @@ if(isset($_POST["subBtn"])) {
                                 
                                     
                 
-                <?php
+                <-?php
                                     }
                                 }
                             $proImg->free();
@@ -476,24 +508,24 @@ if(isset($_POST["subBtn"])) {
                             <h4>Location</h4>
                             <p>Welshpool WA</p>
                             <br><br><br><h4>Description</h4>
-                            <p><?php echo $ff;?></p>
+                            <p><-?php echo $ff;?></p>
                         </div>
                         <div class="col-lg-6">
                             <h4>Budget</h4>
                             <p>$1,000,000 or contact for more info</p>
                             <br><br><br><h4>Time To Completion</h4>
-                            <p>4 Weeks <?php echo $iname?></p>
+                            <p>4 Weeks <-?php echo $iname?></p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div-->
             <div id="openImageForm" class="w3-modal " style="padding-top:0" onclick="this.style.display='none'">
                 <!--span class="w3-button w3-black w3-xxlarge w3-display-topright">x</span-->
                 <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
                     <img id="profImg"  style="object-fit:cover;height:50%;width:50%;float:left">
                     <?php
                     
-                        if($pf=sqlSelect($C, 'SELECT i1.filename FROM images i1, images i2 WHERE username=? AND i1.project=i2.project', 's', $_SESSION['cat']))
+                        if($pf=sqlSelect($C, 'SELECT filename, project FROM images WHERE username=?', 's', $_SESSION['cat']))
                         {
                             if($count=$pf->num_rows)
                             {
