@@ -1,6 +1,16 @@
 <?php
 	
 	require_once 'utils.php';
+
+    use PHPMailer\PHPMailer\PHPMailer;
+
+    require_once 'PHPMailer-master/src/Exception.php';
+    require_once 'PHPMailer-master/src/PHPMailer.php';
+    require_once 'PHPMailer-master/src/SMTP.php';
+
+    $mail = new PHPMailer(true);
+
+    $alert = '';
 		
 	$errors = [];
 		
@@ -31,7 +41,7 @@
 	{
 		if(isset($_POST['csrf_token']))
 		{
-			if($_POST['csrf_token'] != $_SESSION['csrf_token'])
+			if($_POST['csrf_token'] == $_SESSION['csrf_token'])
 			{
 				$errors[] = "9";
 			}
@@ -40,7 +50,7 @@
 		if(isset($_SESSION['csrf_token_time']))
 		{
 			$token_time = $_SESSION['csrf_token_time'];
-			if(($token_time + $max_time) >= time())
+			if($token_time + $max_time >= time())
 			{}
 			else
 			{
@@ -61,10 +71,51 @@
 			if($res && $res->num_rows === 0) {
 				//CREATE THE ACCOUNT
 				$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-				$id = sqlInsert($C, 'INSERT INTO accounts VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['username'], $_POST['email'], $hash);
-				if($id !== -1) {
-					$errors[] = 0;
-					header('location:login.php');
+				$vkey = md5(time().$_POST['username']);
+				$id = sqlInsert($C, 'INSERT INTO accounts VALUES (NULL, ?, ?, ?, ?, 0)', 'ssss', $_POST['username'], $_POST['email'], $hash, $vkey);
+				if($id != -1) {
+					/*$err = sendValidationEmail($_POST['email']);*/
+					if($err == 0)
+					{
+						$errors[] = 0;
+						
+						$vkey = md5(time().$_POST['username']);
+						$email = $_POST['email'];
+						$message = "<a href='localhost/verify.php?vkey=$vkey'>Click this link to verify your account</a>";
+
+						try{
+							$mail->isSMTP();
+							$mail->Host = 'smtp.gmail.com';
+							$mail->SMTPAuth = true;
+							$mail->Username = 'emmanuelkapela2@gmail.com'; // Gmail address which you want to use as SMTP server
+							$mail->Password = 'OutrunOdin65'; // Gmail address Password
+							$mail->SMTPSecure = "ssl";
+							$mail->Port = '465';
+
+							$mail->setFrom('emmanuelkapela2@gmail.com'); // Gmail address which you used as SMTP server
+							$mail->addAddress($email); // Email address where you want to receive emails (you can use any of your gmail address including the gmail address which you used as SMTP server)
+
+							$mail->isHTML(true);
+							$mail->Subject = 'Email Verification';
+							$mail->Body = "<h3>Email: $email <br>Message : $message</h3>";
+
+							$mail->send();
+							$alert = '<div class="alert-success" style="text-align:center">
+										<span>Message Sent! Thank you for contacting us.</span>
+										</div>';
+						} catch (Exception $e){
+							$alert = '<div class="alert-error" style="text-align:center">
+										<span>'.$e->getMessage().'</span>
+									</div>';
+						}
+						
+						header('location:thankyou.php');
+					}
+					else
+					{
+						$errors[] = 20;
+						/*sendValidationEmail($_POST['email']);*/
+					}
 				}
 				else {
 					//FAILED TO INSERT INTO DATABASE
@@ -94,6 +145,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
 </head>
 <style>
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
@@ -103,38 +156,40 @@
 </style>
 <body>
 <header class="w3-container w3-top w3-hide-small w3-highway-red w3-xlarge w3-padding">
-    <b><span><a href='index.php' style='text-decoration:none'>branzpir</a></span></b>
+    <b><span><a href='index.php' style='color:#ffffff'>branzpir</a></span></b>
 </header>
-<form id="registerForm" method='POST' action='' style="margin-top:80px">
-    <table border='0' align='center' cellpadding='8'>
-        <tr>
-            <td align='right'>Username:</td>
-            <td><input type='text' placeholder="Enter Username" name='username' required/></td>
-        </tr>
-        <tr>    
-            <td align='right'>Password:</td>
-            <td><input type='text' placeholder="Enter Password" name='password' required/></td>
-        </tr>
-        <tr>    
-            <td align='right'>Confirm Password:</td>
-            <td><input type='text' placeholder="Confirm Password" name='confirm-password' required/></td>
-        </tr>
-        <tr>
-            <td align='right'>Email Address:</td>
-            <td><input type='text' placeholder="Enter Email" name='email' required/></td>
-        </tr>
-        <tr>
-            <td colspan='2' align='center'><input type='SUBMIT' name='submit' value='Register' required/></td>
-			<td><input type="hidden" name="csrf_token" value="<?php echo $token; ?>"></td>
-        </tr>
-    </table>
+
+<div class="container">
+<form class="row g-3" method="POST" enctype='multipart/form-data' style='margin-top:80px'>
+  <div class="col-md-6">
+    <label class="form-label">Username</label>
+    <input type="text" class="form-control" name='username' placeholder="Enter Username">
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" name='email' placeholder="Enter Email">
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" name='password' placeholder="Enter Password">
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" name='confirm-password' placeholder="Confirm Password">
+  </div>
+  <div class="col-12">
+	<br>
+    <button type="submit" class="btn btn-danger" name='submit'>Register</button>
+	<input type="hidden" name="csrf_token" value="<?php echo $token; ?>">
+  </div>
 </form>
+</div>
 
 <form id='oldAccount' method='POST' action='' style='margin-top:80px'>
     <table border='0' align='center' cellpadding='8'>
         <tr>
             <td align='center'>
-                <p><a href='login.php' style='text-decoration:none'>Already have an account? Click here to login.</a></p>
+                <p><a href='login.php' style='color:#000000'>Already have an account? Click here to login.</a></p>
             </td>
         </tr>
     </table>
