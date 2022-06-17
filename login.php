@@ -1,5 +1,6 @@
 <?php
     require_once 'utils.php';
+    $alert = '';
 
     if(isset($_POST) & !empty($_POST))
     {
@@ -28,14 +29,15 @@
                     if($C)
                     {
                         $hourAgo = time() - 60*60;
-                        $res = sqlSelect($C, 'SELECT accounts.id,accounts.password,COUNT(loginattempts.id) FROM accounts LEFT JOIN loginattempts ON accounts.id = user AND timestamp>? WHERE email=? GROUP BY accounts.id', 'is', $hourAgo, $email);
+                        $res = sqlSelect($C, 'SELECT accounts.id,accounts.password,accounts.verified,COUNT(loginattempts.id) FROM accounts LEFT JOIN loginattempts ON accounts.id = user AND timestamp>? WHERE email=? GROUP BY accounts.id', 'is', $hourAgo, $email);
                         if($res && $res->num_rows == 1)
                         {
                             $user = $res->fetch_assoc();
                             //if($user['verified'])
                             if($user['COUNT(loginattempts.id)'] <= MAX_LOGIN_ATTEMPTS_PER_HOUR)
                             {
-                                if(password_verify($password, $user['password']))
+        
+                                if(password_verify($password, $user['password']) && $user['verified']==1)
                                 {
                                     $_SESSION['loggedin'] = true;
                                     $_SESSION['userID'] = $user['id'];
@@ -47,7 +49,11 @@
                                     $id = sqlInsert($C, 'INSERT INTO loginattempts VALUES (NULL, ?, ?, ?)', 'isi', $user['id'], $_SERVER['REMOTE_ADDR'], time());
                                     if($id != -1)
                                     {
-                                        echo 1;
+                                        $alert = '<div class="alert-error" style="text-align:center">
+                                                    <span>Incorrect Email or Password.</span>
+                                                    </div>';
+                                                    echo $alert;
+                                        
                                     }
                                     else
                                     {
@@ -58,7 +64,10 @@
                             }
                             else
                             {
-                                echo 3;
+                                $alert = '<div class="alert-error" style="text-align:center">
+                                                    <span>Max login attempts wait 30 minutes to login again.</span>
+                                                    </div>';
+                                                    echo $alert;
                             }
                         }
                         else
@@ -93,12 +102,15 @@
 ?>
 <html lang="en">
 <head>
-<title>Branzpir</title>
+    <title>Branzpir</title>
+    <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
 </head>
 <style>
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
@@ -108,38 +120,37 @@
     table{margin:0 auto;}
 </style>
 <body>
-<header class="w3-container w3-top w3-hide-small w3-highway-red w3-xlarge w3-padding">
-    <b><span><a href='index.php' style='text-decoration:none'>branzpir</a></span></b>
-</header>
+<!--header class="w3-container w3-top w3-hide-small w3-highway-red w3-xlarge w3-padding">
+    <b><span><a href='index.php' style='color:#ffffff'>branzpir</a></span></b>
+</header-->
 
-<form id="loginForm" method='POST' action='' style="margin-top:80px">
-    <table border='0' align='center' cellpadding='8'>
-        <tr>
-            <td align='right'>Email:</td>
-            <td><input type='text' placeholder="Enter Email" name='email' style="width:250px;" required/></td>
-        </tr>
-        <tr>    
-            <td align='right'>Password:</td>
-            <td><input type='text' placeholder="Enter Password" name='password' style='width:250px;' required/></td>
-        </tr>
-        <tr>
-            <td colspan='2' align='center'><input type='SUBMIT' name='submit' value='Login' required/></td>
-            <td><input type="hidden" name="csrf_token" value="<?php echo $token; ?>"></td>
-        </tr>
-        <!--<tr>
-            <td align='center'><p><a href='registration.php'>Don't have an account? Click here to register.</a></p></td>
-        </tr>-->
-    </table>
-</form>
+<div class="container">
+    <form class="row g-3" method="POST" style="margin-top:80px">
+        <div class="col-12">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name='email' placeholder="Enter Email">
+        </div>
+        <div class="col-12">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name='password' placeholder="Enter Password">
+        </div>
+        <div class="col-12">
+            <br>
+            <button type="submit" class="btn btn-danger" name='submit'>Sign In</button>
+            <input type="hidden" name="csrf_token" value="<?php echo $token; ?>">
+        </div>
+    </form>
+</div>
 
 <form id='newAccount' method='POST' action='' style='margin-top:100px'>
     <table border='0' align='center' cellpadding='8'>
         <tr>
             <td align='center'>
-                <p><a href='registration.php' style='text-decoration:none'>Don't have an account? Click here to register.</a></p>
+                <p><a href='registration.php' style='color:#000000'>Don't have an account? Click here to register.</a></p>
             </td>
         </tr>
     </table>
 </form>
+
 </body>
 </html>
