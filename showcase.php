@@ -5,15 +5,8 @@
 <?php
 require_once 'utils.php';
 error_reporting(0);
-
-$search=$_POST['search'];
-$searchoriginal=$search;
-$search=strtolower($search);
-$search=trim($search);
-$search=explode(' ', $search);
-$countsearchterms=count($search);
-$submitbutton=$_POST['submit'];
 $C = connect();
+
 
 ?>
 
@@ -76,7 +69,7 @@ $C = connect();
     <div class="w3-bar-block">
         <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href="professionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Professionals</a> 
+        <a href="findProfessionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Find Professionals</a> 
         <a href="contact.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
         <a href="youandbranzpir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
     </div>
@@ -94,158 +87,51 @@ $C = connect();
 <div class="w3-main" style="margin-left:340px;margin-right:40px;">
     <div class="w3-container" style="margin-top:80px" id="showcase">
         <div class="main-container">
-            <div class="fixer-container" >
+            <div class="fixer-container input-group" >
                 <form action='' method='POST'>
                     <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer;' onclick="window.location.href='index.php';">
-
-                    <input class='search' type="text" name="search" placeholder="Search"/>
-                    <input class='submit' type="submit" name="submit" value="Search"/></form>
+                    <div class="input-group">
+                        <input class="search form-control rounded" type="text" name="search" placeholder="Search" />
+                        <input class="submit btn btn-outline-danger" name="submit" type="submit" value="Search"/>
+                        
+                    </div>
+                </form>
+                    
+                    
             </div>
         </div>
-
-        <?php if (($_SESSION['loggedin'] == true) && isset($_SESSION['profID']) /*&&if($_SESSION['verified'] == 1)*/) : ?>
-        <form method='POST' action=''><input class='nfile' type='button' value='Upload'></form>
-        <img class='fileUpld' src='568717.png' onclick="location.href='uploadSpaces.php';">
-        <?php endif ?>
     </div>
- 
+
+<div class="row">
 <?php
-$directory = "uploads/";
-$C = connect();
 
-
-if ($submitbutton){
-if (!empty($searchoriginal)) 
+if(isset($_POST['submit']))
 {
-if (is_dir($directory)){
-
-  if ($open = opendir($directory)){
-if ($countsearchterms == 1)
-{
-    while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-      if ((strpos("$file",  "$search[0]") !== false) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-    $res = sqlSelect($C, 'SELECT description FROM images WHERE filename=?', 's', $fileoriginal);
-    $alt = $res->fetch_assoc();
-    $_SESSION['alt'] = $alt['description'];
-    $imgtxt = $_SESSION['alt'];
-	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
-}
+    $search = $_POST['search'];
+    if($pro1=sqlSelect($C, "SELECT filename, username, description FROM images WHERE description LIKE '%$search%'"));
+    {
+        if($count1=$pro1->num_rows)
+        {
+            while(($prow1=$pro1->fetch_object()))
+            {                                   
+                ?>
+                    <div class="col-md-4">
+                    <?php echo "<img src='uploads/$prow1->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;' onclick='onClick(this)' alt='$prow1->username<br><q>$prow1->description</q>'>
+                    <span><b><a style='color:black'; href='newUserProfile.php?category=$prow1->username'>$prow1->username</a></b>"?>
+                </div><?php
+            } 
+        }
+        else
+        {
+            echo "<p class='message'>No results for this search entered</p>";
+        }
+    $pro1->free();  
     }
 }
-else if ($countsearchterms == 2) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false)) && (($fileextension == "jpg") 
-|| ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp"))) {
-	$array[] += "$file";
-	 echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
-}
-    }
-}
-else if ($countsearchterms == 3) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)) 
-&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-    echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
-}
-    }
-}
-else if ($countsearchterms == 4) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false))
-&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
-}
-    }
-}
-else if ($countsearchterms == 5) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
-&& (strpos("$file",  "$search[4]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
-}
-}  
-}
-else if ($countsearchterms == 6) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
-&& (strpos("$file",  "$search[4]") !== false) && (strpos("$file",  "$search[5]") !== false)) && (($fileextension == "jpg") || ($fileextension == "jpeg") 
-|| ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
-}
-}  
-}
-else if ($countsearchterms == 7) {
-while (($file = readdir($open)) !== false){
-	$fileoriginal= $file;
-	$file= strtolower($file);
-	$position= strpos("$file", ".");
-	$fileextension= substr($file, $position + 1);
-	$fileextension= strtolower($fileextension);
-
-      if (((strpos("$file",  "$search[0]") !== false) && (strpos("$file",  "$search[1]") !== false) && (strpos("$file",  "$search[2]") !== false)&& (strpos("$file",  "$search[3]") !== false)
-&& (strpos("$file",  "$search[4]") !== false) && (strpos("$file",  "$search[5]") !== false) && (strpos("$file",  "$search[6]") !== false))
-&& (($fileextension == "jpg") || ($fileextension == "jpeg") || ($fileextension == "png") || ($fileextension == "bmp")))
-	{
-	$array[] += "$file";
-	echo "<img style='width: 48%; height:533px; margin:8px; cursor:pointer;'  src='/uploads/$fileoriginal' onclick='onClick(this)' alt='$imgtxt'>";
-}
-}  
-}
-closedir($open);
-    }
-
-  }//while loop
-
-$arraycount= count($array);
-
-if ($arraycount == 0)
-{
-echo "<p class='message'>No results for this search entered</p>";
-}
-}
-}
+    
 ?>
-    <div class="w3-row-padding">
+</div>
+    <div class="row">
         <?php
         if($res=sqlSelect($C, 'SELECT filename, description, username from images'))
         {
@@ -254,9 +140,9 @@ echo "<p class='message'>No results for this search entered</p>";
                 while($row=$res->fetch_object())
                 {
         ?>      
-                    <div class="w3-half">
-                        <?php echo "<img src='uploads/$row->filename' style='width:100%; padding-bottom:5px' onclick='onClick(this)' alt='$row->username<br><q>$row->description</q>'>
-                        <span><b><a style='color:black'; href='profProfile.php?category=$row->username'>$row->username</a></b><br><q>$row->description</q>"?>
+                    <div class="col-md-4">
+                        <?php echo "<img src='uploads/$row->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;' onclick='onClick(this)' alt='$row->username<br><q>$row->description</q>'>
+                        <span><b><a style='color:black'; href='newUserProfile.php?category=$row->username'>$row->username</a></b>"?>
                     </div>
         <?php
                 }
@@ -273,7 +159,7 @@ echo "<p class='message'>No results for this search entered</p>";
         </div>
     </div>
     <div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:18px; width:100%; margin-left:0px;">
-        <span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" class="foot-link" title="Eurotech" target="_blank" class="w3-hover-opacity" style='text-decoration:none'>Eurotech</a></span>
+        <span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" class="foot-link" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color: #000000;'>Eurotech</a></span>
     </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src='index.js'></script>
