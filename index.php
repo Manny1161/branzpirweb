@@ -58,12 +58,8 @@
         position:relative;
     }
     .pros-content {
-        display:none;
         position:absolute;
-        right:400px;
-        top: 10;
-        left:1000px;
-       
+        float:right;margin-right:5px;
     }
 
     /* Dropdown Button */
@@ -73,6 +69,49 @@
 	  font-size: 16px;
 	  border: none;
 	}
+    @media all and (min-width:992px){
+    .dropdown-menu-sw {
+        left:75%;
+    }
+    .dropdown-menu {
+        position:absolute;
+        top:30px;
+        right:10;
+        width:160px;
+    }}
+    @media all and (max-width:992px){
+    .dropdown-menu-sw {
+        left:60%;
+    }
+    .dropdown-menu {
+        position:absolute;
+        top:100px;
+        right:10;
+        width:160px;
+
+    }}
+    @media all and (min-width:992px){
+    .dropdown-menu-uw {
+        left:65%;
+    }
+    .dropdown-menu {
+        position:absolute;
+        top:30px;
+        right:10;
+        width:160px;
+    }}
+    @media all and (max-width:992px){
+    .dropdown-menu-uw {
+        /*right: -10;*/
+        left:50%;
+    }
+    .dropdown-menu {
+        position:absolute;
+        right:10;
+        top:15px;
+        width:160px;
+
+    }}
 
 	/* The container <div> - needed to position the dropdown content 
 	.dropdown {
@@ -271,18 +310,23 @@
             <div class="dropdown-menu pull-right my-2">
                 <li><a href="login.php">Log In</a></li>
                 <li><a href="registration.php">Join As a Brand</a></li>
+                <?php if(isset($_SESSION['brandID'])) : ?>
                 <li><a href="logout.php">Log Out</a></li>
+                <?php endif ?>
             </div>
         </div>
         <form method='POST' action=''><input class='profReg' type='button' value='PROFESSIONALS'/></form>
-        <div class="dropdown content">
+        <div class="dropdown">
             <a href="#" id="imageDropdown" data-toggle="dropdown">
             <img class="nprof" src="pros.png">
             </a>
-            <div class="dropdown-menu pros-content">
-                <li><a href="login.php">Log In</a></li>
-                <li><a href="registration.php">Join As a Brand</a></li>
-                <li><a href="logout.php">Log Out</a></li>
+            <div class="dropdown-menu dropdown-menu-sw">
+                <li><a href="professionalsLogin.php">Log In</a></li>
+                <li><a href="professionalsRegistration.php">Join As a Pro</a></li>
+                <?php if(isset($_SESSION['profID'])) : ?>
+				<li><a href="logout.php">Log Out</a></li>
+                <li><?php echo "<a href='newUserProfile?category=$pro'>Edit Profile</a>"?></li>
+                <?php endif ?>
             </div>
         </div>
         <form method='POST' action=''><input class='logIn' type='button' value='USERS'/></form>
@@ -290,10 +334,12 @@
             <a href="#" id="imageDropdown" data-toggle="dropdown">
             <img class="nlog" src="users.png">
             </a>
-            <div class="dropdown-menu pull-right my-2">
+            <div class="dropdown-menu dropdown-menu-uw">
                 <li><a href="login.php">Log In</a></li>
-                <li><a href="registration.php">Join As a Brand</a></li>
+                <li><a href="registration.php">Register</a></li>
+                <?php if(isset($_SESSION['userID'])) : ?>
                 <li><a href="logout.php">Log Out</a></li>
+                <?php endif ?>
             </div>
         </div>
         <!--form method='POST' action=''><input class='brandReg' type='button' value='BRANDS'/></form>
