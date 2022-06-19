@@ -1,3 +1,4 @@
+<style>.message{color:red}</style>
 <?php
     require_once 'utils.php';
     $alert = '';
@@ -49,8 +50,8 @@
                                     $id = sqlInsert($C, 'INSERT INTO loginattempts VALUES (NULL, ?, ?, ?)', 'isi', $user['id'], $_SERVER['REMOTE_ADDR'], time());
                                     if($id != -1)
                                     {
-                                        $alert = '<div class="alert-error" style="text-align:center">
-                                                    <span>Incorrect Email or Password.</span>
+                                        $alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                                                    <span class="message">Incorrect Email or Password.</span>
                                                     </div>';
                                                     echo $alert;
                                         
@@ -64,34 +65,47 @@
                             }
                             else
                             {
-                                $alert = '<div class="alert-error" style="text-align:center">
-                                                    <span>Max login attempts wait 30 minutes to login again.</span>
-                                                    </div>';
-                                                    echo $alert;
-                            }
+                                $alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+										<span class="message">Maximum login attempts exceeded wait 1 hour to login again.</span>
+										</div>';
+										echo $alert;
+							}
                         }
                         else
                         {
-                            echo 4;
+                            $alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                                        <span class="message">No account matches credentials entered.</span>
+                                        </div>';
+                                        echo $alert;
                         }
                         $res->free_result();
                     }
                     else
                     {
-                        echo 1;
+                        $alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+									<span class="message">Failed to connect to database.</span>
+									</div>';
+									echo $alert;
                     }
                     $C->close();
                 }
                 else
                 {
-                    echo 2;
+                    $alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                                <span class="message">Please enter email and password to login.</span>
+                                </div>';
+                                echo $alert;
                 }
             }
             else
             {
                     unset($_SESSION['csrf_token']);
                     unset($_SESSION['csrf_token_time']);
-                    $errors[] = "CSRF Token Expired... :( Please reload the page.";
+                    
+					$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                                <span class="message">Please reload the page to resubmit this form.</span>
+                                </div>';
+                                echo $alert;
             }
         }
     }
@@ -120,9 +134,9 @@
     table{margin:0 auto;}
 </style>
 <body>
-<!--header class="w3-container w3-top w3-hide-small w3-highway-red w3-xlarge w3-padding">
+<header class="w3-container w3-top w3-hide-small w3-highway-red w3-xlarge w3-padding">
     <b><span><a href='index.php' style='color:#ffffff'>branzpir</a></span></b>
-</header-->
+</header>
 
 <div class="container">
     <form class="row g-3" method="POST" style="margin-top:80px">
