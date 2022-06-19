@@ -5,26 +5,38 @@
 	$alert = '';
 	if(!isset($_POST['username']) || strlen($_POST['username']) > 45 || !preg_match('/^[a-zA-Z- ]+$/', $_POST['username'])) {
 		$errors[] = 1;
+		$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                    <span class="message">Please enter a username no greater than 45 characters long.</span>
+                    </div>';
+                    echo $alert;
 	}
 	if(!isset($_POST['email']) || strlen($_POST['email']) > 45 || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 		$errors[] = 2;
+		$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                    <span class="message">Invalid email entered.</span>
+                    </div>';
+                    echo $alert;
 	}
 	else if(!checkdnsrr(substr($_POST['email'], strpos($_POST['email'], '@') + 1), 'MX')) {
 		$errors[] = 3;
+		$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                    <span class="message">Invalid email entered.</span>
+                    </div>';
+                    echo $alert;
 	}
 	if(!isset($_POST['password']) || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\~?!@#\$%\^&\*])(?=.{8,})/', $_POST['password'])) {
 		$errors[] = 4;
+		$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                    <span class="message">Password must contain one uppercase letter, 1 lowercase letter, contain atleast one number, have atleast one special character [@#$!\~?%] and be atleast 8 characters long.</span>
+                    </div>';
+                    echo $alert;
 	}
 	else if(!isset($_POST['confirm-password']) || $_POST['confirm-password'] !== $_POST['password']) {
 		$errors[] = 5;
-	}
-	if (validatePhone($_POST['number']) == false)
-	{
-		$errors[] = 9;
-	}
-	if(validatePostCode($_POST['post-code']) == false)
-	{
-		$errors[] = 10;
+		$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+                    <span class="message">Passwords do not match.</span>
+                    </div>';
+                    echo $alert;
 	}
 	$token = md5(uniqid(rand(), true));
 	$_SESSION['csrf_token'] = $token;
@@ -75,19 +87,32 @@
 				else {
 					//FAILED TO INSERT INTO DATABASE
 					$errors[] = 6;
+					$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+						<span class="message">Incorrect Email or Password.</span>
+						</div>';
+						echo $alert;
 				}
 				$res->free_result();
 			}
 			else {
 				//EMAIL ALREADY EXISTS
 				$errors[] = 7;
+				$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+					    <span class="message">Email already exists try logging in instead.</span>
+					    </div>';
+					    echo $alert;
 			}
 		}
 		else {
 			//FAILED TO CONNECT TO DATABASE
 			$errors[] = 8;
+			$alert = '<div class="alert-error" style="text-align:center;margin-top:50px">
+				<span class="message">Failed to connect to database.</span>
+				</div>';
+				echo $alert;
 		}
 	}		
+	//remove this line
 	echo json_encode($errors);
 			
 	
