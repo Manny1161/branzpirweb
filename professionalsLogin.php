@@ -1,7 +1,7 @@
 <style>.message{color:red}</style>
 <?php
     require_once 'utils.php';
-    alert = '';
+    $alert = '';
 
     if(isset($_POST) & !empty($_POST))
     {
