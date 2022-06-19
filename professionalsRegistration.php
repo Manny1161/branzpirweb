@@ -1,9 +1,8 @@
+<style>.message{color:red}</style>
 <?php
-	
-	require_once 'utils.php';
-		
+	require_once 'utils.php';	
 	$errors = [];
-
+	$alert = '';
 	if(!isset($_POST['username']) || strlen($_POST['username']) > 45 || !preg_match('/^[a-zA-Z- ]+$/', $_POST['username'])) {
 		$errors[] = 1;
 	}
