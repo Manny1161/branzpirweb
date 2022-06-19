@@ -17,13 +17,9 @@ create an array which would append the project names to, in the loops for the im
 https://codeastro.com/download/download-ecommerce-website-project-in-php-with-source-code/
 https://www.codingsnow.com/2021/01/contact-page-with-php-send-emails-using.html
 https://www.sitepoint.com/sending-emails-php-phpmailer/
-1.sort the user buttons out
-2.move the image upload function to the user file
+
 3.potentially show snippet of text from database underneath images
-4.contact and you&branzpir page
 5.sort out the brands section of the website
-6.clean up thankyou.php page
-7.sort out error messages
 8.sort out favicon issues
 9. implement categories on showcase
 10. add restrictions for unregistered users
