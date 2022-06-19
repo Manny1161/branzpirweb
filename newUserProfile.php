@@ -1,11 +1,13 @@
+<style>.message{color:red}</style>
 <?php
 require_once 'utils.php';
 include 'sendEmail.php';
 include 'uploadSpaces.php';
-//error_reporting(0);
+error_reporting(0);
 $selected_category = $_GET['category'];
 $_SESSION['cat'] = $_GET['category'];
 $pro = $_SESSION['cat'];
+$alert = '';
 
 
 $C = connect();
@@ -108,18 +110,27 @@ if(isset($_POST["subBtn"]) && !empty($_POST['image'])) {
   $imagedetails = getimagesize($_FILES["image"]["tmp_name"]);
   $width = $imagedetails[0];
   $height = $imagedetails[1];
-  if($check == false || $check2 == false) {
-    //echo '<p class="message">File is not an image</p>';
+  if($check == false) {
+  $alert = '<div class="alert-error" style="text-align:center">
+		<span class="message">File is not an image.</span>
+		</div>';
+		echo $alert;
     $uploadOk[] = 1;
     } 
   // Allow certain file formats
   if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-    //echo '<p class="message">Sorry, only JPG, JPEG & PNG files are allowed.</p>';
+	  $alert = '<div class="alert-error" style="text-align:center">
+		<span class="message">Sorry only JPG, JPEG & PNG files are allowed.</span>
+		</div>';
+		echo $alert;
     $uploadOk = 0;
   }
   // Check if $uploadOk is set to 0 by an error
   if (count($uploadOk) != 0) {
-    //echo '<p class="message">Sorry, your file was not uploaded</p>';
+	  $alert = '<div class="alert-error" style="text-align:center">
+		<span class="message">Sorry your file was not uploaded.</span>
+		</div>';
+		echo $alert;
     // if everything is ok, try to upload file
 } elseif(count($uploadOk==0)) {
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
@@ -129,28 +140,40 @@ if(isset($_POST["subBtn"]) && !empty($_POST['image'])) {
       sqlUpdate($C, "UPDATE profileavatar SET filename=? WHERE username=?", 'ss', $fname, $user);
       
     } else {
-      //echo '<p class="message">Sorry, there was an error uploading your file.';
+	    $alert = '<div class="alert-error" style="text-align:center">
+		<span class="message">Sorry there was an error uploading your file.</span>
+		</div>';
+		echo $alert;
     }
   }
 }
 
-if(isset($_POST["subBtn"])) {
+if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
     $check = getimagesize($_FILES["bimage"]["tmp_name"]);
     $imagedetails = getimagesize($_FILES["bimage"]["tmp_name"]);
     $width = $imagedetails[0];
     $height = $imagedetails[1];
     if($check == false) {
-      ///echo '<p class="message">File is not an image</p>';
+	    $alert = '<div class="alert-error" style="text-align:center">
+		<span class="message">File is not an image.</span>
+		</div>';
+		echo $alert;
       $uploadOk[] = 1;
       } 
     // Allow certain file formats
     if($imageFileType2 != "jpg" && $imageFileType2 != "png" && $imageFileType2 != "jpeg") {
-      //echo '<p class="message">Sorry, only JPG, JPEG & PNG files are allowed.</p>';
+	    $alert = '<div class="alert-error" style="text-align:center">
+		<span class="message">Sorry only JPG, JPEG & PNG files are allowed.</span>
+		</div>';
+		echo $alert;
       $uploadOk = 0;
     }
     // Check if $uploadOk is set to 0 by an error
     if (count($uploadOk) != 0) {
-      //echo '<p class="message">Sorry, your file was not uploaded</p>';
+	    $alert = '<div class="alert-error" style="text-align:center">
+		<span class="message">Sorry your file was not uploaded.</span>
+		</div>';
+		echo $alert;
       // if everything is ok, try to upload file
   } elseif(count($uploadOk==0)) {
       if (move_uploaded_file($_FILES["bimage"]["tmp_name"], $target_file2)) {
@@ -160,7 +183,10 @@ if(isset($_POST["subBtn"])) {
         sqlUpdate($C, "UPDATE profilebanner SET filename=? WHERE username=?", 'ss', $fname, $user);
         
       } else {
-        //echo '<p class="message">Sorry, there was an error uploading your file.';
+	      $alert = '<div class="alert-error" style="text-align:center">
+		<span class="message">Sorry there was an error uploading your file.</span>
+		</div>';
+		echo $alert;
       }
     }
   }
