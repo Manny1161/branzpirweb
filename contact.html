@@ -1,3 +1,6 @@
+<?php
+	//require_once 'sendEmail.php';
+?>
 <!DOCTYPE html>
 <html>    
 <head>
@@ -41,30 +44,60 @@
     <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>  
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
         <img src='branzpir logo idea 3 with text (002).png' style='width:25%;margin-top:80px;cursor:pointer' onclick="window.location.href='index.php';">
-        <div class="container" style="margin-top:80px;width:50%">
-            <div class="col-md-12">
-                <div class="container" style="border-style:solid;border-color:#f0effc;background-color: #f0effc;height:50px"><h4 style="text-align:center">Call Us: (08) 9350 6161</h4></div>
-            </div><br>
-            <div class="col-md-12">
-                <div class="container" style="border-style:solid;border-color:#f0effc;background-color: #f0effc;height:50px"><h4 style="text-align:center"><a href="privacypolicy.html" style="color:#000000">Terms & Privacy</a></h4></div>
-            </div><br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="container" style="border-style:solid;border-color:#f0effc;background-color: #f0effc;height:50px"><h4 style="text-align:center">Find Us on Facebook: 
-                    <a href="https://www.facebook.com/eurotechaustralia/"><img style="margin-top:5px;width:30px;height:30px" src="facebookicon.png"/></a></h4></div>
-                <br></div>
-                
-                <div class="col-md-12">
-                    <div class="container" style="border-style:solid;border-color:#f0effc;background-color: #f0effc;height:50px"><h4 style="text-align:center">Find Us on Linkedin:
-                    <a href="https://www.linkedin.com/company/eurotech-australia/"><img style="margin-top:5px;width:30px;height:30px" src="linkedincon.png"/></a></h4></div>
-                </div>
-            </div>
-        </div>
-      
-    <div class="w3-container w3-padding-32" style="margin-top:700px;padding-right:18px; width:100%; margin-left:0px;">
-        <span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color:#000000'>Eurotech</a></span>
-    </div>
-    </div>
+		<div class="container" style="margin-top:80px;width:50%">
+			<div class="col-md-12">
+				<div class="p-4 rounded shadow-sm bg-light"><h4 style="text-align:center">Call Us: (08) 9350 6161</h4></div>
+			</div><br>
+			<div class="col-md-12">
+				<div class="p-4 rounded shadow-sm bg-light"><h4 style="text-align:center"><a href="privacypolicy.html" style="color:#000000">Privacy Policy</a></h4></div>
+			</div><br>
+			<div class="col-md-12">
+				<div class="p-4 rounded shadow-sm bg-light"><h4 style="text-align:center"><a href="termsconditions.html" style="color:#000000">Terms & Conditions</a></h4></div>
+			</div><br>
+			
+				<div class="col-md-12">
+					<div class="p-4 rounded shadow-sm bg-light">
+						<h4 style="text-align:center">
+							Find Us on Facebook:
+							<a href="https://www.facebook.com/eurotechaustralia/"><img style="margin-top:5px;width:30px;height:30px" src="facebookicon.png" /></a>
+						</h4>
+					</div>
+					<br>
+				</div>
+
+				<div class="col-md-12">
+					<div class="p-4 rounded shadow-sm bg-light">
+						<h4 style="text-align:center">
+							Find Us on Linkedin:
+							<a href="https://www.linkedin.com/company/eurotech-australia/"><img style="margin-top:5px;width:30px;height:30px" src="linkedincon.png" /></a>
+						</h4>
+					</div>
+				</div>
+			
+			<div class="px-4 py-3">
+				<h5 class="mb-0">Contact Us</h5>
+				<div class="p-4 rounded shadow-sm bg-light">
+					<form class="row g-3" method="POST">
+						<div class="col-12">
+							<label class="form-label">Email</label>
+							<input type="email" class="form-control shadow-sm bg-light" name='userEmail' placeholder="Enter your Email">
+						</div>
+						<div class="col-12">
+							<label class="form-label">Message</label>
+							<textarea class="form-control shadow-sm bg-light" type="text" rows='7' cols='50' name='contactForm'></textarea>
+						</div>
+						<div class="col-12">
+							<br>
+							<button type="submit" class="btn btn-success" name='submit'>Send</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="w3-container w3-padding-32" style="margin-top:700px;padding-right:18px; width:100%; margin-left:0px;">
+				<span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color:#000000'>Eurotech</a></span>
+			</div>
+		</div>
     <script src="index.js"></script>
 </body>
 </html>
