@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>branzpir</title>
+	<link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+	body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
+</style>
+<body>
+	<nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar">
+		<br>
+		<a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+		<div class="w3-container">
+			<h3 class="w3-padding-64"><b><br>branzpir</b></h3>
+		</div>
+		<div class="w3-bar-block">
+			<a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+			<a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
+			<a href="findProfessionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Find Providers</a>
+			<a href="contact.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+			<a href="youandbranzpir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
+		</div>
+	</nav>
+	<!--- TOP MENU ON SMALL SCREENS -->
+	<header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
+		<a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
+	</header>
+	<!--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS -->
+	<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+	<div class="w3-main" style="margin-left:340px;margin-right:40px">
+		<img src='branzpir logo idea 3 with text (002).png' style='width:25%;margin-top:80px;cursor:pointer' onclick="window.location.href='index.php';">
+		<div class="container" style="margin-top:80px;width:50%">
+
+			<h3>LEGAL INFORMATION</h3>
+			The information provided on this web site has been compiled for your convenience. Branzpir makes no warranties about the accuracy or completeness of any information contained on this web site.
+			Branzpir, including its directors, affiliates, officers, employees, agents, contractors, successors and assigns, will not accept any liability for any loss, damage or other injury resulting from its use.
+			Links to other web sites are provided for your convenience and Branzpir is not responsible for the information contained on those web sites. The provision of a link to another web site does not constitute an endorsement
+			or approval of that web site, or any products or services offered on that web site, by Branzpir. Branzpir will not accept any liability for the use of those links to connect to web sites that are not under our control.
+			Branzpir, its directors, affiliates, officers, employees, agents, contractors, successors and assigns do not accept any liability: for any damages or losses whatsoever, arising out of, or in any way related to, the use of this site and any other site linked to this site.
+			The limitation on liability contained in paragraph 4 applies to direct, indirect, consequential, special, punitive or other damages that you or others may suffer, as well as damages for loss of profit, business interruption or the loss of data or information.
+			Nothing in this web site constitutes or is intended to constitute an offer of, or an invitation to purchase or subscribe for, securities. Branzpir holds the copyright to this web site. Branzpir grants you a limited licence to download this web site for personal use only. You are not permitted to reproduce or alter this web site, or any copy of it, for any other purpose without the prior express written consent of Branzpir.
+			Branzpir regards your privacy as important and will take all reasonable steps to ensure that if you have subscribed to receive notification of web site updates; your e-mail address will remain confidential.
+			Branzpir reserves the right to make changes, modifications, additions, deletions and corrections to the web site, at any time and without notice.
+			<h3>EXCLUSION OF COMPETITORS</h3>
+			If you are in a business of creating similar goods or services and other related matters for the purpose of providing them for a fee to users, whether they be business users or domestic users, then you are a competitor of Branzpir. Our business, Branzpir, and its owners expressly excludes and does not permit you to use or access Branzpir website. If you breach or improperly use the website, Branzpir will hold you fully responsible for any loss that it may sustain.
+			<h3>COPYRIGHT, TRADEMARK AND RESTRICTIONS OF USE</h3>
+			This website and all its contents are the copyright of Branzpir. Branzpir, its logo, design, look and appearance is a registered Trademark. All rights reserved. Our business, Branzpir, and its owners expressly excludes and does not permit you to use or access Branzpir website for any commercial use. Branzpir expressly excludes and does not permit any bloggers or Facebook page owners to use and reproduce our recipes and information contents as one of their own. If you breach or improperly use the website, Branzpir will hold you fully responsible for any loss that it may sustain.
+			<h3>EXTERNAL LINK DISCLAIMER</h3>
+			Any links have been provided for your convenience. Web sites which you are transferred to are not controlled by Branzpir and Branzpir is not responsible, and does not accept any liability, for the information contained on those web sites. The provision of a link does not constitute an endorsement or approval of that web site or any products or services on that web site.
+			<h3>TERMS & CONDITIONS OF BUSINESS WITH BRANZPIR:</h3>
+			<br><h4>GENERAL</h4>
+			These Terms and Conditions (“Conditions”) apply to all contracts between Adroitt Group Pty Ltd as Branzpir (“Branzpir”) and the purchaser (“Purchaser”) of any goods, products or materials (“Goods”) supplied by Branzpir on credit (if sold or supplied on credit) or otherwise (“Contract”).
+			These Conditions will prevail over any terms, conditions, representations or understandings between the Purchaser and Branzpir in relation to the Goods, whether or not any inconsistency arises.
+			Branzpir expressly rejects any conditional order made by a Purchaser.
+			A contract is formed when Branzpir receives any purchase order and either sends a written acceptance to the Purchaser or dispatches the Goods pursuant to the order.
+			<h4>QUOTATIONS</h4>
+			Quotations are valid for thirty (30) days unless otherwise stated by Branzpir and may be withdrawn, revoked or varied at any time.
+			Quotations are not to be construed as an offer or obligation to sell and are provided to the Purchaser for purpose of providing estimates only.
+			<h4>ORDERS AND PRICES</h4>
+			Branzpir reserves the right to accept or decline, in whole or in part, any order for Goods or Services placed by the Purchaser.
+			Branzpir is under no obligation to accept orders less than $75.00 (seventy five dollars).
+			Unless otherwise agreed by the parties, orders received for out of stock Goods will be placed on back order. All backorders will be charged at the price prevailing at the time of the original order. Branzpir will not be liable for any loss or damage that the Purchaser may suffer in connection with Goods being out of stock.
+			Unless otherwise agreed by the parties, all backorders will be delivered in accordance with Branzpir’s standard delivery terms in clauses 14-17.
+			Unless otherwise stated, all prices for Goods are exclusive of all applicable taxes and charges. Where the Goods sold are subject to GST, the Purchaser is liable to pay any applicable amount of GST at the same time as payment for Goods is made.
+			The prices and product specifications contained in Branzpir’s price lists or any information provided by Branzpir to the Purchaser are subject to change at the absolute discretion of Branzpir and without notice to the Purchaser.
+			Unless agreed otherwise, prices quoted include Branzpir’s standard packing arrangements.
+			<h4>DELIVERY</h4>
+			All orders are subject to delivery fees payable by the Purchaser.
+			Branzpir will endeavour to dispatch all standard orders as soon as practicable, however it will not be responsible for any loss or damage associated with Goods being dispatched late.
+			Any time or date named and accepted by Branzpir for completion, delivery and despatch is an estimate only and does not constitute a representation, or term of the contract, nor shall it be part of the description of the Goods and is not of the essence of the contract.
+			Branzpir is deemed to have delivered the Goods when collected by the Purchaser or when they are made available for unloading at the Purchaser’s nominated delivery point (whichever occurs first).
+			<h4>PAYMENT</h4>
+			Payment for Goods purchased from Branzpir is of the essence and must be made by the Purchaser in accordance with the invoice issued by Branzpir or by other agreement such as immediately prior to delivery of the Goods or cash on delivery. Branzpir may also require a deposit at any time.
+			Where the Purchaser has an approved credit account with Branzpir, the Purchaser must ensure that payment for the Goods is made within 7 days after the date of Branzpir’s invoice or such other date for payment as Branzpir and the Purchaser agree in writing.
+			Branzpir, at its absolute discretion, may refuse delivery of the Goods and acceptance of any other orders from the Purchaser until the Purchaser pays to Branzpir any amounts owed or contingently owed for any reason whatsoever by the Purchaser to Branzpir whether under this or any contract or otherwise.
+			Branzpir reserves the right to charge interest on any outstanding amount from the date it becomes outstanding for payment to the date payment is received at the rate of 6% per month compounded daily. All payments made by the Purchaser will first be applied to the accrued interest.
+			Payments made by credit card may be subject to a surcharge.
+			<h4>RISK AND RETENTION OF TITLE</h4>
+			Unless otherwise provided in these Conditions, the Goods supplied by Branzpir to the Purchaser shall be at the Purchaser’s sole risk immediately upon their delivery to the Purchaser.
+			The Purchaser agrees that title to Goods is retained by Branzpir until Branzpir receives from the Purchaser:
+			a.       payment in full for the purchased Goods; and
+			b.       all other monies owing by the Purchaser to Branzpir at any time.
+			Where the Goods comprise a number of items, the property of Branzpir in each item comprising the Goods will not pass to the Purchaser for any individual item until payment in full is received for all items.
+			Prior to title in the Goods passing to the Purchaser, the Purchaser agrees that:
+			a.       it acts as bailee of the Goods until such time as property in them passes to the Purchaser and that this bailment continues for each item of the Goods until the price has been paid in full;
+			b.       it must keep the Goods in good and merchantable condition and fully insure the Goods against loss or damage however caused;
+			c.       it must not sell the Goods except with the prior written consent of Branzpir or in the ordinary course of the Purchaser’s business, provided that any such sale is at arms’ length and on market terms;
+			d.       any proceeds of re-sale, insofar as they relate to the Goods shall be held on trust for Branzpir in a separate account; and
+			e.       it must not create any encumbrance over the Goods which is inconsistent with Branzpir’s title and ownership of the Goods.
+			<h4>SPECIFICATIONS, MEASUREMENTS AND MATERIAL</h4>
+			All descriptions, specifications, illustrations, drawings, data, dimensions and weights contained in catalogues, price lists or other advertising material of Branzpir or elsewhere are approximations only. They are intended by Branzpir to be a general description for information and identification purposes and do not create a sale by description.
+			Any plans, specifications, measurements, information or any material of any nature whatsoever provided to Branzpir by the Purchaser for the purposes of fulfilling an order (“Material”) is deemed to be accurate and fit for purpose. Branzpir will not be liable for any loss arising out of the supply of the Material provided to Branzpir by the Purchaser.
+			Branzpir reserves the right to refuse to use any Purchaser supplied Material if it deems such material inappropriate for its processes.
+			<h4>RETURNS AND CANCELLATIONS</h4>
+			Branzpir cannot accept returns of custom-made or specially produced Goods.
+			Any cancelled orders will result in the Purchaser being liable for the greater of any costs incurred by Branzpir or 25% of the order price.
+			Except as provided otherwise by the ACL, returns of all other Goods are subject to prior approval of Branzpir at its absolute discretion upon a written request by the Purchaser made within 14 calendar days from the date of delivery. Goods must be unused, undamaged and in their original packaging.
+			All credit for Goods that have been approved for return will incur a restocking fee of 20% of the invoiced value of the returned Goods. The Purchaser must bear any costs associated with the return of Goods.
+			<h4>INACCURACIES</h4>
+			The Purchaser must check all Goods received as soon as they are delivered and must notify Branzpir in writing of any inaccuracies or short supply of Goods or any fault, damage or defect in Goods within 7 Calendar days of the date of delivery of the Goods.
+			If the Purchaser notifies Branzpir under clause 34, Branzpir may at its election in its sole discretion replace or give a credit for the Goods.
+			If the Purchaser does not notify Branzpir in writing within 7 calendar days of the date of delivery, Branzpir will not be responsible for any loss or damage arising out of or resulting from such inaccuracies or short supply of Goods, or fault, damage or defect in Goods.
+			The Purchaser will be deemed to have accepted the Goods after 7 calendar days from the date of receipt of the Goods, unless within that time the Purchaser has notified Branzpir under clause 34.
+			<h4>WARRANTY AND LIABILITY</h4>
+			Branzpir acknowledges that where the ACL applies with respect to Goods, certain guarantees and rights are provided by the CCA and ACL.
+			Where the ACL applies with respect to any supply of Goods to the Purchaser:
+			a.       any rights provided to the Purchaser by the ACL or CCA that by statute cannot be excluded that are inconsistent with any term of these Conditions are to prevail over any terms of these Conditions to the extent of the inconsistency;
+			b.       nothing in these Conditions purports to derogate from or exclude any rights provided by the ACL or CCA that by statute cannot be excluded or modified.
+			Branzpir makes no express warranties or representations in relation to the Goods supplied by it.
+			Branzpir will not be responsible in any way whatsoever for the consequence of any representation or conduct made or technical advice given in connection with the Goods whether by its employees, agents or sub-contractors or otherwise to the Purchaser or any third parties. The Purchaser agrees that all such representations and/or advice are/is accepted or relied upon by the Purchaser entirely at the Purchaser’s risk.
+			Branzpir’s liability to the Purchaser or any third parties (whether arising under statute, contract, tort (including negligence), equity or otherwise) for any defect in the Goods, or the supply of the Goods, will in all cases be limited to the cost of repair or replacement of such Goods.
+			Subject to clause 39, to the extent permitted by statute, all warranties, conditions and guarantees (whether express, implied or applied, and whether given by Branzpir, the manufacturer or a third party) pertaining to or in connection with the Goods and any obligation of Branzpir to repair or replace any Goods are excluded.
+			<h4>INDEMNITY</h4>
+			The Purchaser agrees to indemnify and hold Branzpir harmless from and against all liabilities, losses, damages, costs or expenses incurred or suffered by Branzpir, and from and against all actions, proceedings, claims or demands made against Branzpir, arising:
+			a.       as a result of the Purchaser’s failure to comply with any laws, rules, standards or regulations applicable in relation to the Goods or the use of the Goods;
+			b.       as a result of any other negligence or other breach of duty by the Purchaser’s in connection with the Goods; and/or
+			c.       as a result any breach of these Conditions by the Purchaser.
+			<h4>WAIVER</h4>
+			Any failure or delay by Branzpir to enforce any of its rights under these Conditions does not operate as a waiver of those rights.
+			<h4>REPOSSESSION OF GOODS</h4>
+			In the event of default by the Purchaser, Branzpir may retake possession of the Goods. All costs of such repossession will be paid by the Purchaser. Such right shall be without prejudice to Branzpir’s any other rights.
+			The Purchaser authorises Branzpir and its agents and servants to enter into the Purchaser’s premises without notice at any time for the purposes of examination and recovery of goods.
+			<h4>COST RECOVERY</h4>
+			Any expenses, costs or disbursements incurred by Branzpir in recovering any outstanding monies owing by the Purchaser, including debt collection fees and solicitor-client legal costs, must be paid by the Purchaser on a full indemnity basis.
+			<h4>PPSA</h4>
+			The Purchaser acknowledges and agrees that Branzpir may register a security interest in the Goods at any time before or after delivery of the Goods. The Purchaser waives its right under s157 of the PPSA to receive notice of any verification of the registration.
+			If the Purchaser defaults in the performance of any obligation owed to Branzpir under these Conditions, Branzpir may enforce its security interest in any Goods by exercising all or any of its rights under these Conditions or the PPSA.
+			To the extent permitted by law, the Purchaser and Branzpir agree that the following provisions of the PPSA do not apply to the enforcement by Branzpir of its security interest in the Goods: sections 95, 118, 121(4), 125, 130, 132(3)(d), 132(4), 135, 137, 142 and 143.
+			The Purchaser must promptly do anything reasonably required by Branzpir to ensure that Branzpir’s security interest is a perfected security interest and has priority over all other security interests in the Goods.
+			Nothing in clauses 49 – 52 is limited by any other provision of these Conditions or any other agreement between the parties.
+			If a term used in clauses 49 – 53 has a particular meaning in the PPSA, it has the same meaning in those clauses.
+			<h4>ENTIRE AGREEMENT</h4>
+			Every contract for the supply of Goods pursuant to an order incorporates these Conditions and constitutes the entire agreement between Branzpir and the Purchaser. All prior negotiations, proposals, previous dealings, correspondence, trade custom and/or trade usage are superseded by and will not affect the interpretation of that contract.
+			The Purchaser acknowledges, represents and warrants to Branzpir that in any decision or matter concerning or in connection with any Goods it has relied solely on the terms expressed in these Conditions and in writing
+			in an order for the supply of Goods and has not relied on any prior negotiations, proposals, understandings, representations, or conduct of Branzpir or Branzpir’s employees or agents.
+			These Conditions may be varied unilaterally by Branzpir at any time and in its sole discretion.
+			Any variations to these Conditions will apply to every order for Goods made by the Purchaser and accepted by Branzpir after the expiry of 14 calendar days’ notice of the variation to the Purchaser. Notwithstanding any other provision of these Conditions, notice may be effected for the purpose of this clause by provision of the new Conditions as varied or by publication on Branzpir’s website.
+			No variation to these Conditions will apply with respect to any order for Goods already made by the Purchaser and accepted by Branzpir before notice is given under clause 58.
+			<h4>DEFAULT AND TERMINATION</h4>
+			Branzpir may issue a notice of default in the event of a breach of this Contract by the Purchaser by giving 5 working days for the default to be remedied. If after the expiration of that period the default is not remedied the Contract may be terminated immediately at the election of Branzpir in which case the Purchaser shall be liable for all loss and damage suffered by Branzpir arising from the termination.
+			If either party commits an act of insolvency, the other party may terminate immediately by notice in writing.
+			<h4>NOTICE</h4>
+			Where, pursuant to these Conditions, a party is required to give notice to the other party, such notice must be:
+			a.       in writing; and
+			b.       signed by a person authorised by the sender.
+			A notice is deemed to have been given and served on a party:
+			a.       if delivered personally, on the same day on which it was delivered;
+			b.       if sent by post, it is taken to have been given on the day it would have been delivered in the ordinary course of post;
+			c.       if sent by fax, at the time recorded on the transmitting machine;
+			d.       if sent electronically, at the “time of dispatch” within the meaning of section 13 of the Electronic Transactions Act 2001 (WA).
+			<h4>INTELLECTUAL PROPERTY</h4>
+			The Purchaser warrants that it owns all Intellectual Property Rights pertaining to any of the Purchaser’s order for the Goods or has a licence to authorise Branzpir to reproduce or use all copyright works or other materials the subject of Intellectual Property Rights supplied by the Purchaser to Branzpir for the purposes of any order. Further, the Purchaser indemnifies and agrees to keep indemnified Branzpir against any loss incurred by Branzpir in relation to or in any way directly or indirectly connected with any breach of any other Intellectual Property Rights in relation to any material supplied by the Purchaser.
+			Unless specifically agreed in writing between Branzpir and the Purchaser, all Intellectual Property Rights in any works created by Branzpir on behalf of the Purchaser vest in and remain the property of Branzpir.
+			<h4>PRIVACY AND CREDIT REPORTING</h4>
+			Branzpir may collect information in relation to the Purchaser, for the purpose of providing the Goods, in accordance with the laws relating to the collection and disclosure of personal information under the Privacy Act 1998 (Cth) as amended from time to time.
+			Where the Goods are supplied on credit, the Purchaser irrevocably authorises Branzpir, its employees and/or agents to make such inquiries as are deem necessary to investigate the Purchaser’s credit worthiness, including (without limiting) the making of inquiries from persons nominated as trade referees, bankers, or any other credit providers (Information Sources) or credit reporting agencies, and the Purchaser hereby authorises the Information Sources to disclose such information to Branzpir.
+			<h4>FORCE MAJEURE</h4>
+			Branzpir will not be responsible for any delay in or failure of performance of supply or delivery caused by circumstances beyond its control including but not limited to, strikes, lock-outs, labour disturbances, Act of Government, riot, civil war, commotion, fire, flood, failure of power supply or similar event and shall not be liable for any consequential loss, damage, expense or claim suffered by the Purchaser or any other party as a result of any such event.
+			<h4>SEVERANCE</h4>
+			If a court of competent jurisdiction decides that any part of these Conditions is invalid or unenforceable, then that part of the Conditions will be modified (if possible) so as to make it enforceable. If it is cannot be modified, then it will be severed and the rest of the Conditions will continue to operate.
+			<h4>APPLICABLE LAW</h4>
+			This contract is governed by the law of Western Australia.
+			Any legal action in relation to each contract against any party or its property may be brought in any court of competent jurisdiction in the state of Western Australia, and the parties submit to the exclusive jurisdiction of that state.
+			To the extent permitted by law, the Sale of Goods Act 1985 (WA) does not apply to any contract between Branzpir and the Purchaser.
+			<h4>INTERPRETATION</h4>
+			In these Conditions:
+			a.       ACL means the Australian Consumer Law which is contained in Schedule 2 of the Competition and Consumer Act 2010 (Cth).
+			b.       CCA means the Competition and Consumer Act 2010 (Cth).
+			c.       Purchaser means a person who acquires Goods from Branzpir;
+			d.       PPSA means the Personal Property Securities Act 2009 (Cth).
+			e.       GST means the tax payable on certain goods within the meaning of the GST Act;
+			f.         GST Act means the A New Tax System (Goods and Services Tax) Act 1999 and any related legislation imposing such tax or legislation that is enacted to validate, recapture or recoup such tax;
+			g.       Intellectual Property Rights means intellectual property rights at any time protected by statute or common law, including copyright, trade marks, patents and registered designs;
+			h.       Goods means any item of whatsoever nature which is sold or to be sold by Branzpir to the Purchaser.
+
+
+		</div>
+
+		<div class="w3-container w3-padding-32" style="margin-top:700px;padding-right:18px; width:100%; margin-left:0px;">
+			<span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color:#000000'>Eurotech</a></span>
+		</div>
+	</div>
+	<script src="index.js"></script>
+</body>
+</html>
