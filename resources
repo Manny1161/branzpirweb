@@ -23,6 +23,4 @@ https://www.sitepoint.com/sending-emails-php-phpmailer/
 8.sort out favicon issues
 9. implement categories on showcase
 10. add restrictions for unregistered users
-12. add abn
-guid: 5960db22-ec48-49e9-8c55-3d9a073f0c8e
-2.4.51
+11.cant use google smtp service anymore, figure out with new branzpir domain
