@@ -32,16 +32,16 @@
     .w3-half img:hover{opacity:0.8}
     h1,h2{color:#a6001a;}
     /*CHECK IF SCREEN IS LESS THAN 992 PIXELS FOR SMALL SCREENS*/ 
-    .smallSearch @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
+    /*.smallSearch @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
     input[type=text]:focus{width:50%}
 
-    /*CHECK IF SCREEN IS LESS THAN 601 PIXELS FOR LARGER SCREENS*/
+    /*CHECK IF SCREEN IS LESS THAN 601 PIXELS FOR LARGER SCREENS
     @media all and (max-width:601px){input[type=text]{width:250px;position:absolute;left:200px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
     background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
     -webkit-transition: width:0.4s ease-in-out;}}
-    input[type=text]:focus{width:50%}
+    input[type=text]:focus{width:50%}*/
 
     .logIn{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
     .profReg{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
@@ -113,167 +113,6 @@
 
     }}
 
-	/* The container <div> - needed to position the dropdown content 
-	.dropdown {
-	  position:relative;
-	}
-
-    @media all and (min-width:600px){
-	/* Dropdown Content (Hidden by Default) 
-	.dropdown-content {
-	  display: none;
-	  position: absolute;
-	  right:315px;
-      top:35px;
-	  background-color: #f1f1f1;
-	  min-width: 160px;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	  z-index: 1;
-	}}
-
-    @media all and (max-width:992px){
-    /* Dropdown Content (Hidden by Default) 
-	.dropdown-content {
-	  display: none;
-	  position: absolute;
-	  right:270px;
-      top:23px;
-	  background-color: #f1f1f1;
-	  min-width: 160px;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	  z-index: 1;
-    }}
-
-	/* Links inside the dropdown
-	.dropdown-content a {
-	  color: black;
-	  padding: 12px 16px;
-	  text-decoration: none;
-	  display: block;
-	}
-
-    /* Change color of dropdown links on hover 
-	.dropdown-content a:hover {background-color: #ddd;}
-
-    /* Show the dropdown menu on hover 
-    .dropdown:hover .dropdown-content {display: block;}
-
-    /* Change the background color of the dropdown button when the dropdown content is shown 
-    .dropdown:hover .dropbtn {background-color: white;} */
-
-    /* Dropdown Button For Professionals Icon*/
-	.profdropbtn {
-	  background-color: white;
-	  color: white;
-	  font-size: 16px;
-	  border: none;
-	}
-
-	/* The container <div> - needed to position the dropdown content */
-	.profdropdown {
-	  position:relative;
-	}
-
-    @media all and (min-width:600px){
-	/* Dropdown Content (Hidden by Default) */
-	.profdropdown-content {
-	  display: none;
-	  position: absolute;
-	  right:200px;
-      top:40px;
-	  background-color: #f1f1f1;
-	  min-width: 160px;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	  z-index: 1;
-	}}
-
-    @media all and (max-width:992px){
-    /* Dropdown Content (Hidden by Default) */
-	.profdropdown-content {
-	  display: none;
-	  position: absolute;
-	  right:170px;
-      top:23px;
-	  background-color: #f1f1f1;
-	  min-width: 160px;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	  z-index: 1;
-    }}
-
-	/* Links inside the dropdown */
-	.profdropdown-content a {
-	  color: black;
-	  padding: 12px 16px;
-	  text-decoration: none;
-	  display: block;
-	}
-
-	/* Change color of dropdown links on hover */
-	.profdropdown-content a:hover {background-color: #ddd;}
-
-	/* Show the dropdown menu on hover */
-	.profdropdown:hover .profdropdown-content {display: block;}
-
-	/* Change the background color of the dropdown button when the dropdown content is shown */
-	.profdropdown:hover .profdropbtn {background-color: white;}
-
-    /* Dropdown Button */
-	.brandropbtn {
-	  background-color: white;
-	  color: white;
-	  font-size: 16px;
-	  border: none;
-	}
-
-	/* The container <div> - needed to position the dropdown content */
-	.brandropdown {
-	  position:relative;
-	  
-	}
-
-    @media all and (min-width:600px){
-	/* Dropdown Content (Hidden by Default) */
-	.brandropdown-content {
-	  display: none;
-	  position: absolute;
-	  right:25px;
-      top:40px;
-	  background-color: #f1f1f1;
-	  min-width: 160px;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	  z-index: 1;
-	}}
-
-    @media all and (max-width:992px){
-    /* Dropdown Content (Hidden by Default) */
-	.brandropdown-content {
-	  display: none;
-	  position: absolute;
-	  right:5px;
-      top:23px;
-	  background-color: #f1f1f1;
-	  min-width: 160px;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	  z-index: 1;
-    }}
-
-	/* Links inside the dropdown */
-	.brandropdown-content a {
-	  color: black;
-	  padding: 12px 16px;
-	  text-decoration: none;
-	  display: block;
-	}
-
-    /* Change color of dropdown links on hover */
-	.brandropdown-content a:hover {background-color: #ddd;}
-
-    /* Show the dropdown menu on hover*/
-    .brandropdown:hover .brandropdown-content {display: block;}
-
-    /* Change the background color of the dropdown button when the dropdown content is shown */
-    .brandropdown:hover .brandropbtn {background-color: white;}
-
 </style>
 <body>
 <nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -285,8 +124,8 @@
     <div class="w3-bar-block">
         <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href='findProfessionals.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Find Professionals</a> 
-        <a href='contact.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+        <a href='findProfessionals.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Find Providers</a> 
+        <a href='contact.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
         <a href='youandbranzpir.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
     </div>
 </nav>
@@ -315,14 +154,14 @@
                 <?php endif ?>
             </div>
         </div>
-        <form method='POST' action=''><input class='profReg' type='button' value='PROFESSIONALS'/></form>
+        <form method='POST' action=''><input class='profReg' type='button' value='PROVIDERS'/></form>
         <div class="dropdown">
             <a href="#" id="imageDropdown" data-toggle="dropdown">
             <img class="nprof" src="pros.png">
             </a>
             <div class="dropdown-menu dropdown-menu-sw">
                 <li><a href="professionalsLogin.php">Log In</a></li>
-                <li><a href="professionalsRegistration.php">Join As a Pro</a></li>
+                <li><a href="professionalsRegistration.php">Join As a Provider</a></li>
                 <?php if(isset($_SESSION['profID'])) : ?>
 				<li><a href="logout.php">Log Out</a></li>
                 <li><?php echo "<a href='newUserProfile?category=$pro'>Edit Profile</a>"?></li>
@@ -342,44 +181,16 @@
                 <?php endif ?>
             </div>
         </div>
-        <!--form method='POST' action=''><input class='brandReg' type='button' value='BRANDS'/></form>
-        <div class='dropdown'>
-			<img src="brands.png" class='nbrand dropdown-toggle' type='button'  data-toggle='dropdown'>
-			<div class='dropdown-menu'>
-				<li><a href="login.php">Log In</a></li>
-				<li><a href="registration.php">Join as a brand</a></li>
-                <-?php if(isset($_SESSION['brandID'])) : ?>
-                <li><a href="logout.php">Logout</a></li>
-                <-?php endif ?>
-			</div>
-		</div-->
-
-        <!--form method='POST' action=''><input class='profReg' type='button' value='PROFESSIONALS'/></form>
-        <div class='profdropdown'>
-			<img class='nprof' src='pros.png'>
-			<div class='profdropdown-content'>
-				<a href="professionalsLogin.php">Log In</a>
-				<a href="professionalsRegistration.php">Join as a pro</a>
-                <-?php if(isset($_SESSION['profID'])) : ?>
-				<a href="logout.php">Logout</a>
-                <-?php echo "<a href='newUserProfile?category=$pro'>Edit Profile</a>"?>
-                <-?php endif ?>
-			</div>
-		</div>
-        
-        <form method='POST' action=''><input class='logIn' type='button' value='LOG IN'/></form>
-        <div class='dropdown'>
-			<img class='nlog' src='users.png'>
-			<div class='dropdown-content'>
-				<a href="login.php">Log In</a>
-				<a href="registration.php">Register</a>
-				<-?php if(isset($_SESSION['userID'])) : ?>
-                <a href="logout.php">Logout</a>
-                <-?php endif ?>
-			</div>
-		</div-->
         <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
-        <input class='searchBar' type="button" name="search" value="SEARCH FOR INSPIRATION..." onclick="window.location.href='showcase.php';"/>
+        <div class="fixer-container input-group" >
+            <form method='POST' action='showcase.php?search=<?php echo $_POST['search']?>'>
+                <!--input class='searchBar' type="text" name="search" placeholder="SEARCH FOR INSPIRATION..." /><button><button-->
+                <div class="input-group">
+                    <input class="search form-control rounded" type="text" name="search" placeholder="Search" />
+                    <input class="submit btn btn-outline-danger" name="submit" type="submit" value="Search"/>  
+                </div>
+            </form>
+        </div>
     </div>
 
     <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
@@ -405,7 +216,9 @@
         <hr style="width:50px;border:5px solid #a6001a" class="w3-round">
         <p>Branzpir is your connection to brand enpowerment.</p>
         <p>Search for photos, inspiration and professionals. Refine by application, styles or size to find ideas which suit your project.</p>
-        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based</p>
+        <p>Our Catalogue of professionals includes design agencies, architecture firms, construction companies, signage businesses - all Australia-based.</p>
+        <p>Have instant access to inspirational ideas through input of your own search term.</p>
+        <p>Register and you will have an even more comprehensive list of provider and manufacturer details.</p>
     </div>
 
     <div class="w3-row" style="margin-top:75px">
