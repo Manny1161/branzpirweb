@@ -6,6 +6,7 @@
 require_once 'utils.php';
 error_reporting(0);
 $C = connect();
+$_SESSION['home'] = $_GET['search'];
 
 
 ?>
@@ -69,8 +70,8 @@ $C = connect();
     <div class="w3-bar-block">
         <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
         <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href="findProfessionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Find Professionals</a> 
-        <a href="contact.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+        <a href="findProfessionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Find Providers</a> 
+        <a href="contact.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
         <a href="youandbranzpir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
     </div>
 </nav>
@@ -105,10 +106,11 @@ $C = connect();
 <div class="row">
 <?php
 
-if(isset($_POST['submit']))
+if(isset($_POST['submit']) || isset($_SESSION['home']))
 {
     $search = $_POST['search'];
-    if($pro1=sqlSelect($C, "SELECT filename, username, description FROM images WHERE description LIKE '%$search%'"));
+    $search1 = $_SESSION['home'];
+    if($pro1=sqlSelect($C, "SELECT filename, username, description FROM images WHERE description LIKE '%$search%' OR description LIKE '%$search1%'"));
     {
         if($count1=$pro1->num_rows)
         {
@@ -117,7 +119,7 @@ if(isset($_POST['submit']))
                 ?>
                     <div class="col-md-4">
                     <?php echo "<img src='uploads/$prow1->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;' onclick='onClick(this)' alt='$prow1->username<br><q>$prow1->description</q>'>
-                    <span><b><a style='color:black'; href='newUserProfile.php?category=$prow1->username'>$prow1->username</a></b>"?>
+                    <span><a class='small' style='color:black'; href='newUserProfile.php?category=$prow1->username'>$prow1->username</a>"?>
                 </div><?php
             } 
         }
@@ -142,7 +144,7 @@ if(isset($_POST['submit']))
         ?>      
                     <div class="col-md-4">
                         <?php echo "<img src='uploads/$row->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;' onclick='onClick(this)' alt='$row->username<br><q>$row->description</q>'>
-                        <span><b><a style='color:black'; href='newUserProfile.php?category=$row->username'>$row->username</a></b>"?>
+                        <span><a class='small' style='color:black'; href='newUserProfile.php?category=$row->username'>$row->username</a>"?>
                     </div>
         <?php
                 }
