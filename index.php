@@ -10,18 +10,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--title>branzpir</title>
+    <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"-->
+    
     <title>branzpir</title>
     <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4..0/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <style>
@@ -31,18 +43,6 @@
     .w3-half img{margin-bottom:-6px;margin-top:16px;opactiy:0.8;cursor:pointer}
     .w3-half img:hover{opacity:0.8}
     h1,h2{color:#a6001a;}
-    /*CHECK IF SCREEN IS LESS THAN 992 PIXELS FOR SMALL SCREENS*/ 
-    /*.smallSearch @media all and (max-width:992px){input[type=text]{width:250px;position:absolute;left:210px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
-    background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
-    -webkit-transition: width:0.4s ease-in-out;}}
-    input[type=text]:focus{width:50%}
-
-    /*CHECK IF SCREEN IS LESS THAN 601 PIXELS FOR LARGER SCREENS
-    @media all and (max-width:601px){input[type=text]{width:250px;position:absolute;left:200px;top:5px;box-sizing:border-box;border:2px solid #ccc;border-radius:5px;font: size 12px;
-    background-color:white;background-position:10px 10px;background-repeat:no-repeat;padding:5px 10px 12px 30px;
-    -webkit-transition: width:0.4s ease-in-out;}}
-    input[type=text]:focus{width:50%}*/
-
     .logIn{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
     .profReg{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
     .brandReg{float:right; margin-top:-5px; border-radius:20px; border:none; color:black; background-color:white;}
@@ -115,31 +115,36 @@
 
 </style>
 <body>
-<nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-    <div class="w3-container">
-        <h3 class="w3-padding-64"><b><br>branzpir</b></h3>
+<!--div class="w3-top">
+    <div class=" w3-bar w3-highway-red w3-card">
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i>☰</a>    
+        <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Home</a>
+        <a href='showcase.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Showcase</a>
+        <a href='findProfessionals.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Find Providers</a> 
+        <a href='contact.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Contact</a>
+        <a href='youandbranzpir.html' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">You and Branzpir</a>
     </div>
+</div>
 
-    <div class="w3-bar-block">
-        <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-        <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href='findProfessionals.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Find Providers</a> 
-        <a href='contact.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-        <a href='youandbranzpir.html' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
-    </div>
-</nav>
+<-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) >
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <a href="index.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Home</a>
+  <a href="showcase.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Showcase</a>
+  <a href="findProfessionals.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Find Providers</a>
+  <a href="contact.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Contact</a>
+  <a href="youandbranzpir.html" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">You and Branzpir</a>
+</div-->
 
-<!--- TOP MENU ON SMALL SCREENS -->
+<!--- TOP MENU ON SMALL SCREENS >
 <header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
     <a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
 </header>
 
-<!--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS -->
-<div class="w3-overlay w3-hide-small" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS >
+<div class="w3-overlay w3-hide-small" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div-->
 
 <!--- PAGE CONTENT -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
+<div class="container">
     <div class="w3-container" style="margin-top:80px" id="showcase">
     <form method='POST' action=''><input class='brandReg' type='button' value='BRANDS'/></form>
         <div class="dropdown">
@@ -182,17 +187,37 @@
             </div>
         </div>
         <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
-        <div class="fixer-container input-group" >
-            <form method='POST' action='showcase.php?search=<?php echo $_POST['search']?>'>
-                <!--input class='searchBar' type="text" name="search" placeholder="SEARCH FOR INSPIRATION..." /><button><button-->
-                <div class="input-group">
-                    <input class="search form-control rounded" type="text" name="search" placeholder="Search" />
-                    <input class="submit btn btn-outline-danger" name="submit" type="submit" value="Search"/>  
-                </div>
-            </form>
-        </div>
+        <form method='GET' action='showcase.php'>
+            <div class="input-group">
+                <input class="search form-control rounded" type="text" name="index" placeholder="Search for inspiration..." />
+                <!--input class="submit btn btn-outline-danger" name="submit" type="submit" value="Search"/-->  
+            </div>
+        </form>
     </div>
+</div>
+        
+        <div class="w3-bar w3-highway-red w3-card my-2" >
+            <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i>☰</a>    
+            <div class="container">
+            <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Home</a>
+            <a href='showcase.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Showcase</a>
+            <a href='findProfessionals.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Find Providers</a> 
+            <a href='contact.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Contact</a>
+            <a href='youandbranzpir.html' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">You and Branzpir</a>
+            </div>
+        </div>
+        
 
+        <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+        <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium" style="margin-top:46px">
+            <a href="index.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Home</a>
+            <a href="showcase.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Showcase</a>
+            <a href="findProfessionals.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Find Providers</a>
+            <a href="contact.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Contact</a>
+            <a href="youandbranzpir.html" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">You and Branzpir</a>
+        </div>
+    
+<div class="container">
     <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
     <br><div class="alert alert-success">
         <strong>Success!</strong> You are logged in!
