@@ -19,8 +19,8 @@ https://www.codingsnow.com/2021/01/contact-page-with-php-send-emails-using.html
 https://www.sitepoint.com/sending-emails-php-phpmailer/
 
 3.potentially show snippet of text from database underneath images
-5.sort out the brands section of the website
 8.sort out favicon issues
 9. implement categories on showcase
-10. add restrictions for unregistered users
 11.cant use google smtp service anymore, figure out with new branzpir domain
+12.sort out layout as described by fred
+13.implement timer on floating logged in confirmation
