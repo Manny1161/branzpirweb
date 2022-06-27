@@ -10,18 +10,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--title>branzpir</title>
-    <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"-->
-    
     <title>branzpir</title>
     <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
     <meta charset="utf-8"/>
@@ -115,37 +103,11 @@
 
 </style>
 <body>
-<!--div class="w3-top">
-    <div class=" w3-bar w3-highway-red w3-card">
-        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i>☰</a>    
-        <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Home</a>
-        <a href='showcase.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Showcase</a>
-        <a href='findProfessionals.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Find Providers</a> 
-        <a href='contact.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Contact</a>
-        <a href='youandbranzpir.html' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">You and Branzpir</a>
-    </div>
-</div>
-
-<-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) >
-<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-  <a href="index.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Home</a>
-  <a href="showcase.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Showcase</a>
-  <a href="findProfessionals.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Find Providers</a>
-  <a href="contact.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Contact</a>
-  <a href="youandbranzpir.html" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">You and Branzpir</a>
-</div-->
-
-<!--- TOP MENU ON SMALL SCREENS >
-<header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
-    <a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
-</header>
-
-<--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS >
-<div class="w3-overlay w3-hide-small" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div-->
-
 <!--- PAGE CONTENT -->
 <div class="container">
-    <div class="w3-container" style="margin-top:80px" id="showcase">
+    <div class="w3-container" style="margin-top:30px" id="showcase">
+    <!-- IF USER IS NOT LOGGED IN DISPLAY THIS -->
+    <?php if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) : ?>
     <form method='POST' action=''><input class='brandReg' type='button' value='BRANDS'/></form>
         <div class="dropdown">
             <a href="#" id="imageDropdown" data-toggle="dropdown">
@@ -186,44 +148,74 @@
                 <?php endif ?>
             </div>
         </div>
+        <?php endif ?>
+        <!-- IF USER IS LOGGED IN DISPLAY THIS -->
+        <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
+            <!-- IF USER IS PROVIDER DISPLAY THIS -->
+            <?php if(isset($_SESSION['profID'])) : ?>
+                <form method='POST' action=''><input class='profReg' type='button' value='<?php echo $_SESSION['profName']?>'/></form>
+                <div class="dropdown">
+                    <a href="#" id="imageDropdown" data-toggle="dropdown">
+                    <img class="nprof" src="pros.png">
+                    </a>
+                    <div class="dropdown-menu pull-right my-2">
+                        <li><a href="professionalsLogin.php">Log In</a></li>
+                        <li><a href="professionalsRegistration.php">Join As a Provider</a></li>
+                        <?php if(isset($_SESSION['profID'])) : ?>
+                        <li><a href="logout.php">Log Out</a></li>
+                        <li><?php echo "<a href='newUserProfile?category=$pro'>Edit Profile</a>"?></li>
+                        <?php endif ?>
+                    </div>
+                </div>
+            <?php endif ?>
+            <!-- IF USER IS PRIVATE USER DISPLAY THIS -->
+            <?php if(isset($_SESSION['userID'])) : ?>
+                <form method='POST' action=''><input class='logIn' type='button' value='<?php echo $_SESSION['userName']?>'/></form>
+                <div class="dropdown">
+                    <a href="#" id="imageDropdown" data-toggle="dropdown">
+                    <img class="nlog" src="users.png">
+                    </a>
+                    <div class="dropdown-menu pull-right my-2">
+                        <li><a href="login.php">Log In</a></li>
+                        <li><a href="registration.php">Register</a></li>
+                        <?php if(isset($_SESSION['userID'])) : ?>
+                        <li><a href="logout.php">Log Out</a></li>
+                        <?php endif ?>
+                    </div>
+                </div>
+            <?php endif ?>
+        <?php endif ?>
         <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">
         <form method='GET' action='showcase.php'>
             <div class="input-group">
-                <input class="search form-control rounded" type="text" name="index" placeholder="Search for inspiration..." />
-                <!--input class="submit btn btn-outline-danger" name="submit" type="submit" value="Search"/-->  
+                <input class="search form-control rounded" style="width:70%" type="text" name="index" placeholder="Search for inspiration..." />  
             </div>
         </form>
     </div>
 </div>
         
-        <div class="w3-bar w3-highway-red w3-card my-2" >
-            <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i>☰</a>    
-            <div class="container">
-            <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Home</a>
-            <a href='showcase.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Showcase</a>
-            <a href='findProfessionals.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Find Providers</a> 
-            <a href='contact.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Contact</a>
-            <a href='youandbranzpir.html' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">You and Branzpir</a>
-            </div>
-        </div>
-        
+<div class="w3-bar w3-highway-red w3-card my-2" >
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i>☰</a>    
+    <div class="container">
+    <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Home</a>
+    <a href='showcase.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Showcase</a>
+    <a href='findProfessionals.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Find Providers</a> 
+    <a href='contact.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Contact</a>
+    <a href='youandbranzpir.html' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">You and Branzpir</a>
+    </div>
+</div>
 
-        <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
-        <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium" style="margin-top:46px">
-            <a href="index.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Home</a>
-            <a href="showcase.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Showcase</a>
-            <a href="findProfessionals.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Find Providers</a>
-            <a href="contact.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Contact</a>
-            <a href="youandbranzpir.html" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">You and Branzpir</a>
-        </div>
+
+<!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium" style="margin-top:46px">
+    <a href="index.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Home</a>
+    <a href="showcase.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Showcase</a>
+    <a href="findProfessionals.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Find Providers</a>
+    <a href="contact.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Contact</a>
+    <a href="youandbranzpir.html" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">You and Branzpir</a>
+</div>
     
 <div class="container">
-    <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
-    <br><div class="alert alert-success">
-        <strong>Success!</strong> You are logged in!
-    </div>
-    <?php endif ?>
-
     <div class="w3-row-padding">
         <img src="uploads/index.png" class="mainImg" style="padding-top:15px">
     </div>
@@ -266,10 +258,18 @@
                 <a href="digital.php" style="text-decoration:none"><h2><b>Digital</b></h2></a>
             </div>
     </div>
-<div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:18px; width:100%; margin-left:0px;">
-<span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color: #000000;'>Eurotech</a></span>
+
 </div>
-</div>
+<footer class="w3-container w3-highway-red w3-padding-48" style="margin-top:75px">
+    <div class="container">
+        <div class="w3-left"><img src='branzpir logo idea 3 with text (002).png' style='width:15%'></div>
+        <div class="w3-left"><a href="https://www.facebook.com/eurotechaustralia/"><img src='facebookicon1.png' style='width:3%'></a>&nbsp;<a href="https://www.linkedin.com/company/eurotech-australia/"><img src='linkedin1.png' style='width:3%'></a></div>
+            <div class="container">
+                <h4>WHO WE ARE<h4>
+            </div>
+        <span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color: #ffffff;'>Eurotech</a></span>
+    </div>
+</footer>
 <script src='index.js'></script>
 </body>
 </html>
