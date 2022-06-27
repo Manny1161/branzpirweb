@@ -261,14 +261,41 @@
 
 </div>
 <footer class="w3-container w3-highway-red w3-padding-48" style="margin-top:75px">
-    <div class="container">
-        <div class="w3-left"><img src='branzpir logo idea 3 with text (002).png' style='width:15%'></div>
-        <div class="w3-left"><a href="https://www.facebook.com/eurotechaustralia/"><img src='facebookicon1.png' style='width:3%'></a>&nbsp;<a href="https://www.linkedin.com/company/eurotech-australia/"><img src='linkedin1.png' style='width:3%'></a></div>
-            <div class="container">
-                <h4>WHO WE ARE<h4>
-            </div>
-        <span class="w3-left">&copy; Copyright 2022 Branzpir</span><span class="w3-right">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color: #ffffff;'>Eurotech</a></span>
+    <div class="container py-5">
+	<div class="row">
+		<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+		   <img src='branzpir logo idea 3 with text (002).png' style='width:15%'>
+		   <a href="https://www.facebook.com/eurotechaustralia/"><img src='facebookicon1.png' style='width:3%'></a>&nbsp;
+		   <a href="https://www.linkedin.com/company/eurotech-australia/"><img src='linkedin1.png' style='width:3%'></a>
+		</div>
+		<div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+		   <h4>WHO WE ARE</h4>
+		   <ul class="list-unstyled mb-0">
+		       <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+			   <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+			   <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+		   </ul>
+		</div>
+		<div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+		   <h4>WHO WE ARE</h4>
+		   <ul class="list-unstyled mb-0">
+		       <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+			   <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+			   <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+		   </ul>
+		</div>
+		<div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+		   <h4>WHO WE ARE</h4>
+		   <ul class="list-unstyled mb-0">
+		       <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+			   <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+			   <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+		   </ul>
+		</div>
+	</div>
+	<span class="w3-left my-5">&copy; Copyright 2022 Branzpir</span><span class="w3-right my-5">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color: #ffffff;'>Eurotech</a></span>
     </div>
+	
 </footer>
 <script src='index.js'></script>
 </body>
