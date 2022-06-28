@@ -1,90 +1,82 @@
 <?php 
     require_once 'utils.php';
+    echo $_SESSION['userName'];
+if($_POST['submit'])
+{
+    if(!isset($_POST['password']) || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\~?!@#\$%\^&\*])(?=.{8,})/', $_POST['password'])) {
+		$errors[] = 4;
+	}
+	else if(!isset($_POST['confirm-password']) || $_POST['confirm-password'] !== $_POST['password']) {
+		$errors[] = 5;
+	}
+	/*$token = md5(uniqid(rand(), true));
+	$_SESSION['csrf_token'] = $token;
+	$_SESSION['csrf_token_time'] = time();
+	if(isset($_POST) & !empty($_POST))
+	{
+		if(isset($_POST['csrf_token']))
+		{
+			if($_POST['csrf_token'] == $_SESSION['csrf_token'])
+			{
+				$errors[] = "9";
+			}
+		}
+		$max_time = 60*60*24;
+		if(isset($_SESSION['csrf_token_time']))
+		{
+			$token_time = $_SESSION['csrf_token_time'];
+			if($token_time + $max_time >= time())
+			{}
+			else
+			{
+				unset($_SESSION['csrf_token']);
+				unset($_SESSION['csrf_token_time']);
+				$errors[] = "11";
+			}
+		}
+	}*/
 
-    $errors = [];
-
-    if(empty($_POST['id']))
+    if(count($errors)==0)
     {
-        // CHECK FOR NO ID
-        $errors[] = 1;
-    }
-    if(empty($_POST['hash']))
-    {
-        // CHECK FOR NO HASH
-        $errors[] = 2;
-    }
-    if(!isset($_POST['password']) || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\~?!@#\$%\^&\*])(?=.{8,})/', $_POST['password']))
-    {
-        // PASSWORD MUST HAVE UPPER & LOWER LETTERS, ONE NUMBER AND ATLEAST ONE SPECIAL SYMBOL AND BE 8 OR MORE CHARS LONG
-        $errors[] = 3;
-    }
-    else if(!isset($_POST['confirm-password']) || $_POST['confirm-password'] != $_POST['password'])
-    {
-        $errors[] = 4;
-    }
-
-    if(count($errors==0))
-    {
-        if(isset($_POST['csrf-token']))
+        $C = connect();
+        if($C)
         {
-            $C = connect();
-            if($C)
+            $res = sqlSelect($C, 'SELECT username FROM accounts WHERE username=?', 's', $_SESSION['userName']);
+            if($res && $res->num_rows == 1)
             {
-                $res = sqlSelect($C, 'SELECT user, hash, timestamp FROM requests WHERE id=? LIMIT 1', 'i', $_POST['id']);
-                if($res && $res->num_rows == 1)
+                $request = $res->fetch_assoc();
+                // UPDATE PASSWORD
+                $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                if(sqlUpdate($C, 'UPDATE accounts SET password=? WHERE username=?', 'ss', $hash, $_SESSION['userName']))
                 {
-                    $request = $res->fetch_assoc();
-                    // VERIFY PASSWORD
-                    if(password_verify(urlSafeDecode($_POST['hash']), $request['hash']))
-                    {
-                        if($request['timestamp'] >= time() - PASSWORD_RESET_REQUEST_EXPIRY_TIME)
-                        {
-                            // UPDATE PASSWORD
-                            $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                            if(sqlUpdate($C, 'UPDATE user SET password=? WHERE id=?', 'si', $hash, $request['user']))
-                            {
-                                // DELETE ALL PASSWORD REQUESTS FROM USER
-                                sqlUpdate($C, 'DELETE FROM requests WHERE user=? AND type=1', 'i', $request['user']);
-                                $errors[] = 0;
-                            }
-                            else
-                            {
-                                // FAILED TO UPDATE PASSWORD
-                                $errors[] = 5;
-                            }
-                        }
-                        else
-                        {
-                            // RESET REQUEST EXPIRED
-                            $errors[] = 6;
-                        }
-                    }
-                    else
-                    {
-                        // INVALID PASSWORD RESET REQUEST
-                        $errors[] = 7;
-                    }
-                    $res->free_result();
+                    /* DELETE ALL PASSWORD REQUESTS FROM USER
+                    sqlUpdate($C, 'DELETE FROM requests WHERE user=? AND type=1', 'i', $request['user']);
+                    $errors[] = 0;*/
+                    header('location:dashboard.php');
                 }
                 else
                 {
-                    // INVALID PASSWORD RESET REQUEST
-                    $errors[] = 7;
+                    // FAILED TO UPDATE PASSWORD
+                    $errors[] = 5;
+                    echo 5;
                 }
-                $C->close();
+                $res->free_result();
             }
             else
             {
-                // FAILED TO CONNECT TO DATABASE
-                $errors[] = 8;
+                // INVALID PASSWORD RESET REQUEST
+                $errors[] = 7;
+                echo 5;
             }
+            $C->close();
         }
         else
         {
-            // INVALID CSRF TOKEN
-            $errors[] = 9;
+            // FAILED TO CONNECT TO DATABASE
+            $errors[] = 8;
+            echo 5;
         }
     }
     echo json_encode($errors);
-
+}
 ?>
