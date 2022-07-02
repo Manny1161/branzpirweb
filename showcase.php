@@ -1,3 +1,4 @@
+
 <style>
   .message{color:red}
 </style>
@@ -264,26 +265,29 @@ if(isset($_SESSION['home']) && !$is_page_refreshed)
     
 ?>
 </div>
-    <div class="row">
-        <?php
-        if($res=sqlSelect($C, 'SELECT filename, project, description, username from images'))
-        {
-            if($count=$res->num_rows)
-            {
-                while($row=$res->fetch_object())
-                {
-        ?>      
-                    <div class="col-md-4">
-                    <?php echo "<a href='showGallery?show=$row->project&uid=$row->username'><img src='uploads/$row->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;'></a>
-                        <p class='p1'>$row->project</p><a class='small' style='color:#5b5b5b'; href='newUserProfile.php?category=$row->username'>$row->username</a>"?>
-                    </div>
-        <?php
-                }
-            $res->free();
-            }
-        }
-        ?>
-    </div>
+<div class="row">
+	<?php if(!isset($_POST['search']))
+	{
+		if($res=sqlSelect($C, 'SELECT filename, project, description, username from images'))
+		{
+			if($count=$res->num_rows)
+			{
+				while($row=$res->fetch_object())
+				{
+		?>      
+					<div class="col-md-4">
+					<?php echo "<a href='showGallery?show=$row->project&uid=$row->username'><img src='uploads/$row->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;'></a>
+						<p class='p1'>$row->project</p><a class='small' style='color:#5b5b5b'; href='newUserProfile.php?category=$row->username'>$row->username</a>"?>
+					</div>
+		<?php
+				}
+			$res->free();
+			}
+		}
+		?>
+		
+	}
+	</div>
 </div>
 <footer class="w3-container w3-highway-red w3-padding-48" style="margin-top:75px">
     <div class="container py-5">
