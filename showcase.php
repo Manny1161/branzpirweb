@@ -8,7 +8,7 @@ error_reporting(0);
 $C = connect();
 $_SESSION['home'] = $_GET['index'];
 $is_page_refreshed = (isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] == 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
-$limit = 4;
+
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +32,8 @@ $limit = 4;
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
     .p1{font-size:14px; color:#000000}
     body {font-size:16px;}
+    .w3-half img{margin-bottom:-6px;margin-top:16px;opactiy:0.8;cursor:pointer}
+    .w3-half img:hover{opacity:0.8}
     h1,h2{color:#a6001a;}
     .logIn{float:right; margin-top:-5px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
     .profReg{float:right; margin-top:11px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
@@ -171,8 +173,7 @@ $limit = 4;
             </div>
         </form>
     
-    </div>
-</div>        
+    </div>        
 
 <div class="w3-bar w3-highway-red w3-card mb-2" style="margin-top:-1px">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i>☰</a>    
@@ -192,46 +193,25 @@ $limit = 4;
     <a href="contact.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Contact</a>
     <a href="youandbranzpir.html" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">You and Branzpir</a>
 </div>
-<div class="container">
-<h4>Browse by Category</h4>   
-    <div class="w3-container w3-center">
-        
-        <div class="row pb-4">
-            <div class="col-3">
-                <div class="card shadow" style="width:150px;height:150px;object-fit:cover">
-                    <img class="card-img-top" src="uploads/pexels-tim-mossholder-942317.jpg" style="height:150px">
-                    <div class="card-body" >
-                        <p class="card-text"><a href="indoors.php" style="color:#000000"><p1><b>Indoors</b></p1></a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card shadow" style="width:150px;object-fit:cover">
-                    <img class="card-img-top" src="uploads/np_Old hotel sign, Seattle, Washington_4OdjLb_full.jpg" style="height:100px">
-                    <div class="card-body">
-                        <p class="card-text"><a href="building.php" style="color:#000000"><p1><b>Building</b></p1></a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card shadow" style="width:150px;height:150px;object-fit:cover">
-                    <img class="card-img-top" src="uploads/pexels-vlad-alexandru-popa-1486222.jpg" style="height:100px">
-                    <div class="card-body">
-                        <p class="card-text"><a href="outdoors.php" style="color:#000000"><p1><b>Outdoors</b></p1></a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card shadow" style="width:150px;object-fit:cover">
-                    <img class="card-img-top" src="uploads/pexels-karol-d-331788.jpg" style="height:100px">
-                    <div class="card-body">
-                        <p class="card-text"><a href="digital.php" style="color:#000000"><p1><b>Digital</b></p1></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">   
+            
 <div class="row">
+    <div class="col-3">
+        <img src="uploads/pexels-tim-mossholder-942317.jpg" style="width:100px;height:100px;object-fit:cover">
+        <a href="indoors.php" style="text-decoration:none"><p1><b>Indoors</b></p1></a>
+    </div>
+    <div class="col-3">
+        <img src="uploads/np_Old hotel sign, Seattle, Washington_4OdjLb_full.jpg" style="width:100px;height:100px;object-fit:cover">
+        <a href="building.php" style="text-decoration:none"><h2><b>Building</b></h2></a>
+    </div>
+    <div class="col-3">
+        <img src="uploads/pexels-vlad-alexandru-popa-1486222.jpg" style="width:100px;height:100px;object-fit:cover">
+        <a href="outdoors.php" style="text-decoration:none"><h2><b>Outdoors</b></h2></a>
+    </div>
+    <div class="col-3">
+        <img src="uploads/pexels-karol-d-331788.jpg" style="width:100px;height:100px;object-fit:cover">
+        <a href="digital.php" style="text-decoration:none"><h2><b>Digital</b></h2></a>
+    </div>
 <?php
 
 if(isset($_POST['search']))
@@ -246,7 +226,7 @@ if(isset($_POST['search']))
                 ?>
                     <div class="col-md-4">
                     <?php echo "<a href='showGallery?show=$prow1->project&uid=$prow1->username'><img src='uploads/$prow1->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;'></a>
-                    <p class='p1'>$prow1->project</p><a class='small' style='color:#5b5b5b'; href='newUserProfile.php?category=$prow1->username'>$prow1->username</a>"?>
+                    <span><a class='small' style='color:black'; href='newUserProfile.php?category=$prow1->username'>$prow1->username</a>"?>
                 </div><?php
             } 
         }
@@ -270,7 +250,7 @@ if(isset($_SESSION['home']) && !$is_page_refreshed)
                 ?>
                     <div class="col-md-4">
                     <?php echo "<a href='showGallery?show=$prow1->project&uid=$prow1->username'><img src='uploads/$prow1->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;'></a>
-                    <p class='p1'>$prow1->project</p><a class='small' style='color:#5b5b5b'; href='newUserProfile.php?category=$prow1->username'>$prow1->username</a>"?>
+                    <span><a class='small' style='color:black'; href='newUserProfile.php?category=$prow1->username'>$prow1->username</a>"?>
                 </div><?php
             } 
         }
@@ -283,36 +263,50 @@ if(isset($_SESSION['home']) && !$is_page_refreshed)
 }
     
 ?>
-
 </div>
-<?php if(!isset($_POST['search'])) : ?>
-    <div class="row">
-        <?php
-         
-        if($res=sqlSelect($C, 'SELECT filename, project, description, username from images'))
-        {
-            if($count=$res->num_rows)
-            {
-                $total_rows = ceil($count / 3);
-                $total_pages = ceil($total_rows / $limit);
-                $page_num = $_GET['page'];
-                $init_page = ($page_num-1)*$limit;
-                while($row=$res->fetch_object())
-                {
-        ?>      
-                    <div class="col-md-4">
-                    <?php echo "<a href='showGallery?show=$row->project&uid=$row->username'><img src='uploads/$row->filename' class='img-fluid rounded shadow-sm' style='height:300px; width:550px; object-fit:cover;'></a>
-                        <p class='p1'>$row->project</p><a class='small' style='color:#5b5b5b'; href='newUserProfile.php?category=$row->username'>$row->username</a>"?>
-                    </div>
-        <?php
-                }
-            $res->free();
-            }
-        }
-        ?>
-    </div>
-<?php endif ?>
-    </div>
+<div class="row">
+	<?php if(!isset($_POST['search']))
+	{
+		if($res=sqlSelect($C, 'SELECT * FROM uploads'))
+		{
+			if($count=$res->num_rows)
+			{
+				$limit=3;
+				$results=$count;
+				$num_pages=ceil($results/$limit);
+				if(!isset($_GET['page']))
+				{
+					$page = 1;
+				}
+				else 
+				{
+					$page = $_GET['page'];
+				}
+				echo $start = ($page-1)*$limit;
+				$img=sqlSelect($C, "SELECT * FROM uploads LIMIT " . $start . ',' . $limit);
+				while($row=$img->fetch_object())
+				{
+		?>      
+					<div class="col-md-4">
+					<?php echo $row->filename?>
+					</div>
+		<?php
+				}
+			$res->free();
+			}
+		}
+		
+		
+	}
+	?>
+	<?php 
+		for($page=1;$page<=$num_pages;$page++)
+		{
+			echo '<a href="showcase.php?page=' . $page .'">' . $page . '</a>';
+		}
+	?>
+	</div>
+	
 </div>
 <footer class="w3-container w3-highway-red w3-padding-48" style="margin-top:75px">
     <div class="container py-5">
