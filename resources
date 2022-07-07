@@ -24,3 +24,5 @@ https://www.sitepoint.com/sending-emails-php-phpmailer/
 11.cant use google smtp service anymore, figure out with new branzpir domain
 12. forgot password
 https://www.simplilearn.com/tutorials/php-tutorial/pagination-in-php
+fix user profile 'edit form' layout
+check size of images when users are uploading them.
