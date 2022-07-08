@@ -111,23 +111,23 @@ if(isset($_POST["subBtn"]) && !empty($_POST['image'])) {
   $width = $imagedetails[0];
   $height = $imagedetails[1];
   if($check == false) {
-  $alert = '<div class="alert-error" style="text-align:center">
-		<span class="message">File is not an image.</span>
-		</div>';
-		echo $alert;
-    $uploadOk[] = 1;
-    } 
+    $alert = '<div class="alert-error" style="text-align:center">
+          <span class="message">File is not an image.</span>
+          </div>';
+          echo $alert;
+      $uploadOk[] = 1;
+      }  
   // Allow certain file formats
-  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-	  $alert = '<div class="alert-error" style="text-align:center">
-		<span class="message">Sorry only JPG, JPEG & PNG files are allowed.</span>
-		</div>';
-		echo $alert;
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+        $alert = '<div class="alert-error" style="text-align:center">
+          <span class="message">Sorry only JPG, JPEG & PNG files are allowed.</span>
+          </div>';
+          echo $alert;
     $uploadOk = 0;
   }
   // Check if $uploadOk is set to 0 by an error
   if (count($uploadOk) != 0) {
-	  $alert = '<div class="alert-error" style="text-align:center">
+    $alert = '<div class="alert-error" style="text-align:center">
 		<span class="message">Sorry your file was not uploaded.</span>
 		</div>';
 		echo $alert;
@@ -140,7 +140,7 @@ if(isset($_POST["subBtn"]) && !empty($_POST['image'])) {
       sqlUpdate($C, "UPDATE profileavatar SET filename=? WHERE username=?", 'ss', $fname, $user);
       
     } else {
-	    $alert = '<div class="alert-error" style="text-align:center">
+        $alert = '<div class="alert-error" style="text-align:center">
 		<span class="message">Sorry there was an error uploading your file.</span>
 		</div>';
 		echo $alert;
@@ -154,15 +154,15 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
     $width = $imagedetails[0];
     $height = $imagedetails[1];
     if($check == false) {
-	    $alert = '<div class="alert-error" style="text-align:center">
-		<span class="message">File is not an image.</span>
-		</div>';
-		echo $alert;
+        $alert = '<div class="alert-error" style="text-align:center">
+        <span class="message">File is not an image.</span>
+        </div>';
+        echo $alert;
       $uploadOk[] = 1;
       } 
     // Allow certain file formats
     if($imageFileType2 != "jpg" && $imageFileType2 != "png" && $imageFileType2 != "jpeg") {
-	    $alert = '<div class="alert-error" style="text-align:center">
+        $alert = '<div class="alert-error" style="text-align:center">
 		<span class="message">Sorry only JPG, JPEG & PNG files are allowed.</span>
 		</div>';
 		echo $alert;
@@ -170,7 +170,7 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
     }
     // Check if $uploadOk is set to 0 by an error
     if (count($uploadOk) != 0) {
-	    $alert = '<div class="alert-error" style="text-align:center">
+        $alert = '<div class="alert-error" style="text-align:center">
 		<span class="message">Sorry your file was not uploaded.</span>
 		</div>';
 		echo $alert;
@@ -183,7 +183,7 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
         sqlUpdate($C, "UPDATE profilebanner SET filename=? WHERE username=?", 'ss', $fname, $user);
         
       } else {
-	      $alert = '<div class="alert-error" style="text-align:center">
+        $alert = '<div class="alert-error" style="text-align:center">
 		<span class="message">Sorry there was an error uploading your file.</span>
 		</div>';
 		echo $alert;
@@ -198,17 +198,25 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
     <link rel='branzpir icon' href='branzpir_favicon.png' type='image/x-icon'>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     
     
 </head>
 <style>
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", san-serif}
+    body {font-size:16px;}
+    .logIn{float:right; margin-top:11px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
+    .profReg{float:right; margin-top:11px; border-radius:20px; margin-right:5px; border:none; color:black; background-color:white;}
+    .nlog{width:3%;float:right; margin-top:11px; cursor:pointer;}
+    .nprof{width:3%;float:right;margin-top:11px;;cursor:pointer;}
     .profile-head {
         transform: translateY(5rem)
     }
@@ -245,28 +253,156 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
         min-height: 100vh;
         overflow-x: hidden;
     }
+    @media all and (min-width:992px){
+    .dropdown-menu-sw {
+        left:75%;
+    }
+    .dropdown-menu {
+        position:absolute;
+        top:30px;
+        right:10;
+        width:160px;
+    }}
+    @media all and (max-width:992px){
+    .dropdown-menu-sw {
+        left:60%;
+    }
+    .dropdown-menu {
+        position:absolute;
+        top:100px;
+        right:10;
+        width:160px;
+
+    }}
+    @media all and (min-width:992px){
+    .dropdown-menu-uw {
+        left:65%;
+    }
+    .dropdown-menu {
+        position:absolute;
+        top:30px;
+        right:10;
+        width:160px;
+    }}
+    @media all and (max-width:992px){
+    .dropdown-menu-uw {
+        /*right: -10;*/
+        left:50%;
+    }
+    .dropdown-menu {
+        position:absolute;
+        right:10;
+        top:15px;
+        width:160px;
+
+    }}
 </style>
 <body>
-<nav class="w3-sidebar w3-highway-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-    <div class="w3-container">
-        <h3 class="w3-padding-64"><b><br>branzpir</b></h3>
+<!--- PAGE CONTENT -->
+<div class="container">
+<div class="w3-container" style="margin-top:14px">
+<?php if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) : ?>
+
+    <div class="dropdown">
+        <a href="#" id="imageDropdown" data-toggle="dropdown">
+        <input id="imageDropdown" class='profReg' type='button' value='PROVIDERS'/>
+        <img class="nprof" src="pros.png">
+        </a>
+        <div class="dropdown-menu pull-right my-2">
+            <li><a href="professionalsLogin.php">Log In</a></li>
+            <li><a href="professionalsRegistration.php">Join As a Provider</a></li>
+            <?php if(isset($_SESSION['profID'])) : ?>
+            <li><a href="logout.php">Log Out</a></li>
+            <li><?php echo "<a href='newUserProfile?category=$pro'>Edit Profile</a>"?></li>
+            <?php endif ?>
+        </div>
     </div>
-    <div class="w3-bar-block">
-        <a href="index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-        <a href='showcase.php' onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-        <a href="findProfessionals.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Find Professionals</a> 
-        <a href="contact.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-        <a href="youandbranzpir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">You and Branzpir</a>
+    
+    <div class="dropdown">
+        <a href="#" id="imageDropdown" data-toggle="dropdown">
+        <input id="imageDropdown" class='logIn' type='button' value='USERS'/>
+        <img class="nlog" src="users.png">
+        </a>
+        <div class="dropdown-menu dropdown-menu-sw">
+            <li><a href="login.php">Log In</a></li>
+            <li><a href="registration.php">Register</a></li>
+            <?php if(isset($_SESSION['userID'])) : ?>
+            <li><a href="logout.php">Log Out</a></li>
+            <?php endif ?>
+        </div>
     </div>
-</nav>
-<!--- TOP MENU ON SMALL SCREENS -->
-<header class="w3-container w3-top w3-hide-large w3-highway-red w3-xlarge w3-padding">
-    <a href="javascript:void(0)" class="w3-button w3-highway-red w3-margin-right" onclick="w3_open()">☰</a>
-</header>
-<?php echo $alert;?>
-<!--- OVERLAY EFFECT WHEN OPENING SIDEBAR ON SMALL SCREENS -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <?php endif ?>
+    <!-- IF USER IS LOGGED IN DISPLAY THIS -->
+    <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
+        <!-- IF USER IS PROVIDER DISPLAY THIS -->
+        <?php if(isset($_SESSION['profID'])) : ?>
+            
+            <div class="dropdown">
+                <a href="#" id="imageDropdown" data-toggle="dropdown">
+                <input id="imageDropdown" class='profReg' type='button' value='<?php echo $_SESSION['profName']?>'/>
+                <img class="nprof" src="pros.png">
+                </a>
+                <div class="dropdown-menu pull-right my-2">
+                    <?php if(!isset($_SESSION['profID'])) : ?>
+                        <li><a href="professionalsLogin.php">Log In</a></li>
+                        <li><a href="professionalsRegistration.php">Join As a Provider</a></li>
+                    <?php endif ?>
+                    <?php if(isset($_SESSION['profID'])) : ?>
+                        <li><a href="dashboard.php">My Dashboard</a></li>
+                        <li><a href="logout.php">Log Out</a></li>
+                    <?php endif ?>
+                </div>
+            </div>
+        <?php endif ?>
+        <!-- IF USER IS PRIVATE USER DISPLAY THIS -->
+        <?php if(isset($_SESSION['userID'])) : ?>
+            
+            <div class="dropdown">
+                <a href="#" id="imageDropdown" data-toggle="dropdown">
+                <input id="imageDropdown" class='logIn' type='button' value='<?php echo $_SESSION['userName']?>'/>
+                <img class="nlog" src="users.png">
+                </a>
+                <div class="dropdown-menu pull-right my-2">
+                    <?php if(!isset($_SESSION['userID'])) : ?>
+                        <li><a href="login.php">Log In</a></li>
+                        <li><a href="registration.php">Register</a></li>
+                    <?php endif ?>
+                    <?php if(isset($_SESSION['userID'])) : ?>
+                        <li><a href="dashboard.php?uname=<?php echo $_SESSION['userName']?>">My Dashboard</a></li>
+                    <li><a href="logout.php">Log Out</a></li>
+                    <?php endif ?>
+                </div>
+            </div>
+        <?php endif ?>
+    <?php endif ?>
+        <form action='showcase.php' method='GET'>
+            <img src='branzpir logo idea 3 with text (002).png' style='width:25%; cursor:pointer' onclick="window.location.href='index.php';">  
+            <div class="input-group"> 
+            <input class="search form-control rounded" style="width:70%" type="text" name="index" placeholder="Search for inspiration..." />  
+            </div>
+        </form>
+    
+</div>        
+</div>
+<div class="w3-bar w3-highway-red w3-card mb-2" style="margin-top:-1px">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i>☰</a>    
+    <div class="container">
+    <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Home</a>
+    <a href='showcase.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Showcase</a>
+    <a href='findProfessionals.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Find Providers</a> 
+    <a href='contact.php' class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-hover-white">Contact</a>
+    </div>
+</div>
+        
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium" style="margin-top:46px">
+    <a href="index.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Home</a>
+    <a href="showcase.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Showcase</a>
+    <a href="findProfessionals.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Find Providers</a>
+    <a href="contact.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Contact</a>
+    <a href="youandbranzpir.html" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">You and Branzpir</a>
+</div>
+
 <div class="row py-5 px-4">
     <div class="col-lg-5 mx-auto">
         <!-- Profile widget -->
@@ -289,7 +425,7 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
                     }
                     ?>
                     <?php if($_SESSION['loggedin'] && $_SESSION['profName'] == $_SESSION['cat']) : ?>
-                        <button type="button" id="editBtn" onclick="openEditProfile()" class="btn btn-outline-dark btn-sm btn-block">Edit profile</button>    
+                        <button type="button" id="editBtn" onclick="openEditProfile()" class="btn btn-outline-secondary btn-sm btn-block">Edit profile</button>    
                     <?php endif?>
                     
                     </div>
@@ -353,14 +489,15 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
                     </div>
                 </div>
             </div>                      
-
+            <form action='' method='POST' enctype='multipart/form-data'>
             <div id="openEditProfileForm" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px;margin-top:-10px">
+            
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px;">
                     <div class="w3-center"><br>
-                        <span onclick="closeEditProfile()" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Form">&times;</span>
+                        <span onclick="closeEditProfile()" class="w3-button w3-xlarge w3-display-topright" title="Close Form">&times;</span>
                     </div>
-                    <form action='' method='POST' enctype='multipart/form-data'>
-                    <div class="container" style="margin:5px;padding:5px">
+                    
+                    
                         <form class="row g-3" method='POST' action='' enctype='multipart/form-data'>
                             <div class="col-md-12">
                                 <label class="form-label">Business Name</label>
@@ -390,6 +527,7 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
                                 <br>
                                 <label class="form-label">State</label>
                                 <select name="state">
+                                    <option value="None" selected disabled hidden>Select State</option>
                                     <option value="ACT">Australian Capital Territory</option>
                                     <option value="NSW">New South Wales</option>
                                     <option value="NT">Northern Territory</option>
@@ -426,18 +564,21 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
                             </div>       
                             <div class="col-md-12">
                                 <br>
-                                <button type="submit" class="btn btn-danger" name='subBtn'>Save</button>
+                                 <button type="submit" class="btn btn-success" name='subBtn'>Save</button>
                             </div>
-                        </form>
-                    </div>
+                        
+                    
                     <div class="w3-container w3-border-top w3-padding-16">
-                        <button onclick="closeEditProfile()" type="button" class="w3-button w3-red">Cancel</button>
+                        <br>
+                        <button onclick="closeEditProfile()" type="submit" class="btn btn-danger">Cancel</button>
                     </div>
-                </div>          
+                </div>
+                          
             </div>
+            </form>
             <script src="index.js"></script>
 
-            <div class="bg-light p-4 d-flex justify-content-end text-center">
+            <div class="bg-light p-5 d-flex justify-content-end text-center">
                 <ul class="list-inline mb-0">
 					<nav class="navbar navbar-expand-lg navbar-light bg-light">
 					  <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -451,9 +592,16 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
 						  <li class="nav-item">
 							<a class="nav-link" href="#ProjectForm">Projects</a>
 						  </li>
+                          <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
 						  <li class="nav-item">
 							<a class="nav-link" href="#ContactForm" onclick="openContact()">Contact</a>
 						  </li>
+                          <?php endif ?>
+                          <?php if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) : ?>
+						  <li class="nav-item">
+							<a class="nav-link" href="#ContactForm" onclick="openUnregisteredContact()">Contact</a>
+						  </li>
+                          <?php endif ?>
 						  
 						</ul>
 					  </div>
@@ -477,8 +625,9 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
                     <p class="font-italic mb-0">Branzpir Reviews</p>
                 </div>
             </div>
+            <?php if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) : ?>
 			 <div id="openContactForm" class="px-4 py-3" style="display:none">
-                <h5 class="mb-0">About</h5>
+                <h5 class="mb-0">Contact</h5>
                     <div class="p-4 rounded shadow-sm bg-light">
                     <form class="row g-3" method="POST">
                         <div class="col-12">
@@ -495,12 +644,21 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
                         </div>
                     </form>
                     </div>
-            </div>              
+            </div>
+            <?php endif?>
+            <?php if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) : ?>
+            <div id="unregisteredContact" class="px-4 py-3" style="display:none">
+                <h5 class="mb-0">Contact</h5>
+                    <div class="p-4 rounded shadow-sm bg-light">
+                        <span>To contact this provider, please login or create an account.<span>
+                    </div>
+            </div>
+            <?php endif?>              
             <div class="py-4 px-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">Projects</h5>
                     <?php if($_SESSION['loggedin'] && $_SESSION['profName'] == $_SESSION['cat']) : ?>
-                        <button class="btn btn-outline-dark btn-sm" onclick="openUpload()">Upload File(s)</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="openUpload()">Upload File(s)</button>
                     <?php endif?>
                         
                 </div>
@@ -510,10 +668,23 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
                     {
                         if($count=$proImg->num_rows)
                         {
-                            while($imgRow=$proImg->fetch_object())
+                            $limit=4;
+                            $results=$count;
+                            $num_pages=ceil($results/$limit);
+                            if(!isset($_GET['page']))
+                            {
+                                $page=1;
+                            }
+                            else
+                            {
+                                $page=$_GET['page'];
+                            }
+                            $start = ($page-1)*$limit;
+                            $np=sqlSelect($C, "SELECT filename, description, project FROM images WHERE username=? GROUP BY project LIMIT " . $start . ',' . $limit, 's', $_SESSION['cat']);
+                            while($imgRow=$np->fetch_object())
                             {                               
                                 ?>                                
-                                <div class="col-lg-6 pr-lg-1 mb-2">
+                                <div class="col-lg-6  mb-2">
                                     <?php echo "<a href='projectGallery.php?project=$imgRow->project'><img style='height:300px; width:550px; object-fit:cover;' onclick='openImages()' class='img-fluid rounded shadow-sm' src='uploads/$imgRow->filename'/></a>";
                                       ?>
                                 </div>
@@ -525,10 +696,62 @@ if(isset($_POST["subBtn"]) && !empty($_POST['bimage'])) {
                 ?>
                 </div>
             </div>
+        </div>
+        <div class="container" style="position:absolute;left:50%;tranform:translateX(-50%)">
+            <ul class="pagination">
+            <?php
+                for($page=1;$page<=$num_pages;$page++)
+                {
+                    echo '<li class="page-item"><a class="page-link" href="newUserProfile.php?category=' . $_SESSION['cat'] . '&page=' . $page .'">' . $page . '</a></li>';
+                }
+            ?>
+            </ul>
         </div> 
-    </div>
+    </div> 
 </div>
-
+<footer class="w3-container w3-highway-red w3-padding-48" style="margin-top:75px">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+            <div class="w3-left"><img src='branzpir logo idea 3 with text (002).png' style='width:50%'></div>
+            <a href="https://www.facebook.com/eurotechaustralia/"><img src='facebookicon1.png' style='width:10%'></a>&nbsp;
+            <a href="https://www.linkedin.com/company/eurotech-australia/"><img src='linkedin1.png' style='width:10%'></a>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h4>WHO WE ARE</h4>
+            <ul class="list-unstyled mb-0">
+                <li class="mb-2"><a href="#" class="text-muted">About us</a></li>
+                <li class="mb-2"><a href="#" class="text-muted">Copyright</a></li>
+                <li class="mb-2"><a href="#" class="text-muted">Conditions of use</a></li>
+                <li class="mb-2"><a href="#" class="text-muted">How does it work</a></li>
+            </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h4>CONTACT</h4>
+            <ul class="list-unstyled mb-0">
+                <li class="mb-2"><a href="#" class="text-muted">Contact us</a></li>
+                <li class="mb-2"><a href="#" class="text-muted">Terms & privacy</a></li>
+            </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h4>YOU & BRANZPIR</h4>
+            <ul class="list-unstyled mb-0">
+                <li class="mb-2"><a href="#" class="text-muted">For Brands</a></li>
+                <li class="mb-2"><a href="#" class="text-muted">For Providers</a></li>
+                <li class="mb-2"><a href="#" class="text-muted">For You in Business</a></li>
+            </ul>
+            </div>
+        </div>
+        <span class="w3-left my-5">&copy; Copyright 2022 Branzpir</span><span class="w3-right my-5">Powered by <a href="https://eurotechdisplays.com.au/" title="Eurotech" target="_blank" class="w3-hover-opacity" style='color: #ffffff;'>Eurotech</a></span>
+    </div>
+</footer>
 <script src="index.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$('.message').delay(3000).fadeOut('slow', function() { $(this).remove(); });
+if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 </body>
 </html>
