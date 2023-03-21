@@ -35,3 +35,27 @@ https://www.inkstation.com.au/2819/t80-handheld-terminal-device-pda-barcode-scan
 https://www.samltool.com/url.php
 https://www.codinglabweb.com/2022/05/responsive-card-slider-javascript.html
 https://codepen.io/alextanta/pen/mXxxgj
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Google Map</h1>
+
+<div id="googleMap" style="width:100%;height:400px;"></div>
+
+<script>
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(-31.959085064259448, 115.90918962670443),
+  zoom:5,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGrGRiyyDJTfCyLk9nutNciWBiSd4xtkY&callback=myMap"></script>
+
+</body>
+</html>
