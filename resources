@@ -59,3 +59,15 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
 </body>
 </html>
+
+['A1 Signs 4U', '38 Endeavour Cir, Perth, WA', 'Location 12 URL'],
+  ['Iconic Signs', '9 Severn Street, St Marys, NSW', 'Location 13 URL'],
+  ['Direct Image', '21 Bishop St, Jolimont, WA', 'Location 14 URL'],
+  ['Minuteman Press', '1/79 Catalano Circuit, Canning Vale, WA', 'Location 15 URL'],
+  ['AB Create', '8 Nicholls Ct, Mordialloc, VIC', 'Location 16 URL'],
+  ['Signarama - Salisbury', '49 Research Rd, Pooraka, SA', 'Location 17 URL'],
+  ['Computercut Signs', '12/11 Exeter Way, Caloundra, QLD', 'Location 18 URL'],
+  ['Allstar Plastics', 'Unit 1-7, 25 Bailey Cres, Southport, QLD', 'Location 19 URL'],
+  ['Steady Hand Signs', '410 Mary Ann Rd, Echuca, VIC', 'Location 20 URL'],
+  ['AFS', '16 Brewer Rd, Canning Vale, WA', 'Location 21 URL']
+
